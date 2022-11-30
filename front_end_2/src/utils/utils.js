@@ -1,5 +1,5 @@
 import { connect, Contract, keyStores, WalletConnection } from "near-api-js";
-import getConfig from "./config";
+import getConfig from "./config.js";
 
 const nearConfig = getConfig(process.env.NODE_ENV || "development");
 
@@ -26,9 +26,9 @@ export async function initContract() {
     nearConfig.contractName,
     {
       // View methods are read only. They don't modify the state, but usually return some value.
-      viewMethods: [],
+      viewMethods: ["list_properties"],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: [],
+      changeMethods: ["reg_user", "new_property"],
     }
   );
 }
@@ -47,5 +47,38 @@ export function login() {
   window.walletConnection.requestSignIn(nearConfig.contractName);
 }
 
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
-// all contract functions based here
+export async function newProperty(
+  property_name,
+  price,
+  location,
+  description,
+  images
+) {
+  return window.contract.new_property({
+    id: makeid(7),
+    property_name: property_name,
+    price: Number(price),
+    location: location,
+    description: description,
+    images: images,
+  });
+}
+
+export async function editUser(name, usertype, contact) {
+  return await window.contract.reg_user({
+    name: name,
+    usertype: usertype,
+    contact: contact,
+  });
+}
