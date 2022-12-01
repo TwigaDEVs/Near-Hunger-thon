@@ -3,7 +3,7 @@ import React from 'react'
 function FarmProduce() {
   return (
     <div>
-        <div className='seell'>
+        <div className='sell'>
             <button> Sell </button>
             <div className='produce-card'>
                 <div className='card'> 
