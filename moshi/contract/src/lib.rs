@@ -6,40 +6,6 @@ use near_sdk::collections::{Vector};
 use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
 
-// Define the default message
-const DEFAULT_MESSAGE: &str = "Hello";
-
-// Define the contract structure
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-pub struct Contract {
-    message: String,
-
-}
-
-
-
-// Define the default, which automatically initializes the contract
-impl Default for Contract{
-    fn default() -> Self{
-        Self{message: DEFAULT_MESSAGE.to_string()}
-    }
-}
-
-// Implement the contract structure
-#[near_bindgen]
-impl Contract {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_greeting(&self) -> String {
-        return self.message.clone();
-    }
-
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn set_greeting(&mut self, message: String) {
-        log!("Saving greeting {}", message);
-        self.message = message;
-    }
-}
 
 // Update user info
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
@@ -221,25 +187,6 @@ impl LandsListed {
 mod tests {
     use super::*;
 
-    #[test]
-    fn get_default_greeting() {
-        let contract = Contract::default();
-        // this test did not call set_greeting so should return the default "Hello" greeting
-        assert_eq!(
-            contract.get_greeting(),
-            "Hello".to_string()
-        );
-    }
-
-    #[test]
-    fn set_then_get_greeting() {
-        let mut contract = Contract::default();
-        contract.set_greeting("howdy".to_string());
-        assert_eq!(
-            contract.get_greeting(),
-            "howdy".to_string()
-        );
-    }
 
     #[test]
     fn add_item() {

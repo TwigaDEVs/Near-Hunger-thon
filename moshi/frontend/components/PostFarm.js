@@ -4,6 +4,7 @@ import {useState,useEffect} from 'react'
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 import axios from "axios";
 import {v4 as uuidv4} from 'uuid';
+import{uploadToIPFS} from "../Infura";
 
 function PostFarm({open,onclose, wallet,contractId}) {
 
@@ -21,18 +22,11 @@ function PostFarm({open,onclose, wallet,contractId}) {
   async function OnChangeFile(e) {
     var file = e.target.files[0];
  
-    //check for file extension
-    try {
-        //upload the file to IPFS
-        const response = await uploadFileToIPFS(file);
-        if(response.success === true) {
-            console.log("Uploaded image to Pinata: ", response.pinataURL)
-            setFileURL(response.pinataURL);
-        }
-    }
-    catch(e) {
-        console.log("Error during file upload", e);
-    }
+    const response = await uploadToIPFS(file);
+
+    console.log(response)
+
+        setFileURL(response);
 }
 
     function addLand (e) {
