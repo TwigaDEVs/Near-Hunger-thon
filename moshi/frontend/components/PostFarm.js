@@ -16,7 +16,13 @@ function PostFarm({open,onclose, wallet,contractId}) {
     const [landss, setLands] = useState(null);
     const [fileURL, setFileURL] = useState(null);
     const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
-  
+    
+    useEffect(() => {
+
+      getLands().then(setLands);
+   
+       }
+     , []);
 
         //This function uploads the image to IPFS
   async function OnChangeFile(e) {
@@ -55,8 +61,8 @@ function PostFarm({open,onclose, wallet,contractId}) {
       // pub availability:bool,
       // pub land_lister: AccountId,
       wallet.callMethod({ method: 'add_lands', 
-        args: { id:id_gen ,land_owner: landOwner.value,land_size:landSize,land_image:fileURL,land_description:landDescription,
-          land_location: landLocation.value, land_price: p,contract_type:contractType
+        args: { id:id_gen ,land_owner: landOwner.value,land_size:landSize.value,land_image:fileURL,land_description:landDescription.value,
+          land_location: landLocation.value, land_price: p,contract_type:contractType.value
       },
          contractId })
         .then(async () => {return getLands();})
@@ -65,6 +71,11 @@ function PostFarm({open,onclose, wallet,contractId}) {
           setUiPleaseWait(false);
         });
     };
+
+    
+  function getLands(){
+    return wallet.viewMethod({ method: 'get_lands', contractId })
+    }
 
     
   return (

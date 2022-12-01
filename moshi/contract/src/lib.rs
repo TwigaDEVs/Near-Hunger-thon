@@ -59,10 +59,12 @@ impl Users {
 // Define the contract structure
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
-pub struct ItemList {
+pub struct FarmInputList {
     pub id:String,
-    pub item_name: String,
-    pub item_quantity: String,
+    pub input_name: String,
+    pub input_description: String,
+    pub input_quantity: String,
+    pub input_descrition: String,
     pub item_price:u64,
 }
 

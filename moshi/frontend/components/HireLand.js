@@ -22,7 +22,7 @@ function HireLand({wallet,contractId,lands}) {
                  if (land.contract_type == "lease"){
 
                     return (
-                        <div key={index} className="card-body" style={mystyle}>
+                        <div key={index} className="card-body">
                             <div>
                                 <div>
                                 <img src={land.land_image} alt="lands to lease"/>
@@ -34,7 +34,7 @@ function HireLand({wallet,contractId,lands}) {
                                 <p>{land.land_price}</p>
                             </div>
 
-                             <Link> Hire fv</Link>
+                             <Link> Hire</Link>
     
                             <hr />
                         </div>

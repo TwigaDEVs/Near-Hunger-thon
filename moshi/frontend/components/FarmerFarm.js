@@ -26,7 +26,7 @@ function FarmerFarm({wallet,contractId,lands}) {
                  if (land.land_lister == wallet.accountId){
 
                     return (
-                        <div key={index} className="card-body" style={mystyle}>
+                        <div key={index} className="card-body" >
                             <div>
                                 <div>
                                 <img src={land.land_image} alt="BigCo Inc. logo"/>

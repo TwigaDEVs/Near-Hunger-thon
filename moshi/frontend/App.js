@@ -30,16 +30,10 @@ export default function App({ isSignedIn, contractId, wallet }) {
   const [lands, setLands] = React.useState([]);
   // Get blockchian state once on component load
   React.useEffect(() => {
-    getAllItems().then(setAllItems)
+    getAllItems().then(setAllItems);
    getItems().then(setItems);
-   getLands().then(setLands);
+    getLands().then(setLands);
 
-    // getGreeting()
-    //   .then(setValueFromBlockchain)
-    //   .catch(alert)
-    //   .finally(() => {
-    //     setUiPleaseWait(false);
-    //   });
     }
   , []);
 
@@ -47,30 +41,13 @@ export default function App({ isSignedIn, contractId, wallet }) {
   /// If user not signed-in with wallet - show prompt
 
 
-  function changeGreeting(e) {
-    e.preventDefault();
-    setUiPleaseWait(true);
-    const { greetingInput } = e.target.elements;
-    
-    // use the wallet to send the greeting to the contract
-    wallet.callMethod({ method: 'set_greeting', args: { message: greetingInput.value }, contractId })
-      .then(async () => {return getGreeting();})
-      .then(setValueFromBlockchain)
-      .finally(() => {
-        setUiPleaseWait(false);
-      });
+
+
+  function getLands(){
+  return wallet.viewMethod({ method: 'get_lands', contractId })
   }
 
- 
-
-function getLands(){
-return wallet.viewMethod({ method: 'get_lands', contractId })
-}
-
-  function getGreeting(){
-    // use the wallet to query the contract's greeting
-    return wallet.viewMethod({ method: 'get_greeting', contractId })
-  }
+  console.log(lands)
 
   function getAllItems(){
     return wallet.viewMethod({ method: 'total_items', contractId })
@@ -122,63 +99,7 @@ return wallet.viewMethod({ method: 'get_lands', contractId })
         </Routes>
 
       </div>
-      <main >
-        <form onSubmit={addItem}>
-          <fieldset id="fieldset">
-            {/* <p>Sign the guest book, { currentAccountId }!</p> */}
-            <p> {allItems}</p>
-            <p className="highlight">
-              <label htmlFor="message">Item id:</label>
-              <input
-                autoComplete="off"
-                autoFocus
-                id="id"
-                required
-              />
-            </p>
-            <p className="highlight">
-              <label htmlFor="message">Item Name:</label>
-              <input
-                autoComplete="off"
-                autoFocus
-                id="itemName"
-                required
-              />
-            </p>
-            <p >
-              <label htmlFor="message">Item Quantity:</label>
-              <input
-                autoComplete="off"
-                autoFocus
-                id="itemQuantity"
-                required
-              />
-            </p>
-            <p>
-              <label htmlFor="donation">Price:</label>
-              <input
-                autoComplete="off"
-                defaultValue={'0'}
-                id="itemPrice"
-                min="0"
-                step="0.1"
-                type="number"
-                required
-              />
-            </p>
-            <button type="submit">
-              save
-            </button>
-          </fieldset>
-        </form>
-        <div>
 
-        </div>
-        <ItemsList items={items}/> 
-        <p> {items[2]}</p>
-        <p>haroo</p>
-        
-      </main>
     </>
   );
 }
