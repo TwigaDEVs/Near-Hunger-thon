@@ -1,0 +1,14 @@
+.resource-farm{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.resource-button{
+    text-align: center;
+    padding: 10px;
+
+}
+
+.resource-button button{
+    background-color: green;
+}

@@ -6,6 +6,7 @@ import "./style.css"
 import Dropdown from './Dropdown';
 import DropdownF from './DropdownF';
 import ProfileDropdown from './ProfileDropdown';
+import MarketplaceDropdown from './MarketplaceDropdown';
 
 
 function Navbar({isSignedIn,wallet}) {
@@ -13,6 +14,7 @@ function Navbar({isSignedIn,wallet}) {
     const [dropdown,setDropdown] = useState(false);
     const [dropdownF,setDropdownF] = useState(false);
     const [dropdownP,setDropdownP] = useState(false);
+    const [dropdownM,setDropdownM] = useState(false);
 
     const navRef = useRef();
 
@@ -100,6 +102,26 @@ function Navbar({isSignedIn,wallet}) {
       setDropdownP(!dropdownF);
     };
     
+    const onMouseEnter3 = () =>{
+      if(window.innerWidth < 900){
+        setDropdownM(true)
+      }else{
+        setDropdownM(true)
+      }
+    };
+  
+    const onMouseLeave3 = () =>{
+      if(window.innerWidth < 900){
+        setDropdownM(false)
+      }else{
+        setDropdownM(false)
+      }
+    };
+
+    const handleDropdown3 = () => {
+      setDropdownM(!dropdownF);
+    };
+    
   return (
     <header>
         <Link to='/' className='site-title'> Hambre </Link>
@@ -113,8 +135,9 @@ function Navbar({isSignedIn,wallet}) {
               <Link> Invest</Link>
                 {dropdown && <Dropdown />}
               </li>
-              <li>
-              <CustomLink to='/marketplace'> Marketplace</CustomLink>
+              <li  onClick={handleDropdown3}   onMouseEnter={onMouseEnter3} onMouseLeave={onMouseLeave3}>
+              <Link> Marketplace</Link>
+              {dropdownM && <MarketplaceDropdown />}
               </li>
               <li>
               <CustomLink to='/my-investments'> My Investments</CustomLink>

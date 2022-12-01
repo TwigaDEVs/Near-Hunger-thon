@@ -17,8 +17,8 @@ function FarmerFarm({wallet,contractId,lands}) {
             <button className='postFarm' onClick={() => setOpenModal(true)}>
                 Post Farm to Invite Investors
             </button>
-        </div>
-        <PostFarm open = {openModal} onclose={() => setOpenModal(false)} wallet={wallet} contractId={contractId}/>
+        </div><PostFarm open = {openModal} onclose={() => setOpenModal(false)} wallet={wallet} contractId={contractId}/>
+        
         <div className='farms'>
             <div className='card'>
             {Object.values(lands).map((land, index) => {

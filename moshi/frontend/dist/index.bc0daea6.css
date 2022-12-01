@@ -54,6 +54,22 @@ h2 {
   display: flex;
 }
 
+.sell {
+  text-align: center;
+  padding: 10px;
+}
+
+.sell button {
+  background-color: orange;
+  font-family: cursive;
+  font-weight: 700;
+}
+
+.input-card, .produce-card {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 .inveslist {
   background-color: inherit;
   border-radius: 20px;
@@ -1632,6 +1648,25 @@ li {
   }
 }
 
+.resource-farm {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.resource-button {
+  text-align: center;
+  padding: 10px;
+}
+
+.resource-button button {
+  background-color: green;
+}
+
+.reso {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 .overlay {
   background-color: inherit;
   padding: 10px;
@@ -2010,6 +2045,59 @@ img {
 
   .footer-distributed .footer-center i {
     margin-left: 0;
+  }
+}
+
+.dropdown-menum {
+  width: 150px;
+  text-align: start;
+  justify-content: end;
+  margin-top: 0;
+  list-style: none;
+  display: block;
+  position: absolute;
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+.dropdown-menum li {
+  cursor: pointer;
+  color: green;
+  background-color: #fff;
+  padding: 5px;
+}
+
+.dropdown-menum li:hover {
+  color: orange;
+}
+
+.dropdown-menum.clicked {
+  display: none;
+}
+
+.dropdown-link {
+  width: 100%;
+  height: 100%;
+  color: green;
+  flex-direction: column;
+  margin-left: 5px;
+  font-family: Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif;
+  text-decoration: none;
+  display: flex;
+}
+
+@media only screen and (max-width: 1024px) {
+  .dropdown-menum {
+    width: 200px;
+    height: auto;
+    text-align: start;
+    visibility: visible;
+    list-style: none;
+    display: block;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    transform: none;
   }
 }
 

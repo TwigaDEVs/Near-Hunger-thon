@@ -61,6 +61,31 @@ h2 {
   color: #0072CE;
 }
 
+.sell{
+
+  text-align: center;
+  padding: 10px;
+
+}
+
+.sell button{
+  background-color: orange;
+  font-weight: 700;
+  font-family: cursive;
+}
+
+.input-card{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.produce-card{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+
+
 .inveslist{
   margin-left: 50px;
   margin-right: 50px;
