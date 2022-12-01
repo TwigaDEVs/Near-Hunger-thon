@@ -1,0 +1,28 @@
+
+
+
+.expla{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+
+.expla p{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: medium;
+    font-family: cursive;
+    color: green;
+    width: 100vh;
+}
+
+.hirecard{
+
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
