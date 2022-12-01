@@ -103,6 +103,63 @@ impl ItemsListed {
 
 
 // Define the contract structure
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct ResourceList {
+    pub id:String,
+    pub resource_name: String,
+    pub resource_type: String,
+    pub resource_description: String,
+    pub contract_type:String,
+    pub image_proof:String,
+    pub provided:bool,
+    pub request_farmer:AccountId,
+    
+}
+
+
+#[near_bindgen]
+#[derive(BorshDeserialize, BorshSerialize)]
+struct ResourcesListed{
+    resources: HashMap<String,ResourceList>,
+}
+
+impl Default for ResourcesListed{
+    fn default() -> Self {
+      Self{resources: HashMap::new()}
+    }
+  }
+
+
+#[near_bindgen]
+impl ResourcesListed {
+    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+    pub fn get_resources(&self) -> &HashMap<String,ResourceList> {
+        &self.resources
+    }
+
+    // Public method - accepts resources and records it
+    pub fn add_resources(&mut self,id:String, resource_name: String, resource_type: String,
+        resource_description: String,contract_type:String,image_proof:String,) {
+        log!("Adding product {}", resource_name);
+
+        let r_m:String = id.clone();
+        let request_farmer = env::predecessor_account_id();
+        let provided = false;
+        let resource = ResourceList{id,resource_name,resource_type,resource_description,contract_type,image_proof,provided,request_farmer};
+        self.resources.insert(r_m,resource);
+    }
+
+    pub fn get_resource(&self,id:String) -> &ResourceList{
+        &self.resources[&id]
+    }
+
+
+
+    pub fn total_resources(&self) -> usize {self.resources.len()}
+}
+
+// Define the contract structure
 // Land contract structure
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
@@ -270,6 +327,65 @@ mod tests {
       assert_eq!(last_user.get(&g).unwrap().user, z);
 
     }
+
+    #[test]
+    fn add_resource() {
+
+      let mut contract = ResourcesListed::default();
+      let user = env::predecessor_account_id();
+      let p:String = "0789877887".to_string();
+      let resource_id:String = p.clone();
+      let resource_id_c2:String = p.clone();
+
+      contract.add_resources(p,"knapsack".to_string(),"Machine".to_string(),"Description".to_string(),"lease".to_string(),"https://image".to_string());
+  
+      let posted_resource = &contract.get_resources();
+      
+      assert_eq!(posted_resource.get(&resource_id).unwrap().resource_name, "knapsack".to_string());
+      assert_eq!(posted_resource.get(&resource_id_c2).unwrap().request_farmer, user);
+    }
+  
+    #[test]
+    fn iters_resources() {
+        // pub id:String,
+        // pub resource_name: String,
+        // pub resource_type: String,
+        // pub resource_description: String,
+        // pub contract_type:String,
+        // pub image_proof:String,
+        // pub provided:bool,
+        // pub request_farmer:AccountId,
+      let mut contract = ResourcesListed::default();
+      let request_user = env::predecessor_account_id();
+
+      
+      let p1:String = "07891000".to_string();
+      let p2:String = "07891010".to_string();
+      let p3:String = "07891020".to_string();
+
+      let v:String = p1.clone();
+      let x:String = p1.clone();
+      let g:String = p3.clone();
+      let z:String = p3.clone();
+
+      contract.add_resources(p1,"Tractor".to_string(),"Machine".to_string(),"Description".to_string(),"lease".to_string(),"https://image".to_string());
+      contract.add_resources(p2,"Incubator".to_string(),"Machine".to_string(),"Description".to_string(),"lease".to_string(),"https://image".to_string());
+      contract.add_resources(p3,"Sprayer".to_string(),"Machine".to_string(),"Description".to_string(),"lease".to_string(),"https://image".to_string());
+      
+      let total = &contract.total_resources();
+      assert!(*total == 3);
+  
+      let last_resource = &contract.get_resources();
+      
+      assert_eq!(last_resource.get(&g).unwrap().resource_name, "Sprayer".to_string());
+      assert_eq!(last_resource.get(&z).unwrap().request_farmer, request_user);
+
+      let user_get = &contract.get_resource(x);
+
+      assert_eq!(user_get.provided,false);
+
+    }
+
 
     #[test]
     fn add_land() {
