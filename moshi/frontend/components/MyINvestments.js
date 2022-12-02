@@ -1,9 +1,11 @@
 import React from 'react'
-import React from 'react'
+import Footer from './Footer'
 
 function MyINvestments() {
   return (
-    <div>MyINvestments</div>
+    <div>MyINvestments
+      <Footer />
+    </div>
   )
 }
 

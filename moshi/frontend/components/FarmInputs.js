@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from './Footer'
 
 function FarmInputs() {
   return (
@@ -13,6 +14,7 @@ function FarmInputs() {
                 </div>
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

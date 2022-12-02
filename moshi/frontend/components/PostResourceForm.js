@@ -1,7 +1,25 @@
 import React from 'react'
 
+import { v4 as uuidv4 } from "uuid";
+import { uploadToIPFS } from "../Infura";
+import { useState, useEffect } from "react";
+
 function PostResourceForm({open,onclose, wallet,contractId}) {
+  const [fileResourceURL, setResourceFileURL] = useState(null);
+  const [resources, setProfileResources] = useState([]);
+
   if (!open) return null;
+
+
+  async function OnChangeFile(e) {
+    var file = e.target.files[0];
+
+    const response = await uploadToIPFS(file);
+
+    console.log(response);
+
+    setResourceFileURL(response);
+  }
 
 
 
@@ -13,8 +31,8 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
     let id_gen = myuuid.toString();
     
 
-    const { resourceName, landSize,landLocation,landDescription, contractType, landPrice } = e.target.elements;
-    let p = parseInt(landPrice.value);
+    const { resourceName,resourceType,resourceDescription, contractType} = e.target.elements;
+    
 
   // pub id:String,
   // pub resource_name: String,
@@ -22,20 +40,13 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
   // pub resource_description: String,
   // pub contract_type:String,
   // pub image_proof:String,
-  // pub provided:bool,
-  // pub request_farmer:AccountId,
 
-    wallet.callMethod({ method: 'add_lands', 
-      args: { id:id_gen ,land_owner: landOwner.value,land_size:landSize.value,land_image:fileURL,land_description:landDescription.value,
-        land_location: landLocation.value, land_price: p,contract_type:contractType.value
+
+    wallet.callMethod({ method: 'add_resources', 
+      args: { id:id_gen ,resource_name: resourceName.value,resource_type:resourceType.value,resource_description:resourceDescription.value,
+        contract_type:contractType.value,image_proof:fileResourceURL
     },
-       contractId })
-      .then(async () => {return getLands();})
-      .then(setLands)
-      .finally(() => {
-        setUiPleaseWait(false);
-      });
-  };
+       contractId })};
 
 
   return (
@@ -46,7 +57,7 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
     <button onClick={onclose} className="icon"><i className="fa fa-times" aria-hidden="true"></i></button>
         </div>
     <div>
-    <form onSubmit="" className='postform'>
+    <form onSubmit={addResource} className='postform'>
     
       <fieldset id="fieldset">
         {/* <p>Sign the guest book, { currentAccountId }!</p> */}
@@ -74,21 +85,11 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
         <textarea 
          autoComplete="off"
          autoFocus
-         id='landDescription'
+         id='resourceDescription'
          required
          name='description'
         />
         </label>
-        <label>
-            <p>Location</p>
-            <input
-              autoComplete="off"
-              autoFocus
-              id="LocationNeeded"
-              required
-             name="location" />
-        </label>
-        
         <label htmlFor="contract">
           <p>Contract Type</p>
           <select className='sel'
@@ -104,7 +105,7 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
            </select>
         </label>
         <label>
-            <p>Land Image</p>
+            <p>Proof Image</p>
             <div className='image'>
                 <input
                   
@@ -113,7 +114,7 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
                   id="proofImage"
                   name="location" 
                   type={"file"}
-                  onChange="{OnChangeFile}"
+                  onChange={OnChangeFile}
                   required
 
                 />

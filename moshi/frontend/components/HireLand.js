@@ -27,15 +27,17 @@ function HireLand({wallet,contractId,lands}) {
                                 <div>
                                 <img src={land.land_image} alt="lands to lease"/>
                                 </div>
-                                <h5> {land.land_owner} </h5>
+                                <h5 className='h-header'> {land.land_owner} </h5>
                                 <div>
                                     {land.land_description}
                                 </div>
                                 <p>{land.land_price}</p>
                             </div>
 
-                             <Link> Hire</Link>
-    
+                              <button className='hire-btn'>
+                              <Link className='btn-h'> Hire </Link>
+                              </button>
+
                             <hr />
                         </div>
                         );

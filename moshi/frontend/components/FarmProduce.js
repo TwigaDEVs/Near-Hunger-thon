@@ -1,5 +1,6 @@
 import React from "react";
 import testImage from "../assets/fam.png";
+import Footer from "./Footer";
 function FarmProduce() {
   return (
     <div>
@@ -25,6 +26,7 @@ function FarmProduce() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

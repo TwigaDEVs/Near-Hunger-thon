@@ -1,9 +1,13 @@
 import React from 'react'
+import Footer from './Footer'
 
 
 function Marketplace() {
   return (
-    <div>Marketplace</div>
+    <div>
+      Marketplace
+    <Footer />
+    </div>
   )
 }
 
