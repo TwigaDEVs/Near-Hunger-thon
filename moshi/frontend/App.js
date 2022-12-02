@@ -25,19 +25,14 @@ export default function App({ isSignedIn, contractId, wallet }) {
 
   const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
-  const [items, setItems] = React.useState([]);
-  const [allItems, setAllItems] = React.useState(0);
   const [lands, setLands] = React.useState([]);
   // Get blockchian state once on component load
   React.useEffect(() => {
-    getAllItems().then(setAllItems);
-   getItems().then(setItems);
     getLands().then(setLands);
-
     }
   , []);
 
-  console.log("see",items)
+
   /// If user not signed-in with wallet - show prompt
 
 
@@ -58,21 +53,21 @@ export default function App({ isSignedIn, contractId, wallet }) {
   }
 
 
-  function addItem (e) {
-    e.preventDefault();
-    setUiPleaseWait(true);
+  // function addItem (e) {
+  //   e.preventDefault();
+  //   setUiPleaseWait(true);
 
-    const { id, itemName, itemQuantity, itemPrice } = e.target.elements;
-    let p = parseInt(itemPrice.value);
+  //   const { id, itemName, itemQuantity, itemPrice } = e.target.elements;
+  //   let p = parseInt(itemPrice.value);
 
-    // use the wallet to send the greeting to the contract
-    wallet.callMethod({ method: 'add_items', args: { id: id.value ,item_name: itemName.value ,item_quantity: itemQuantity.value, item_price: p }, contractId })
-      .then(async () => {return getItems();})
-      .then(setItems)
-      .finally(() => {
-        setUiPleaseWait(false);
-      });
-  };
+  //   // use the wallet to send the greeting to the contract
+  //   wallet.callMethod({ method: 'add_items', args: { id: id.value ,item_name: itemName.value ,item_quantity: itemQuantity.value, item_price: p }, contractId })
+  //     .then(async () => {return getItems();})
+  //     .then(setItems)
+  //     .finally(() => {
+  //       setUiPleaseWait(false);
+  //     });
+  // };
 
   return (
     <>

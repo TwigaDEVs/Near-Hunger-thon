@@ -2,6 +2,42 @@ import React from 'react'
 
 function PostResourceForm({open,onclose, wallet,contractId}) {
   if (!open) return null;
+
+
+
+  function addResource (e) {
+    e.preventDefault();
+
+    let myuuid = uuidv4();
+
+    let id_gen = myuuid.toString();
+    
+
+    const { resourceName, landSize,landLocation,landDescription, contractType, landPrice } = e.target.elements;
+    let p = parseInt(landPrice.value);
+
+  // pub id:String,
+  // pub resource_name: String,
+  // pub resource_type: String,
+  // pub resource_description: String,
+  // pub contract_type:String,
+  // pub image_proof:String,
+  // pub provided:bool,
+  // pub request_farmer:AccountId,
+
+    wallet.callMethod({ method: 'add_lands', 
+      args: { id:id_gen ,land_owner: landOwner.value,land_size:landSize.value,land_image:fileURL,land_description:landDescription.value,
+        land_location: landLocation.value, land_price: p,contract_type:contractType.value
+    },
+       contractId })
+      .then(async () => {return getLands();})
+      .then(setLands)
+      .finally(() => {
+        setUiPleaseWait(false);
+      });
+  };
+
+
   return (
     <div className='overlay'>
     <div className='modalContainer'>
