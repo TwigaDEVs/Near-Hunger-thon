@@ -39,6 +39,7 @@ function FarmProduce() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

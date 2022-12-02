@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from './Footer'
 
 
 function Profile({lands,wallet,contractId}) {
@@ -28,6 +29,7 @@ function Profile({lands,wallet,contractId}) {
                     <p> <a href='' className='you'><i class="fa fa-youtube-play" aria-hidden="true"></i></a> </p>
                 </div>
         </div>
+        <Footer />
     </div>
   )
 }

@@ -7,6 +7,7 @@ use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
 
 
+
 // Update user info
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
@@ -19,43 +20,9 @@ pub struct User{
 }
 
 
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-struct Users{
-    users: HashMap<AccountId,User>,
-}
-
-impl Default for Users{
-    fn default() -> Self {
-      Self{users: HashMap::new()}
-    }
-  }
 
 
-#[near_bindgen]
-impl Users {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_users(&self) -> &HashMap<AccountId,User> {
-        &self.users
-    }
 
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn update_user(&mut self,first_name: String, last_name: String,phone_number: u128,email:String) {
-        log!("Adding product {}", first_name);
-
-        let user = env::predecessor_account_id();
-        let m = env::predecessor_account_id();
-        let user_details = User{first_name,last_name,phone_number,email,user};
-        self.users.insert(m,user_details);
-    }
-
-    //getting a specific user
-    pub fn get_user(&self , user:AccountId) -> Option<&User>{
-        return self.users.get(&user);
-    }
-
-    pub fn total_users(&self) -> usize {self.users.len()}
-}
 // Define the contract structure
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
@@ -70,107 +37,6 @@ pub struct FarmInputList {
     pub input_owner:AccountId,
 
 }
-
-
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-struct FarmInputsListed{
-    inputs: HashMap<String,FarmInputList>,
-}
-
-impl Default for FarmInputsListed{
-    fn default() -> Self {
-      Self{inputs: HashMap::new()}
-    }
-  }
-
-
-#[near_bindgen]
-impl FarmInputsListed {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_inputs(&self) -> &HashMap<String,FarmInputList> {
-        &self.inputs
-    }
-
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn add_inputs(&mut self,id:String, input_name: String, input_description: String,input_quantity: String,input_image: String,input_price: u64) {
-        log!("Adding product {}", input_name);
-
-        let m_i:String = id.clone();
-        let input_owner = env::predecessor_account_id();
-        let input_sold = false;
-        let input = FarmInputList{id,input_name,input_description,input_quantity,input_image,input_price,input_sold,input_owner};
-        self.inputs.insert(m_i,input);
-    }
-
-    pub fn get_input(&self,id:String) -> &FarmInputList{
-      &self.inputs[&id]
-  }
-
-    pub fn total_inputs(&self) -> usize {self.inputs.len()}
-
-    pub fn buy_input(&mut self,id:String){
-
-      let key_copy = id.clone();
-
-      let  input_buy = &self.inputs[&id];
-
-      let input_sold = true;
-
-      let input_owner = env::predecessor_account_id();
-
-      let input_name= &input_buy.input_name;
-      let id= &input_buy.id;
-      let input_description= &input_buy.input_description;
-      let input_quantity = &input_buy.input_quantity;
-      let input_image =&input_buy.input_image;
-      let input_price = &input_buy.input_price;
-
-      let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
-                                      input_quantity: input_quantity.to_string(),input_image: input_image.to_string(),input_price: *input_price
-                                     ,input_sold,input_owner};
-        self.inputs.insert(key_copy,input_bought);
-    } 
-}
-
-
-// #[near_bindgen]
-// #[derive(BorshDeserialize, BorshSerialize)]
-// struct FarmInputsBuyer{
-//   buyers: HashMap<AccountId,FarmInputList>,
-// }
-
-// impl Default for FarmInputsBuyer{
-//     fn default() -> Self {
-//       Self{buyers: HashMap::new()}
-//     }
-//   }
-//   #[near_bindgen]
-//   impl FarmInputsBuyer {
-//       // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-//       pub fn get_buyers(&self) -> &HashMap<String,FarmInputList> {
-//           &self.buyers
-//       }
-  
-//       // Public method - accepts a greeting, such as "howdy", and records it
-//       pub fn add_buyer(&mut self,id:String) {
-
-//           log!("Adding product {}", id);
-
-//           let mut input = FarmInputsListed::default();
-//           let get_input_bought = &input.get_input(id);
-  
-//           let b_y = env::predecessor_account_id();
-      
-//           self.buyers.insert(b_y,get_input_bought);
-//       }
-  
-//       pub fn get_buyer_item(&self,account_ident:AccountId) -> &FarmInputList{
-//         &self.inputs[&id]
-//     }
-  
-//       pub fn total_inputs(&self) -> usize {self.inputs.len()}
-//   }
 
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
@@ -188,45 +54,6 @@ pub struct FarmProduceList {
 }
 
 
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-struct FarmProducesListed{
-    produces: HashMap<String,FarmProduceList>,
-}
-
-impl Default for FarmProducesListed{
-    fn default() -> Self {
-      Self{produces: HashMap::new()}
-    }
-  }
-
-
-#[near_bindgen]
-impl FarmProducesListed {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_produces(&self) -> &HashMap<String,FarmProduceList> {
-        &self.produces
-    }
-
-    // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn add_produces(&mut self,id:String, produce_name: String, produce_description: String,produce_quantity: String,produce_image: String,produce_price: u64) {
-        log!("Adding product {}", produce_name);
-
-        let m_p:String = id.clone();
-        let produce_seller = env::predecessor_account_id();
-        let produce_sold = false;
-        let produce = FarmProduceList{id,produce_name,produce_description,produce_quantity,produce_image,produce_price,produce_sold,produce_seller};
-        self.produces.insert(m_p,produce);
-    }
-
-    pub fn get_produce(&self,id:String) -> &FarmProduceList{
-      &self.produces[&id]
-  }
-
-    pub fn total_produces(&self) -> usize {self.produces.len()}
-}
-
-
 
 // Define the contract structure
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
@@ -241,48 +68,6 @@ pub struct ResourceList {
     pub provided:bool,
     pub request_farmer:AccountId,
     
-}
-
-
-#[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-struct ResourcesListed{
-    resources: HashMap<String,ResourceList>,
-}
-
-impl Default for ResourcesListed{
-    fn default() -> Self {
-      Self{resources: HashMap::new()}
-    }
-  }
-
-
-#[near_bindgen]
-impl ResourcesListed {
-    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_resources(&self) -> &HashMap<String,ResourceList> {
-        &self.resources
-    }
-
-    // Public method - accepts resources and records it
-    pub fn add_resources(&mut self,id:String, resource_name: String, resource_type: String,
-        resource_description: String,contract_type:String,image_proof:String,) {
-        log!("Adding product {}", resource_name);
-
-        let r_m:String = id.clone();
-        let request_farmer = env::predecessor_account_id();
-        let provided = false;
-        let resource = ResourceList{id,resource_name,resource_type,resource_description,contract_type,image_proof,provided,request_farmer};
-        self.resources.insert(r_m,resource);
-    }
-
-    pub fn get_resource(&self,id:String) -> &ResourceList{
-        &self.resources[&id]
-    }
-
-
-
-    pub fn total_resources(&self) -> usize {self.resources.len()}
 }
 
 // Define the contract structure
@@ -303,20 +88,47 @@ pub struct Land {
 }
 
 
+
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
-struct LandsListed{
+struct Hambre{
+    users: HashMap<AccountId,User>,
     lands: HashMap<String,Land>,
+    resources: HashMap<String,ResourceList>,
+    produces: HashMap<String,FarmProduceList>,
+    inputs: HashMap<String,FarmInputList>,
 }
 
-impl Default for LandsListed{
+impl Default for Hambre{
     fn default() -> Self {
-      Self{lands: HashMap::new()}
+      Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new()}
     }
   }
 
 #[near_bindgen]
-impl LandsListed {
+impl Hambre {
+
+      // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+    pub fn get_users(&self) -> &HashMap<AccountId,User> {
+        &self.users
+    }
+
+    // Public method - accepts a greeting, such as "howdy", and records it
+    pub fn update_user(&mut self,first_name: String, last_name: String,phone_number: u128,email:String) {
+        log!("Adding product {}", first_name);
+
+        let user = env::predecessor_account_id();
+        let m = env::predecessor_account_id();
+        let user_details = User{first_name,last_name,phone_number,email,user};
+        self.users.insert(m,user_details);
+    }
+
+    //getting a specific user
+    pub fn get_user(&self , user:AccountId) -> Option<&User>{
+        return self.users.get(&user);
+    }
+
+    pub fn total_users(&self) -> usize {self.users.len()}
     // Public method - returns the lands saved
     pub fn get_lands(&self) -> &HashMap<String,Land> {
         &self.lands
@@ -360,7 +172,101 @@ impl LandsListed {
     }
 
     pub fn total_lands(&self) -> usize {self.lands.len()}
+
+        // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+        pub fn get_inputs(&self) -> &HashMap<String,FarmInputList> {
+          &self.inputs
+      }
+  
+      // Public method - accepts a greeting, such as "howdy", and records it
+      pub fn add_inputs(&mut self,id:String, input_name: String, input_description: String,input_quantity: String,input_image: String,input_price: u64) {
+          log!("Adding product {}", input_name);
+  
+          let m_i:String = id.clone();
+          let input_owner = env::predecessor_account_id();
+          let input_sold = false;
+          let input = FarmInputList{id,input_name,input_description,input_quantity,input_image,input_price,input_sold,input_owner};
+          self.inputs.insert(m_i,input);
+      }
+  
+      pub fn get_input(&self,id:String) -> &FarmInputList{
+        &self.inputs[&id]
+    }
+  
+      pub fn total_inputs(&self) -> usize {self.inputs.len()}
+  
+      pub fn buy_input(&mut self,id:String){
+  
+        let key_copy = id.clone();
+  
+        let  input_buy = &self.inputs[&id];
+  
+        let input_sold = true;
+  
+        let input_owner = env::predecessor_account_id();
+  
+        let input_name= &input_buy.input_name;
+        let id= &input_buy.id;
+        let input_description= &input_buy.input_description;
+        let input_quantity = &input_buy.input_quantity;
+        let input_image =&input_buy.input_image;
+        let input_price = &input_buy.input_price;
+  
+        let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
+                                        input_quantity: input_quantity.to_string(),input_image: input_image.to_string(),input_price: *input_price
+                                       ,input_sold,input_owner};
+          self.inputs.insert(key_copy,input_bought);
+      } 
+
+          // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+    pub fn get_produces(&self) -> &HashMap<String,FarmProduceList> {
+      &self.produces
+  }
+
+  // Public method - accepts a greeting, such as "howdy", and records it
+  pub fn add_produces(&mut self,id:String, produce_name: String, produce_description: String,produce_quantity: String,produce_image: String,produce_price: u64) {
+      log!("Adding product {}", produce_name);
+
+      let m_p:String = id.clone();
+      let produce_seller = env::predecessor_account_id();
+      let produce_sold = false;
+      let produce = FarmProduceList{id,produce_name,produce_description,produce_quantity,produce_image,produce_price,produce_sold,produce_seller};
+      self.produces.insert(m_p,produce);
+  }
+
+  pub fn get_produce(&self,id:String) -> &FarmProduceList{
+    &self.produces[&id]
 }
+
+  pub fn total_produces(&self) -> usize {self.produces.len()}
+
+    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+    pub fn get_resources(&self) -> &HashMap<String,ResourceList> {
+      &self.resources
+  }
+
+  // Public method - accepts resources and records it
+  pub fn add_resources(&mut self,id:String, resource_name: String, resource_type: String,
+      resource_description: String,contract_type:String,image_proof:String,) {
+      log!("Adding product {}", resource_name);
+
+      let r_m:String = id.clone();
+      let request_farmer = env::predecessor_account_id();
+      let provided = false;
+      let resource = ResourceList{id,resource_name,resource_type,resource_description,contract_type,image_proof,provided,request_farmer};
+      self.resources.insert(r_m,resource);
+  }
+
+  pub fn get_resource(&self,id:String) -> &ResourceList{
+      &self.resources[&id]
+  }
+
+
+
+  pub fn total_resources(&self) -> usize {self.resources.len()}
+
+}
+
 
 /*
  * The rest of this file holds the inline tests for the code above
@@ -373,7 +279,7 @@ mod tests {
 
     #[test]
     fn add_input() {
-      let mut contract = FarmInputsListed::default();
+      let mut contract = Hambre::default();
       let p:u64 = 12000;
       let id:String = "1".to_string();
       let y:String = id.clone();
@@ -389,7 +295,7 @@ mod tests {
   
     #[test]
     fn iters_inputs() {
-      let mut contract = FarmInputsListed::default();
+      let mut contract = Hambre::default();
       let id1:String = "1".to_string();
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
@@ -431,7 +337,7 @@ mod tests {
 
     #[test]
     fn add_produce() {
-      let mut contract = FarmProducesListed::default();
+      let mut contract = Hambre::default();
       let p:u64 = 12000;
       let id:String = "1".to_string();
       let y:String = id.clone();
@@ -447,7 +353,7 @@ mod tests {
   
     #[test]
     fn iters_produces() {
-      let mut contract = FarmProducesListed::default();
+      let mut contract = Hambre::default();
       let id1:String = "1".to_string();
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
@@ -478,7 +384,7 @@ mod tests {
     #[test]
     fn update_user() {
 
-      let mut contract = Users::default();
+      let mut contract = Hambre::default();
       let user = env::predecessor_account_id();
       let p:u128 = 0789877887;
       let account_id:AccountId = user.clone();
@@ -494,7 +400,7 @@ mod tests {
   
     #[test]
     fn iters_users() {
-      let mut contract = Users::default();
+      let mut contract = Hambre::default();
       let user = env::predecessor_account_id();
 
       
@@ -521,7 +427,7 @@ mod tests {
     #[test]
     fn add_resource() {
 
-      let mut contract = ResourcesListed::default();
+      let mut contract = Hambre::default();
       let user = env::predecessor_account_id();
       let p:String = "0789877887".to_string();
       let resource_id:String = p.clone();
@@ -545,7 +451,7 @@ mod tests {
         // pub image_proof:String,
         // pub provided:bool,
         // pub request_farmer:AccountId,
-      let mut contract = ResourcesListed::default();
+      let mut contract = Hambre::default();
       let request_user = env::predecessor_account_id();
 
       
@@ -579,7 +485,7 @@ mod tests {
 
     #[test]
     fn add_land() {
-      let mut contract = LandsListed::default();
+      let mut contract = Hambre::default();
       let p:u64 = 12000;
       let id:String = "1".to_string();
       let y:String = id.clone();
@@ -605,7 +511,7 @@ mod tests {
     // test get lands | get land
     #[test]
     fn iters_lands() {
-      let mut contract = LandsListed::default();
+      let mut contract = Hambre::default();
       let id1:String = "1".to_string();
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
@@ -635,7 +541,7 @@ mod tests {
 
       assert_eq!(land.unwrap().land_owner,"Onchez".to_string());
 
-      let mut contract_update = LandsListed::default();
+      let mut contract_update = Hambre::default();
 
       contract_update.update_land(u,"Onchezz".to_string(),"2 acre".to_string(),"Land Url 2".to_string(),"land desc 2".to_string(),"Embu".to_string(),p2,"Lease".to_string());
 

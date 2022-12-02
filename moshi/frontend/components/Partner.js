@@ -20,7 +20,7 @@ function Partner({wallet,contractId,lands}) {
                  if (land.contract_type == "partner"){
 
                     return (
-                        <div key={index} className="card-body" style={mystyle}>
+                        <div key={index} className="card-body">
                             <div>
                                 <div>
                                 <img src={land.land_image} alt="lands for partanering"/>

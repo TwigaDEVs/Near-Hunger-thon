@@ -19,54 +19,37 @@ function HireLand({ wallet, contractId, lands }) {
       </div>
 
       <div className="w3-row-padding w3-stretch">
-        <div className="w3-col l3 m4">
+        <div className="card">
           {Object.values(lands).map((land, index) => {
             if (land.contract_type == "lease") {
-              return (
-                <div key={index} className="card-body">
-                  <div>
-                    <div>
-                      <img src={land.land_image} alt="lands to lease" />
-                    </div>
-                    <h5> {land.land_owner} </h5>
-                    <div className="land-description">
-                      <p>{land.land_description}</p>
-                    </div>
-                    <p>{land.land_price}</p>
-                  </div>
 
-                  <Link className="w3-button w3-border w3-round"> Hire</Link>
 
-                  <hr />
-                </div>
-              );
-            }
-          })}
-        </div>
-        <div className="w3-col l3 m4">
-          {Object.values(lands).map((land, index) => {
-            if (land.contract_type == "lease") {
-              return (
-                <div key={index} className="card-body">
-                  <div>
-                    <div>
-                      <img src={land.land_image} alt="lands to lease" />
-                    </div>
-                    <h5> {land.land_owner} </h5>
-                    <div>
-                      <p>{land.land_description}</p>
-                    </div>
-                    <p>{land.land_price}</p>
-                  </div>
+                  
 
-                  <Link className="w3-button w3-border w3-round"> Hire</Link>
+                    return (
+                        <div key={index} className="card-body">
+                            <div>
+                                <div>
+                                <img src={land.land_image} alt="lands to lease"/>
+                                </div>
+                                <h5> {land.land_owner} </h5>
+                                <div>
+                                    {land.land_description}
+                                </div>
+                                <p>{land.land_price}</p>
+                            </div>
 
-                  <hr />
-                </div>
-              );
-            }
-          })}
-        </div>
+                             <Link> Hire</Link>
+    
+                            <hr />
+                        </div>
+                        );
+
+                 }
+
+                })}
+
+            </div>
       </div>
       <Footer />
     </div>

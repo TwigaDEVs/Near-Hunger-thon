@@ -1,8 +1,30 @@
 import React from "react";
 import "./Resource.css";
 import testImage from "../assets/fam.png";
+import {useState,useEffect} from 'react'
+import Footer from "./Footer";
 
-function Resources() {
+function Resources({wallet,contractId,lands}) {
+
+  const [resources, setProfileResources] = useState([]);
+
+  
+  useEffect(() => {
+
+    getResources().then(setProfileResources);
+
+  }
+  , []);
+
+    
+ console.log(resources)
+
+  function getResources() {
+    console.log(contractId)
+    return wallet.viewMethod({ method: "get_resources", contractId });
+
+  }
+
   return (
     <div>
       <h2>Farmers who need Resources</h2>
@@ -15,68 +37,54 @@ function Resources() {
           five centuries,
         </p>
       </div>
-      <div className="w3-right">
+      <div className="right">
         <input
-          className="w3-input"
+          className="input"
           style={{ backgroundColor: "inherit" }}
           placeholder="search"
         />
         <br />
       </div>
       <div className="reso">
-        <div className="">
-          <table style={{ fontWeight: 200 }} className="w3-table w3-stripe">
-            <tr>
-              <td style={{ fontWeight: 200, fontSize: "20px" }}>#949859</td>
-              <td>
-                <tr>
-                  <b style={{ fontWeight: 200, fontSize: "20px" }}>
-                    Resource Name
-                  </b>
-                </tr>
-                <tr>contract type</tr>
-                <tr>
-                  lorem this is a est description just to test the interface
-                  lorem this is a est description just to test the interface
-                  lorem this is a est description just to test the interface
-                </tr>
-                <tr>
-                  <button className="w3-button w3-border w3-round">
-                    request farmer
-                  </button>
-                </tr>
-              </td>
-              <td>
-                <img src={testImage} />
-              </td>
-            </tr>
-            <tr>
-              <td style={{ fontWeight: 200, fontSize: "20px" }}>#7475676</td>
-              <td>
-                <tr>
-                  <b style={{ fontWeight: 200, fontSize: "20px" }}>
-                    Resource Name
-                  </b>
-                </tr>
-                <tr>contract type</tr>
-                <tr>
-                  lorem this is a est description just to test the interface
-                  lorem this is a est description just to test the interface
-                  lorem this is a est description just to test the interface
-                </tr>
-                <tr>
-                  <button className="w3-button w3-border w3-round">
-                    request farmer
-                  </button>
-                </tr>
-              </td>
-              <td>
-                <img src={testImage} />
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+
+          <div className='card'>
+
+                    {Object.values(resources).map((resource, index) => {
+                        
+                        if (resource.request_farmer == wallet.accountId){
+
+                            return (
+                                <div key={index} className="card-body">
+                                    <div>
+                                        <div>
+                                        <img src={resource.image_proof} alt="lands to lease"/>
+                                        </div>
+                                        <h5 className="r-header"> {resource.resource_name} </h5>
+                                        <div>
+                                            {resource.resource_description}
+                                        </div>
+                                        <p>{resource.contract_type}</p>
+                                    </div>
+
+                                    <div className="resource-btn">
+                                      <button>
+                                        Provide Resource
+                                      </button>
+                                    </div>
+
+                                    <hr />
+                                </div>
+                                );
+
+                        }
+
+                        })}
+
+                    </div>
+
+      
+          </div>
+      <Footer />
     </div>
   );
 }
