@@ -1,149 +1,168 @@
-import React from 'react'
-import './postfarm.css'
-import {useState,useEffect} from 'react'
+import React from "react";
+import "./postfarm.css";
+import { useState, useEffect } from "react";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 import axios from "axios";
-import {v4 as uuidv4} from 'uuid';
-import{uploadToIPFS} from "../Infura";
+import { v4 as uuidv4 } from "uuid";
+import { uploadToIPFS } from "../Infura";
 
-function PostFarm({open,onclose, wallet,contractId}) {
+function PostFarm({ open, onclose, wallet, contractId }) {
+  if (!open) return null;
 
+  const [landss, setLands] = useState(null);
+  const [fileURL, setFileURL] = useState(null);
+  const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
 
+  useEffect(() => {
+    getLands().then(setLands);
+  }, []);
 
-
-    if (!open) return null;
-
-    const [landss, setLands] = useState(null);
-    const [fileURL, setFileURL] = useState(null);
-    const [uiPleaseWait, setUiPleaseWait] = React.useState(true);
-    
-    useEffect(() => {
-
-      getLands().then(setLands);
-   
-       }
-     , []);
-
-        //This function uploads the image to IPFS
+  //This function uploads the image to IPFS
   async function OnChangeFile(e) {
     var file = e.target.files[0];
- 
+
     const response = await uploadToIPFS(file);
 
-    console.log(response)
+    console.log(response);
 
-        setFileURL(response);
-}
+    setFileURL(response);
+  }
 
-    function addLand (e) {
-      e.preventDefault();
+  function addLand(e) {
+    e.preventDefault();
 
-      let myuuid = uuidv4();
+    let myuuid = uuidv4();
 
-      let id_gen = myuuid.toString();
-      
-  
-      const { landOwner, landSize,landLocation,landDescription, contractType, landPrice } = e.target.elements;
-      let p = parseInt(landPrice.value);
-  
-      // use the wallet to send the greeting to the contract
+    let id_gen = myuuid.toString();
 
-      // contract fields
+    const {
+      landOwner,
+      landSize,
+      landLocation,
+      landDescription,
+      contractType,
+      landPrice,
+    } = e.target.elements;
+    let p = parseInt(landPrice.value);
 
-      // pub id:String,
-      // pub land_owner: String,
-      // pub land_size: String,
-      // pub land_image: String,
-      // pub land_description:String,
-      // pub land_location:String,
-      // pub land_price:u64,
-      // pub contract_type:String,
-      // pub availability:bool,
-      // pub land_lister: AccountId,
-      wallet.callMethod({ method: 'add_lands', 
-        args: { id:id_gen ,land_owner: landOwner.value,land_size:landSize.value,land_image:fileURL,land_description:landDescription.value,
-          land_location: landLocation.value, land_price: p,contract_type:contractType.value
-      },
-         contractId })
-        .then(async () => {return getLands();})
-        .then(setLands)
-        .finally(() => {
-          setUiPleaseWait(false);
-        });
-    };
+    // use the wallet to send the greeting to the contract
 
-    
-  function getLands(){
-    return wallet.viewMethod({ method: 'get_lands', contractId })
-    }
+    // contract fields
 
-    
+    // pub id:String,
+    // pub land_owner: String,
+    // pub land_size: String,
+    // pub land_image: String,
+    // pub land_description:String,
+    // pub land_location:String,
+    // pub land_price:u64,
+    // pub contract_type:String,
+    // pub availability:bool,
+    // pub land_lister: AccountId,
+    wallet
+      .callMethod({
+        method: "add_lands",
+        args: {
+          id: id_gen,
+          land_owner: landOwner.value,
+          land_size: landSize.value,
+          land_image: fileURL,
+          land_description: landDescription.value,
+          land_location: landLocation.value,
+          land_price: p,
+          contract_type: contractType.value,
+        },
+        contractId,
+      })
+      .then(async () => {
+        return getLands();
+      })
+      .then(setLands)
+      .finally(() => {
+        setUiPleaseWait(false);
+      });
+  }
+
+  function getLands() {
+    return wallet.viewMethod({ method: "get_lands", contractId });
+  }
+
   return (
-    <div className='overlay'>
-        <div className='modalContainer'>
-            <div className='he'>
-            <p>  </p>
-        <button onClick={onclose} className="icon"><i className="fa fa-times" aria-hidden="true"></i></button>
-            </div>
+    <div className="overlay">
+      <div className="modalContainer">
+        <div className="he">
+          <p> </p>
+          <button onClick={onclose} className="icon">
+            <i className="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
         <div>
-        <form onSubmit={addLand} className='postform'>
-        
-          <fieldset id="fieldset">
-            {/* <p>Sign the guest book, { currentAccountId }!</p> */}
-            <p className='modelhead'>Post Farm</p>
-            <label>
+          <form onSubmit={addLand} className="postform">
+            <fieldset id="fieldset">
+              {/* <p>Sign the guest book, { currentAccountId }!</p> */}
+              <div className="w3-container w3-padding-xlarge w3-bold w3-card w3-padding large w3-stretch w3-green">
+                <b>Post Farm</b>
+              </div>
+              <label>
                 <p>Name</p>
-                <input 
-                autoComplete="off"
-                autoFocus
-                id="landOwner"
-                required
-                name="name" />
-            </label>
-            <label>
+                <input
+                  autoComplete="off"
+                  autoFocus
+                  id="landOwner"
+                  required
+                  name="name"
+                  className="w3-input w3-border w3-round"
+                />
+              </label>
+              <label>
                 <p>Farm Size</p>
-                <input 
-                autoComplete="off"
-                autoFocus
-                id="landSize"
-                required
-                name="land_size" />
-            </label>
-            <label>
-            <p> Short Description</p>
-            <textarea 
-             autoComplete="off"
-             autoFocus
-             id='landDescription'
-             required
-             name='description'
-            />
-            </label>
-            <label>
+                <input
+                  autoComplete="off"
+                  autoFocus
+                  id="landSize"
+                  required
+                  name="land_size"
+                  className="w3-input w3-border w3-round"
+                />
+              </label>
+              <label>
+                <p> Short Description</p>
+                <textarea
+                  autoComplete="off"
+                  autoFocus
+                  id="landDescription"
+                  required
+                  name="description"
+                  className="w3-input w3-border w3-round"
+                />
+              </label>
+              <label>
                 <p>Land Location</p>
                 <input
                   autoComplete="off"
                   autoFocus
                   id="landLocation"
                   required
-                 name="location" />
-            </label>
-            
-            <label htmlFor="contract">
-              <p>Contract Type</p>
-              <select className='sel'
+                  name="location"
+                  className="w3-input w3-border w3-round"
+                />
+              </label>
+
+              <label htmlFor="contract">
+                <p>Contract Type</p>
+                <select
                   autoComplete="off"
                   autoFocus
                   id="contractType"
                   required
-                 name="contract" 
-                
+                  name="contract"
+                  className="w3-input w3-border w3-round"
                 >
                   <option value="lease">Lease</option>
                   <option value="partner">partner</option>
-               </select>
-            </label>
-            <label>
+                </select>
+              </label>
+              <label>
                 <p>Contract Bid</p>
                 <input
                   autoComplete="off"
@@ -151,40 +170,35 @@ function PostFarm({open,onclose, wallet,contractId}) {
                   id="landPrice"
                   type="number"
                   required
-                 name="contractbid" />
-            </label>
-            <label>
+                  name="contractbid"
+                  className="w3-input w3-border w3-round"
+                />
+              </label>
+              <label>
                 <p>Land Image</p>
-                <div className='image'>
-                    <input
-                      
-                      autoComplete="off"
-                      autoFocus
-                      id="landImage"
-                      name="location" 
-                      type={"file"}
-                      onChange={OnChangeFile}
-                      required
-
-                    />
+                <div className="image">
+                  <input
+                    autoComplete="off"
+                    autoFocus
+                    id="landImage"
+                    name="location"
+                    type={"file"}
+                    onChange={OnChangeFile}
+                    required
+                    className="w3-input w3-border-none w3-round"
+                  />
                 </div>
-  
-                 
-            </label>
+              </label>
 
-            <div className='text'>
-              <button type="submit">
-                submit
-              </button>
-            </div>
-
-          </fieldset>
-        </form>
+              <div className="text">
+                <button type="submit">submit</button>
+              </div>
+            </fieldset>
+          </form>
         </div>
-        </div>
-        
+      </div>
     </div>
-  )
+  );
 }
 
-export default PostFarm
+export default PostFarm;
