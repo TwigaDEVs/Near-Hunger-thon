@@ -84,6 +84,7 @@ fieldset{
 
     .postform label{
         max-width: 200px;
+        text-align: left;
     }
     
 }
