@@ -67,7 +67,7 @@ pub struct FarmInputList {
     pub input_image: String,
     pub input_price:u64,
     pub input_sold:bool,
-    pub input_seller:AccountId,
+    pub input_owner:AccountId,
 
 }
 
@@ -97,9 +97,9 @@ impl FarmInputsListed {
         log!("Adding product {}", input_name);
 
         let m_i:String = id.clone();
-        let input_seller = env::predecessor_account_id();
+        let input_owner = env::predecessor_account_id();
         let input_sold = false;
-        let input = FarmInputList{id,input_name,input_description,input_quantity,input_image,input_price,input_sold,input_seller};
+        let input = FarmInputList{id,input_name,input_description,input_quantity,input_image,input_price,input_sold,input_owner};
         self.inputs.insert(m_i,input);
     }
 
@@ -108,7 +108,69 @@ impl FarmInputsListed {
   }
 
     pub fn total_inputs(&self) -> usize {self.inputs.len()}
+
+    pub fn buy_input(&mut self,id:String){
+
+      let key_copy = id.clone();
+
+      let  input_buy = &self.inputs[&id];
+
+      let input_sold = true;
+
+      let input_owner = env::predecessor_account_id();
+
+      let input_name= &input_buy.input_name;
+      let id= &input_buy.id;
+      let input_description= &input_buy.input_description;
+      let input_quantity = &input_buy.input_quantity;
+      let input_image =&input_buy.input_image;
+      let input_price = &input_buy.input_price;
+
+      let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
+                                      input_quantity: input_quantity.to_string(),input_image: input_image.to_string(),input_price: *input_price
+                                     ,input_sold,input_owner};
+        self.inputs.insert(key_copy,input_bought);
+    } 
 }
+
+
+// #[near_bindgen]
+// #[derive(BorshDeserialize, BorshSerialize)]
+// struct FarmInputsBuyer{
+//   buyers: HashMap<AccountId,FarmInputList>,
+// }
+
+// impl Default for FarmInputsBuyer{
+//     fn default() -> Self {
+//       Self{buyers: HashMap::new()}
+//     }
+//   }
+//   #[near_bindgen]
+//   impl FarmInputsBuyer {
+//       // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+//       pub fn get_buyers(&self) -> &HashMap<String,FarmInputList> {
+//           &self.buyers
+//       }
+  
+//       // Public method - accepts a greeting, such as "howdy", and records it
+//       pub fn add_buyer(&mut self,id:String) {
+
+//           log!("Adding product {}", id);
+
+//           let mut input = FarmInputsListed::default();
+//           let get_input_bought = &input.get_input(id);
+  
+//           let b_y = env::predecessor_account_id();
+      
+//           self.buyers.insert(b_y,get_input_bought);
+//       }
+  
+//       pub fn get_buyer_item(&self,account_ident:AccountId) -> &FarmInputList{
+//         &self.inputs[&id]
+//     }
+  
+//       pub fn total_inputs(&self) -> usize {self.inputs.len()}
+//   }
 
 
 #[derive(BorshDeserialize, BorshSerialize, Serialize)]
@@ -335,9 +397,13 @@ mod tests {
       let p1:u64 = 1000;
       let p2:u64 = 2000;
       let p3:u64 = 1000;
+
       let x:String = id3.clone();
+      let s:String = id3.clone();
       let g:String = id3.clone();
       let z:String = id3.clone();
+      let b:String = id3.clone();
+
       contract.add_inputs(id1,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p1);
       contract.add_inputs(id2,"Banana".to_string(),"input des 1".to_string(),"Quantity 1".to_string(),"image urls 2".to_string(), p2);
       contract.add_inputs(id3,"Guava".to_string(),"input des 2".to_string(),"Quantity 2".to_string(),"image urls 3".to_string(), p3);
@@ -353,6 +419,14 @@ mod tests {
       let get_input_i = &contract.get_input(z);
 
       assert_eq!(get_input_i.input_sold,false);
+
+
+      contract.buy_input(s);
+
+      let get_input_bought = &contract.get_input(b);
+
+      assert_eq!(get_input_bought.input_sold,true);
+      
     }
 
     #[test]
