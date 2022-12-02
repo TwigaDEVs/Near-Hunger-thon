@@ -1,70 +1,64 @@
-*{
+* {
     box-sizing: border-box;
+    color: #444;
 }
 
-body{
+body {
     margin: 0;
     background-color: rgb(199, 233, 207);
     padding: 0;
-    color:black;
+    color: black;
 }
 
-.homeh{
+.homeh {
     background-color: inherit;
-   
 }
 
-.imgh{
+.imgh {
     border-radius: 20px;
     margin: 5px;
-
-    
 }
 
-.hea{
+.hea {
     margin: 5px;
     font-family: cursive;
     text-align: center;
 }
 
-img{
+img {
     border-radius: 20px;
     width: 100%;
     height: 100%;
 }
 
-.explan{
-    background-image: url('./pyl.jpg');
+.explan {
+    background-image: url("./pyl.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     text-align: center;
     align-items: center;
     justify-content: center;
     height: 70vh;
-   
 }
 
-.pat{
+.pat {
     display: flex;
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    background-color:inherit;
+    background-color: inherit;
     padding-left: 50px;
     padding-right: 50px;
-
-
 }
 
-@media only screen and (max-width:300px){ 
+@media only screen and (max-width: 300px) {
+    .homeh {
+        display: flex;
+        flex-direction: column;
+    }
 
-        .homeh{
-            display: flex;
-            flex-direction: column;
-        }
-
-        .imgh{
-            visibility: hidden;
-            height: 2px;
-        }
+    .imgh {
+        visibility: hidden;
+        height: 2px;
+    }
 }

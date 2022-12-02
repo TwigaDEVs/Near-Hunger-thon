@@ -10,19 +10,15 @@
     
 }
 
-.expla p{
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: medium;
-    font-family: cursive;
-    color: green;
-    width: 100vh;
-}
 
 .hirecard{
 
     margin-left: 50px;
     margin-right: 50px;
 
+}
+
+.card-body p, .card-body h5{
+    padding: 8px;
+    margin: 0px;
 }

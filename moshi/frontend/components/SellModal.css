@@ -1,0 +1,27 @@
+input{
+	margin-bottom: 5px;
+}
+
+span{
+	font-size: 23px;
+	font-weight: 300;
+	border-bottom: 4px solid green;
+}
+
+label{
+	font-weight: 300;
+}
+
+.closeTimes{
+	font-size: 21px;
+	font-weight: bold;
+}
+.w3-modal-content{
+	border-radius: 15px;
+	width: 30rem;
+}
+
+button{
+	margin-top: 12px;
+	margin-bottom: 12px;
+}

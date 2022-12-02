@@ -90,19 +90,18 @@ function PostFarm({ open, onclose, wallet, contractId }) {
   return (
     <div className="overlay">
       <div className="modalContainer">
-        <div className="he">
-          <p> </p>
-          <button onClick={onclose} className="icon">
+        <div className="w3-text-green w3-padding-xlarge">
+          <h3 className="w3-padding">Post Farm</h3>
+          <button onClick={onclose} className="icon w3-right">
             <i className="fa fa-times" aria-hidden="true"></i>
           </button>
+          <hr style={{ border: "1px solid #ccc" }} />
         </div>
         <div>
           <form onSubmit={addLand} className="postform">
             <fieldset id="fieldset">
               {/* <p>Sign the guest book, { currentAccountId }!</p> */}
-              <div className="w3-container w3-padding-xlarge w3-bold w3-card w3-padding large w3-stretch w3-green">
-                <b>Post Farm</b>
-              </div>
+
               <label>
                 <p>Name</p>
                 <input
