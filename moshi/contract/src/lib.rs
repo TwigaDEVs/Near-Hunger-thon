@@ -64,44 +64,168 @@ pub struct FarmInputList {
     pub input_name: String,
     pub input_description: String,
     pub input_quantity: String,
-    pub input_descrition: String,
-    pub item_price:u64,
+    pub input_image: String,
+    pub input_price:u64,
+    pub input_sold:bool,
+    pub input_owner:AccountId,
+
 }
 
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
-struct ItemsListed{
-    items: HashMap<String,ItemList>,
+struct FarmInputsListed{
+    inputs: HashMap<String,FarmInputList>,
 }
 
-impl Default for ItemsListed{
+impl Default for FarmInputsListed{
     fn default() -> Self {
-      Self{items: HashMap::new()}
+      Self{inputs: HashMap::new()}
     }
   }
 
 
 #[near_bindgen]
-impl ItemsListed {
+impl FarmInputsListed {
     // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
-    pub fn get_items(&self) -> &HashMap<String,ItemList> {
-        &self.items
+    pub fn get_inputs(&self) -> &HashMap<String,FarmInputList> {
+        &self.inputs
     }
 
     // Public method - accepts a greeting, such as "howdy", and records it
-    pub fn add_items(&mut self,id:String, item_name: String, item_quantity: String,item_price: u64) {
-        log!("Adding product {}", item_name);
+    pub fn add_inputs(&mut self,id:String, input_name: String, input_description: String,input_quantity: String,input_image: String,input_price: u64) {
+        log!("Adding product {}", input_name);
 
-        let m:String = id.clone();
-        let item = ItemList{id,item_name,item_quantity,item_price};
-        self.items.insert(m,item);
+        let m_i:String = id.clone();
+        let input_owner = env::predecessor_account_id();
+        let input_sold = false;
+        let input = FarmInputList{id,input_name,input_description,input_quantity,input_image,input_price,input_sold,input_owner};
+        self.inputs.insert(m_i,input);
     }
 
+    pub fn get_input(&self,id:String) -> &FarmInputList{
+      &self.inputs[&id]
+  }
 
+    pub fn total_inputs(&self) -> usize {self.inputs.len()}
 
-    pub fn total_items(&self) -> usize {self.items.len()}
+    pub fn buy_input(&mut self,id:String){
+
+      let key_copy = id.clone();
+
+      let  input_buy = &self.inputs[&id];
+
+      let input_sold = true;
+
+      let input_owner = env::predecessor_account_id();
+
+      let input_name= &input_buy.input_name;
+      let id= &input_buy.id;
+      let input_description= &input_buy.input_description;
+      let input_quantity = &input_buy.input_quantity;
+      let input_image =&input_buy.input_image;
+      let input_price = &input_buy.input_price;
+
+      let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
+                                      input_quantity: input_quantity.to_string(),input_image: input_image.to_string(),input_price: *input_price
+                                     ,input_sold,input_owner};
+        self.inputs.insert(key_copy,input_bought);
+    } 
 }
+
+
+// #[near_bindgen]
+// #[derive(BorshDeserialize, BorshSerialize)]
+// struct FarmInputsBuyer{
+//   buyers: HashMap<AccountId,FarmInputList>,
+// }
+
+// impl Default for FarmInputsBuyer{
+//     fn default() -> Self {
+//       Self{buyers: HashMap::new()}
+//     }
+//   }
+//   #[near_bindgen]
+//   impl FarmInputsBuyer {
+//       // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+//       pub fn get_buyers(&self) -> &HashMap<String,FarmInputList> {
+//           &self.buyers
+//       }
+  
+//       // Public method - accepts a greeting, such as "howdy", and records it
+//       pub fn add_buyer(&mut self,id:String) {
+
+//           log!("Adding product {}", id);
+
+//           let mut input = FarmInputsListed::default();
+//           let get_input_bought = &input.get_input(id);
+  
+//           let b_y = env::predecessor_account_id();
+      
+//           self.buyers.insert(b_y,get_input_bought);
+//       }
+  
+//       pub fn get_buyer_item(&self,account_ident:AccountId) -> &FarmInputList{
+//         &self.inputs[&id]
+//     }
+  
+//       pub fn total_inputs(&self) -> usize {self.inputs.len()}
+//   }
+
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct FarmProduceList {
+    pub id:String,
+    pub produce_name: String,
+    pub produce_description: String,
+    pub produce_quantity: String,
+    pub produce_image: String,
+    pub produce_price:u64,
+    pub produce_sold:bool,
+    pub produce_seller:AccountId,
+
+}
+
+
+#[near_bindgen]
+#[derive(BorshDeserialize, BorshSerialize)]
+struct FarmProducesListed{
+    produces: HashMap<String,FarmProduceList>,
+}
+
+impl Default for FarmProducesListed{
+    fn default() -> Self {
+      Self{produces: HashMap::new()}
+    }
+  }
+
+
+#[near_bindgen]
+impl FarmProducesListed {
+    // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
+    pub fn get_produces(&self) -> &HashMap<String,FarmProduceList> {
+        &self.produces
+    }
+
+    // Public method - accepts a greeting, such as "howdy", and records it
+    pub fn add_produces(&mut self,id:String, produce_name: String, produce_description: String,produce_quantity: String,produce_image: String,produce_price: u64) {
+        log!("Adding product {}", produce_name);
+
+        let m_p:String = id.clone();
+        let produce_seller = env::predecessor_account_id();
+        let produce_sold = false;
+        let produce = FarmProduceList{id,produce_name,produce_description,produce_quantity,produce_image,produce_price,produce_sold,produce_seller};
+        self.produces.insert(m_p,produce);
+    }
+
+    pub fn get_produce(&self,id:String) -> &FarmProduceList{
+      &self.produces[&id]
+  }
+
+    pub fn total_produces(&self) -> usize {self.produces.len()}
+}
+
 
 
 // Define the contract structure
@@ -248,23 +372,82 @@ mod tests {
 
 
     #[test]
-    fn add_item() {
-      let mut contract = ItemsListed::default();
+    fn add_input() {
+      let mut contract = FarmInputsListed::default();
       let p:u64 = 12000;
       let id:String = "1".to_string();
       let y:String = id.clone();
       let z:String = id.clone();
-      contract.add_items(id,"Laptop".to_string(),"1".to_string(),p);
+
+      contract.add_inputs(id,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p);
   
-      let posted_item = &contract.get_items();
+      let posted_input = &contract.get_inputs();
       
-      assert_eq!(posted_item.get(&y).unwrap().item_price, p);
-      assert_eq!(posted_item.get(&z).unwrap().item_name, "Laptop".to_string());
+      assert_eq!(posted_input.get(&y).unwrap().input_price, p);
+      assert_eq!(posted_input.get(&z).unwrap().input_name, "Tomato".to_string());
     }
   
     #[test]
-    fn iters_items() {
-      let mut contract = ItemsListed::default();
+    fn iters_inputs() {
+      let mut contract = FarmInputsListed::default();
+      let id1:String = "1".to_string();
+      let id2:String = "2".to_string();
+      let id3:String = "3".to_string();
+      
+      let p1:u64 = 1000;
+      let p2:u64 = 2000;
+      let p3:u64 = 1000;
+
+      let x:String = id3.clone();
+      let s:String = id3.clone();
+      let g:String = id3.clone();
+      let z:String = id3.clone();
+      let b:String = id3.clone();
+
+      contract.add_inputs(id1,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p1);
+      contract.add_inputs(id2,"Banana".to_string(),"input des 1".to_string(),"Quantity 1".to_string(),"image urls 2".to_string(), p2);
+      contract.add_inputs(id3,"Guava".to_string(),"input des 2".to_string(),"Quantity 2".to_string(),"image urls 3".to_string(), p3);
+      
+      let total = &contract.total_inputs();
+      assert!(*total == 3);
+  
+      let last_input = &contract.get_inputs();
+      
+      assert_eq!(last_input.get(&x).unwrap().input_price, p3);
+      assert_eq!(last_input.get(&g).unwrap().input_name, "Guava".to_string());
+
+      let get_input_i = &contract.get_input(z);
+
+      assert_eq!(get_input_i.input_sold,false);
+
+
+      contract.buy_input(s);
+
+      let get_input_bought = &contract.get_input(b);
+
+      assert_eq!(get_input_bought.input_sold,true);
+      
+    }
+
+    #[test]
+    fn add_produce() {
+      let mut contract = FarmProducesListed::default();
+      let p:u64 = 12000;
+      let id:String = "1".to_string();
+      let y:String = id.clone();
+      let z:String = id.clone();
+
+      contract.add_produces(id,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p);
+  
+      let posted_produce = &contract.get_produces();
+      
+      assert_eq!(posted_produce.get(&y).unwrap().produce_price, p);
+      assert_eq!(posted_produce.get(&z).unwrap().produce_name, "Tomato".to_string());
+    }
+  
+    #[test]
+    fn iters_produces() {
+      let mut contract = FarmProducesListed::default();
       let id1:String = "1".to_string();
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
@@ -274,17 +457,22 @@ mod tests {
       let p3:u64 = 1000;
       let x:String = id3.clone();
       let g:String = id3.clone();
-      contract.add_items(id1,"1st item".to_string(),"1 q".to_string(),p1);
-      contract.add_items(id2,"2nd item".to_string(),"2 q".to_string(),p2);
-      contract.add_items(id3,"3rd item".to_string(),"3 q".to_string(),p3);
+      let z:String = id3.clone();
+      contract.add_produces(id1,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p1);
+      contract.add_produces(id2,"Banana".to_string(),"input des 1".to_string(),"Quantity 1".to_string(),"image urls 2".to_string(), p2);
+      contract.add_produces(id3,"Guava".to_string(),"input des 2".to_string(),"Quantity 2".to_string(),"image urls 3".to_string(), p3);
       
-      let total = &contract.total_items();
+      let total = &contract.total_produces();
       assert!(*total == 3);
   
-      let last_item = &contract.get_items();
+      let last_produce = &contract.get_produces();
       
-      assert_eq!(last_item.get(&x).unwrap().item_price, p3);
-      assert_eq!(last_item.get(&g).unwrap().item_name, "3rd item".to_string());
+      assert_eq!(last_produce.get(&x).unwrap().produce_price, p3);
+      assert_eq!(last_produce.get(&g).unwrap().produce_name, "Guava".to_string());
+
+      let get_produce_p = &contract.get_produce(z);
+
+      assert_eq!(get_produce_p.produce_sold,false);
     }
 
     #[test]

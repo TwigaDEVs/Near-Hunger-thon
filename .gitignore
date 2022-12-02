@@ -4,8 +4,13 @@
 /moshi/contract/target/
 /moshi/integration-tests/target/
 /front_end_2/node_modules/
+/moshi/frontend/node_modules
 
-/moshi/frontend/.parcel-cahe/
+/moshi/frontend/.parcel-cache/
+/moshi/contract/.cargo/
+
+/moshi/frontend/dist/
+
 
 # Remove Cargo.lock from gitignore if creating an executable, leave it for libraries
 # More information here https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html
