@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Link } from "react-router-dom";
 
 function HireLand({ wallet, contractId, lands }) {
+  
   return (
     <div className="invest" style={{ fontWeight: 200 }}>
       <h2> Farm Available for Hire</h2>
@@ -24,7 +25,9 @@ function HireLand({ wallet, contractId, lands }) {
             if (land.contract_type == "lease") {
 
 
-                  
+                      const newTo = {
+                        pathname:"/hire-land-view/"+land.id,
+                    }
 
                     return (
                         <div key={index} className="card-body">
@@ -37,9 +40,12 @@ function HireLand({ wallet, contractId, lands }) {
                                     {land.land_description}
                                 </div>
                                 <p>{land.land_price}</p>
+
                             </div>
 
-                             <Link> Hire</Link>
+                             <button className="hire-btn">
+                             <Link className="btn-h" to={newTo} > Hire</Link>
+                             </button>
     
                             <hr />
                         </div>

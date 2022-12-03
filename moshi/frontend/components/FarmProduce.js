@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import testImage from "../assets/fam.png";
 import SellModal from "./SellModal";
+
+import Footer from "./Footer";
+
 function FarmProduce() {
 
   const [sellModalOpen, setSellModalOpen] = useState(false);

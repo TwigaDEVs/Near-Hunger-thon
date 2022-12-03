@@ -1,5 +1,6 @@
 import React from 'react'
 import Footer from './Footer'
+import { Link } from "react-router-dom";
 
 function Partner({wallet,contractId,lands}) {
   return (
@@ -19,6 +20,10 @@ function Partner({wallet,contractId,lands}) {
                  
                  if (land.contract_type == "partner"){
 
+                  const pTo = {
+                    pathname:"/hire-land-view/"+land.id,
+                }
+
                     return (
                         <div key={index} className="card-body">
                             <div>
@@ -31,6 +36,10 @@ function Partner({wallet,contractId,lands}) {
                                 </div>
                                 <p>{land.land_price}</p>
                             </div>
+
+                            <button className="hire-btn">
+                             <Link className="btn-h" to={pTo} > More Info ...</Link>
+                             </button>
                 
     
                             <hr />
