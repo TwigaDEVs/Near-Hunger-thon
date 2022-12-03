@@ -1,20 +1,32 @@
-import React from 'react'
-
+import React, {useState} from 'react';
+import UpdateProfileModal from './UpdateProfileModal';
 
 function Profile({lands,wallet,contractId}) {
+    const [profileModalOpen, setProfileModalOpen] = useState(false);
+    const handleProfileModalOpen = () => {
+        setProfileModalOpen(true);
+    }
+    const handleCloseProfileModal = () => {
+        setProfileModalOpen(false);
+    }
   return (
     <div>
         <h2>
             {wallet.accountId}
         </h2>
 
+        {profileModalOpen && <UpdateProfileModal onHandleCloseModal={handleCloseProfileModal}/>}
+
         <div className='details'>
                 <div className='det'>
-                account details 
+                    <span style={{fontSize: "20px", fontWeight: "200"}}>Update Profile</span> 
                 </div>
-                <div className='upda'>
-                <i className="fa fa-pencil" aria-hidden="true"></i> update
+                <div className="w3-center">
+                    <button onClick={handleProfileModalOpen} className='w3-center w3-button w3-padding w3-blue'>
+                <i className="fa fa-pencil w3-text-white" aria-hidden="true"></i> update
+                </button>
                 </div>
+                
                 <div className='names'>
                     <p>Name: </p>
                     <p>Phone Number: </p>

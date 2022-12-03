@@ -1,6 +1,4 @@
 import React from 'react'
-
-import React from 'react'
 import down from './down.png'
 import vm from './vm.png'
 import Footer from './Footer'
