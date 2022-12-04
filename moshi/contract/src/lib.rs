@@ -171,6 +171,60 @@ impl Hambre {
 
     }
 
+    pub fn hire_land(&mut self,id:String){
+
+      let id_copy = id.clone();
+
+      let hired_land = &self.lands[&id];
+
+      let land_lister = env::predecessor_account_id();
+
+      let availability = false;
+
+      let id = &hired_land.id;
+      let land_owner = &hired_land.land_owner;
+      let land_size =  &hired_land.land_size;
+      let land_image = &hired_land.land_image;
+      let land_description= &hired_land.land_description;
+      let land_location = &hired_land.land_location;
+      let land_price = &hired_land.land_price;
+      let contract_type = &hired_land.contract_type;
+
+      let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
+                            land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
+                          land_location: land_location.to_string(),land_price: *land_price,contract_type: contract_type.to_string(),availability,land_lister};
+
+      self.lands.insert(id_copy,land_hired);
+
+    }
+
+    pub fn partner_land(&mut self,id:String){
+
+      let id_copy = id.clone();
+
+      let hired_land = &self.lands[&id];
+
+      let land_lister = env::predecessor_account_id();
+
+      let availability = false;
+
+      let id = &hired_land.id;
+      let land_owner = &hired_land.land_owner;
+      let land_size =  &hired_land.land_size;
+      let land_image = &hired_land.land_image;
+      let land_description= &hired_land.land_description;
+      let land_location = &hired_land.land_location;
+      let land_price = &hired_land.land_price;
+      let contract_type = &hired_land.contract_type;
+
+      let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
+                            land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
+                          land_location: land_location.to_string(),land_price: *land_price,contract_type: contract_type.to_string(),availability,land_lister};
+
+      self.lands.insert(id_copy,land_hired);
+
+    }
+
     pub fn total_lands(&self) -> usize {self.lands.len()}
 
         // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
@@ -524,6 +578,11 @@ mod tests {
       let l:String = id2.clone();
       let u:String = id2.clone();
       let lu:String = id2.clone();
+      let lh:String =  id2.clone();
+      let h:String =  id2.clone();
+      let pl:String =  id2.clone();
+      let p:String =  id2.clone();
+
 
       contract.add_lands(id1,"Felix".to_string(),"1 acre".to_string(),"Land Url".to_string(),"land desc 1".to_string(),"Maseno".to_string(),p1,"Partner".to_string());
       contract.add_lands(id2,"Onchez".to_string(),"2 acre".to_string(),"Land Url 2".to_string(),"land desc 2".to_string(),"Embu".to_string(),p2,"Lease".to_string());
@@ -552,6 +611,21 @@ mod tests {
 
       let total_with_update = &contract_update.total_lands();
       assert!(*total == 3);
+
+      contract_update.hire_land(lh);
+
+      let hired = &contract_update.get_land(h);
+
+
+      assert_eq!(hired.unwrap().availability,false);
+
+      contract_update.hire_land(pl);
+
+      let parter = &contract_update.get_land(p);
+
+      assert_eq!(parter.unwrap().availability,false);
+      
+
 
 
 

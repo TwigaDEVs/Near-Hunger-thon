@@ -36,7 +36,7 @@ function HireLand({ wallet, contractId, lands }) {
                                 <img src={land.land_image} alt="lands to lease"/>
                                 </div>
                                 <h5> {land.land_owner} </h5>
-                                <div>
+                                <div className="des">
                                     {land.land_description}
                                 </div>
                                 <p>{land.land_price}</p>

@@ -33,7 +33,7 @@ function FarmerFarm({ wallet, contractId, lands }) {
                       <img src={land.land_image} alt="BigCo Inc. logo" />
                     </div>
                     <h5> {land.land_owner} </h5>
-                    <div>{land.land_description}</div>
+                    <div className="des">{land.land_description}</div>
                     <p>{land.land_price}</p>
                   </div>
 
