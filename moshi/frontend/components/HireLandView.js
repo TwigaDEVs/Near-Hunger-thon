@@ -2,9 +2,19 @@ import React from 'react';
 import Footer from './Footer';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
+import Hire from './Hire';
 
 
 function HireLandView({wallet,contractId}) {
+
+    let [HireOpen, setHireOpen] = useState(false);
+    const handleHireModal = () => {
+        setHireOpen(true);
+    }
+
+    const closeModal = () => {
+        setHireOpen(false);
+    }
 
     const params = useParams();
     console.log(params);
@@ -61,10 +71,14 @@ function HireLandView({wallet,contractId}) {
                         </div>
 
                         <div>
-                            <button className='w3-green w3-text-white'> Hire land </button>
+                            <button className='w3-green w3-text-white' onClick={handleHireModal}> Hire land </button>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                {HireOpen && <Hire onHandleHireModal={closeModal} />}
             </div>
 
             </div>

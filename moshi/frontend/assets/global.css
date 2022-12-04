@@ -114,6 +114,12 @@ h2 {
 .facebook{
   color: blue;
 }
+
+.logo{
+  width: 60px;
+  height: 60px;
+}
+
 .insta{
   color: rgb(216, 162, 216);
 }
