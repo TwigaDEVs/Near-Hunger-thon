@@ -1,15 +1,25 @@
-import React from 'react'
-import Footer from './Footer'
-
+import React, {useState} from 'react'
+import FarmInputsModal from './FarmInputsModal';
+import Footer from './Footer';
 function FarmInputs() {
+    let [farmInputsOpen, setFarmInputsOpen] = useState(false);
+    const handleOpenFarmInputsModal = () => {
+        setFarmInputsOpen(true);
+    }
+
+    const closeModal = () => {
+        setFarmInputsOpen(false);
+    }
   return (
     <div>
-        <div className='sell'>
-            <button> Sell </button>
-            <div className='input-card'>
-                <div className='card'> 
-                    <div className='card-body'>
-                        name
+        <div>
+            <div className="w3-center">
+                <button className="w3-button w3-green w3-round" onClick={handleOpenFarmInputsModal}>Sell</button>
+            </div>
+            <div>
+                <div> 
+                    <div>
+                        {farmInputsOpen && <FarmInputsModal onHandleCloseModal={closeModal} />}
                     </div>
                 </div>
             </div>
