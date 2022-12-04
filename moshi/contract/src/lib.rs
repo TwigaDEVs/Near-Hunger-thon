@@ -1,97 +1,93 @@
+#[allow(unused_imports)]
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, AccountId, Balance,log, near_bindgen};
-use near_sdk::json_types::{U128};  
-use near_sdk::collections::{Vector};
-use near_sdk::serde::Serialize;
+use near_sdk::{env, Promise, near_bindgen};
+use near_sdk::serde::{Serialize, Deserialize};  
 use std::collections::HashMap; 
-
-
+pub type AccountId = String;
 
 // Update user info
-#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct User{
-    pub first_name: String,
-    pub last_name: String,
-    pub phone_number: u128,
-    pub email:String,
-    pub user:AccountId,
+    first_name: String,
+    last_name: String,
+    phone_number: u128,
+    email:String,
+    user:AccountId,
 }
 
 
 
-
-
 // Define the contract structure
-#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct FarmInputList {
-    pub id:String,
-    pub input_name: String,
-    pub input_description: String,
-    pub input_quantity: String,
-    pub input_image: String,
-    pub input_price:u64,
-    pub input_sold:bool,
-    pub input_owner:AccountId,
+    id:String,
+    input_name: String,
+    input_description: String,
+    input_quantity: String,
+    input_image: String,
+    input_price:u64,
+    input_sold:bool,
+    input_owner:AccountId,
 
 }
 
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct FarmProduceList {
-    pub id:String,
-    pub produce_name: String,
-    pub produce_description: String,
-    pub produce_quantity: String,
-    pub produce_image: String,
-    pub produce_price:u64,
-    pub produce_sold:bool,
-    pub produce_seller:AccountId,
+    id:String,
+    produce_name: String,
+    produce_description: String,
+    produce_quantity: String,
+    produce_image: String,
+    produce_price:u64,
+    produce_sold:bool,
+    produce_seller:AccountId,
 
 }
 
 
 
 // Define the contract structure
-#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct ResourceList {
-    pub id:String,
-    pub resource_name: String,
-    pub resource_type: String,
-    pub resource_description: String,
-    pub contract_type:String,
-    pub image_proof:String,
-    pub provided:bool,
-    pub request_farmer:AccountId,
+    id:String,
+    resource_name: String,
+    resource_type: String,
+    resource_description: String,
+    contract_type:String,
+    image_proof:String,
+    provided:bool,
+    request_farmer:AccountId,
     
 }
 
 // Define the contract structure
 // Land contract structure
-#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Land {
-    pub id:String,
-    pub land_owner: String,
-    pub land_size: String,
-    pub land_image: String,
-    pub land_description:String,
-    pub land_location:String,
-    pub land_price:u64,
-    pub contract_type:String,
-    pub availability:bool,
-    pub land_lister: AccountId,
+    id:String,
+    land_owner: String,
+    land_size: String,
+    land_image: String,
+    land_description:String,
+    land_location:String,
+    land_price:u64,
+    contract_type:String,
+    availability:bool,
+    land_lister: AccountId,
 }
 
 
 
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
-struct Hambre{
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+pub struct Hambre{
     users: HashMap<AccountId,User>,
     lands: HashMap<String,Land>,
     resources: HashMap<String,ResourceList>,
@@ -99,6 +95,7 @@ struct Hambre{
     inputs: HashMap<String,FarmInputList>,
 }
 
+#[near_bindgen]
 impl Default for Hambre{
     fn default() -> Self {
       Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new()}
@@ -107,7 +104,7 @@ impl Default for Hambre{
 
 #[near_bindgen]
 impl Hambre {
-
+      #[init]
       // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
     pub fn get_users(&self) -> &HashMap<AccountId,User> {
         &self.users
