@@ -12,8 +12,9 @@ The system will have 3 features which include:
 # Technologies (NEAR PROTOCOL):
 
 Reason;
-       - NEAR PROTOCOL is a Proof Of Stake (POS) blockchain with low transfer fees and and fast trasactions which will be crucial to 
-         the system.
+
+ NEAR PROTOCOL is a Proof Of Stake (POS) blockchain with low transfer fees and and fast trasactions which will be crucial to 
+ the system.
 
 # Installations;
 
