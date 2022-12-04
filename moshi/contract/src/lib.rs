@@ -1,26 +1,26 @@
 #[allow(unused_imports)]
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, Promise, near_bindgen};
-use near_sdk::serde::{Serialize, Deserialize};  
+use near_sdk::{env, AccountId, Balance,log, near_bindgen};
+use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
-pub type AccountId = String;
+
 
 // Update user info
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct User{
-    first_name: String,
-    last_name: String,
-    phone_number: u128,
-    email:String,
-    user:AccountId,
+     first_name: String,
+     last_name: String,
+     phone_number: u128,
+     email:String,
+     user:AccountId,
 }
 
 
 
 // Define the contract structure
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct FarmInputList {
     id:String,
@@ -35,7 +35,7 @@ pub struct FarmInputList {
 }
 
 
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct FarmProduceList {
     id:String,
@@ -45,14 +45,14 @@ pub struct FarmProduceList {
     produce_image: String,
     produce_price:u64,
     produce_sold:bool,
-    produce_seller:AccountId,
+    produce_owner:AccountId,
 
 }
 
 
 
 // Define the contract structure
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct ResourceList {
     id:String,
@@ -68,7 +68,7 @@ pub struct ResourceList {
 
 // Define the contract structure
 // Land contract structure
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Land {
     id:String,
@@ -86,7 +86,7 @@ pub struct Land {
 
 
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, Debug)]
+#[derive(BorshDeserialize, BorshSerialize)]
 pub struct Hambre{
     users: HashMap<AccountId,User>,
     lands: HashMap<String,Land>,
@@ -95,7 +95,7 @@ pub struct Hambre{
     inputs: HashMap<String,FarmInputList>,
 }
 
-#[near_bindgen]
+
 impl Default for Hambre{
     fn default() -> Self {
       Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new()}
@@ -104,7 +104,7 @@ impl Default for Hambre{
 
 #[near_bindgen]
 impl Hambre {
-      #[init]
+
       // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
     pub fn get_users(&self) -> &HashMap<AccountId,User> {
         &self.users
@@ -279,15 +279,39 @@ impl Hambre {
       log!("Adding product {}", produce_name);
 
       let m_p:String = id.clone();
-      let produce_seller = env::predecessor_account_id();
+      let produce_owner = env::predecessor_account_id();
       let produce_sold = false;
-      let produce = FarmProduceList{id,produce_name,produce_description,produce_quantity,produce_image,produce_price,produce_sold,produce_seller};
+      let produce = FarmProduceList{id,produce_name,produce_description,produce_quantity,produce_image,produce_price,produce_sold,produce_owner};
       self.produces.insert(m_p,produce);
   }
 
   pub fn get_produce(&self,id:String) -> &FarmProduceList{
     &self.produces[&id]
 }
+
+
+    pub fn buy_produce(&mut self,id:String){
+      
+      let key_copy = id.clone();
+
+      let  produce_buy = &self.produces[&id];
+
+      let produce_sold = true;
+
+      let produce_owner = env::predecessor_account_id();
+
+      let produce_name= &produce_buy.produce_name;
+      let id= &produce_buy.id;
+      let produce_description= &produce_buy.produce_description;
+      let produce_quantity = &produce_buy.produce_quantity;
+      let produce_image =&produce_buy.produce_image;
+      let produce_price = &produce_buy.produce_price;
+
+      let produce_bought = FarmProduceList{id: id.to_string(),produce_name: produce_name.to_string(),produce_description: produce_description.to_string(),
+                                      produce_quantity: produce_quantity.to_string(),produce_image: produce_image.to_string(),produce_price: *produce_price
+                                    ,produce_sold,produce_owner};
+        self.produces.insert(key_copy,produce_bought);
+    }
 
   pub fn total_produces(&self) -> usize {self.produces.len()}
 
@@ -415,6 +439,9 @@ mod tests {
       let x:String = id3.clone();
       let g:String = id3.clone();
       let z:String = id3.clone();
+      let s:String = id3.clone();
+      let b:String = id3.clone();
+
       contract.add_produces(id1,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p1);
       contract.add_produces(id2,"Banana".to_string(),"input des 1".to_string(),"Quantity 1".to_string(),"image urls 2".to_string(), p2);
       contract.add_produces(id3,"Guava".to_string(),"input des 2".to_string(),"Quantity 2".to_string(),"image urls 3".to_string(), p3);
@@ -430,6 +457,13 @@ mod tests {
       let get_produce_p = &contract.get_produce(z);
 
       assert_eq!(get_produce_p.produce_sold,false);
+
+      contract.buy_produce(s);
+
+      let get_produce_bought = &contract.get_produce(b);
+
+      assert_eq!(get_produce_bought.produce_sold,true);
+      
     }
 
     #[test]
