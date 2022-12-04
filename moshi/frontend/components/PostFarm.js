@@ -88,7 +88,7 @@ function PostFarm({ open, onclose, wallet, contractId }) {
   }
 
   return (
-    <div className="overlay">
+    <div className="">
       <div className="modalContainer">
         <div className="w3-text-green w3-padding-xlarge">
           <h3 className="w3-padding">Post Farm</h3>
