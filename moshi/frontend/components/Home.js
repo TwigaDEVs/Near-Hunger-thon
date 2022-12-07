@@ -3,18 +3,109 @@ import down from './down.png'
 import vm from './vm.png'
 import Footer from './Footer'
 import './home.css'
+import mai from '../assets/mai.jpg'
+import maize from './maize1.jpg'
+import musa from './musa.jpg'
+import musa1 from './musa1.jpg'
+
+
 
 function Home() {
   return (
     <div>
-      <header className='homeh'>
-        <div className='hea'>
-          Get a chance to partner with a farmer and get involved in growing your own food.
+
+        <div className="hero-image">
+          <div className="hero-text">
+            <h1>Improving Farming, Improving Life</h1>
+            <p>Get a chance to partner with a farmer and get involved in growing your own food.</p>
+            <button className='btn-invest'>Invest</button>
+          </div>
         </div>
-        <div className='imgh'>
-          <img src={down}/>
+
+      <div className='home-cont'>
+      <div className="w3-display-container w3-white">
+          <h6 className='w3-padding'> What Hambre Entails ... </h6>
+        <div className="w3-display-middle w3-large">
         </div>
-      </header>
+      </div>
+      <div className="w3-row ro">
+            <div className="w3-col s4  w3-center">
+              <p className='w3-green'>1</p>
+              <h6 className='w3-serif w3-xxlarge'> Farm Hire</h6>
+              <p w3-cursive> Find a list of available farms for hire and invest in agricultural production</p>
+            </div>
+            <div className="w3-col s4  w3-center">
+              <p className='w3-dark-grey'>2</p>
+              <h6 className='w3-serif w3-xxlarge'>
+                Partner With Farmer
+              </h6>
+              <p className='w3-cursive'> Get yourself a partner in the farming industry</p>
+              <p className='w3-cursive'> Patner can be either by funding the farmer or providing required resources</p>
+            </div>
+            <div className="w3-col s4  w3-center">
+              <p className='w3-green'>3</p>
+              <h6 className='w3-serif w3-xxlarge'>
+                Sell and Buy Farm Inputs/Produce
+              </h6>
+              <p className='w3-cursive'>
+                Helping the farmer get access to farm inputs
+              </p>
+              <p className='w3-cursive'>
+                Help the farmer find new markets for farm produce
+              </p>
+            </div>
+      </div>
+      <p className='w3-large w3-cursive'> Helping farmers improve productivity, increase income </p>
+      <div className="w3-row ro">
+        <div className="w3-col s4"><img src={maize} className='w3-image'/></div>
+        <div className="w3-col s4"><img src={musa} className='w3-image'/></div>
+        <div className="w3-col s4  w3-center">
+              <h6 className='w3-serif w3-xxlarge'>
+                Discover the topics
+              </h6>
+              <p className='w3-cursive'>
+                Helping the farmer get access to required resources ...
+              </p>
+              <p className='w3-cursive'>
+                Help the farmer get the maximum produce ...
+              </p>
+
+              <button className='btn-invest'>Read more ..</button>
+
+            </div>        
+      </div>
+      
+      <div className='hometext'>
+            <p className=''>improving agricultural productivity thus enhancing household food security, income and reducing poverty among farmers</p>
+      </div>
+      
+      <div className='w3-row dol'>
+
+        <div className='w3-col'>
+
+          <div className='w3-card dol1'>
+          <button className='bg-c'> Hire land</button>
+          </div>
+
+        </div>
+
+        <div className='w3-col'>
+
+        <div className='w3-card dol1'>
+              <button className='bg-c'> partner with farmer</button>
+        </div>
+
+        </div>
+        <div className='w3-col'>
+
+          <div className='w3-card dol1'>
+                <button className='bg-c'> Provide Resource</button>
+          </div>
+
+        </div>
+
+      </div>
+
       <div className='explan'>
           <p>
             we offer
@@ -26,20 +117,10 @@ function Home() {
           <button>
             Get Started
           </button>
+      </div>       
       </div>
-      <div className='pat'>
-        <div>
-        <h4>
-          Partners
-          <img src={vm}/>
-        </h4>
-        </div>
-        <div>
-          <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
-          </p>
-        </div>
-      </div>
+
+
       <Footer />
     </div>
   )

@@ -3,7 +3,8 @@ import Footer from './Footer'
 
 function MyINvestments() {
   return (
-    <div>MyINvestments
+    <div>
+      MyINvestments
       <Footer />
     </div>
   )
