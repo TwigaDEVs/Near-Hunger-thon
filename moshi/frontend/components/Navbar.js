@@ -120,6 +120,7 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   return (
+    <>
     <header>
       <Link to="/" className="site-title">
         {" "}
@@ -188,7 +189,25 @@ function Navbar({ isSignedIn, wallet }) {
       <button onClick={showNavbar} className="bars">
         <FaBars />
       </button>
+
     </header>
+
+    {/* <div className="w3-bar w3-black">
+      <a href="#" className="w3-bar-item w3-button w3-mobile w3-green">Home</a>
+      <a href="#" className="w3-bar-item w3-button w3-mobile">Link 1</a>
+      <a href="#" className="w3-bar-item w3-button w3-mobile">Link 2</a>
+      <div className="w3-dropdown-hover w3-mobile">
+        <button className="w3-button">Dropdown <i className="fa fa-caret-down"></i></button>
+        <div className="w3-dropdown-content w3-bar-block w3-dark-grey">
+          <a href="#" className="w3-bar-item w3-button w3-mobile">Link 1</a>
+          <a href="#" className="w3-bar-item w3-button w3-mobile">Link 2</a>
+          <a href="#" className="w3-bar-item w3-button w3-mobile">Link 3</a>
+        </div>
+      </div>
+    </div> */}
+
+
+      </>
   );
 }
 

@@ -34,7 +34,7 @@ main.please-wait {
 }
 
 h1 {
-  background-image: url(./logo-black.svg);
+
   background-position: center 1em;
   background-repeat: no-repeat;
   background-size: auto 1.5em;
@@ -227,9 +227,7 @@ li {
     --shadow: #2a2a2a;
     --light-gray: #444;
   }
-  h1 {
-    background-image: url(./logo-white.svg);
-  }
+
 
 }
 
@@ -243,52 +241,11 @@ li {
   
 }
 
-.container{
-  margin-left: 150px;
-  margin-right: 150px;
-}
 
 
-@media only screen and (max-width:1360px){ 
-
-  .container{
-      margin-left: 50px;
-      margin-right: 50px;
-  }
 
 
-}
 
-
-@media only screen and (max-width:1180px){ 
-
-  .container{
-      margin-left: 50px;
-      margin-right: 50px;
-  }
-
-
-}
-
-@media only screen and (max-width:1080px){ 
-
-  .container{
-      margin-left: 50px;
-      margin-right: 50px;
-  }
-
-
-}
-
-@media only screen and (max-width:800px){ 
-
-  .container{
-      margin-left: 1px;
-      margin-right: 1px;
-  }
-
-
-}
 
 
 @-webkit-keyframes load8 {

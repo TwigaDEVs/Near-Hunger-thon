@@ -9,6 +9,7 @@
     left: 80%;
     transform: translateX(-50%);
     margin-top: 0;
+    z-index: 2;
     
     
 }
