@@ -2,16 +2,17 @@ import React from 'react';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
 import Footer from './Footer';
+import InputBuy from './InputBuy';
 
 const InputView = ({wallet,contractId}) => {
 
-    let [HireOpen, setHireOpen] = useState(false);
-    const handleHireModal = () => {
-        setHireOpen(true);
+    let [inputBuyOpen, setInputBuyOpen] = useState(false);
+    const handleInputBuyModal = () => {
+        setInputBuyOpen(true);
     }
 
     const closeModal = () => {
-        setHireOpen(false);
+        setInputBuyOpen(false);
     }
 
     const params = useParams();
@@ -39,6 +40,9 @@ const InputView = ({wallet,contractId}) => {
 
   return (
     <div>
+        <div>
+            {inputBuyOpen && <InputBuy onhandleInputBuyModal={closeModal} input={input} wallet={wallet}/>}
+        </div>
         <div class="w3-card ros">
             <img src={input.input_image} alt="Alps" />
             <div class="w3-container w3-center">
@@ -54,7 +58,7 @@ const InputView = ({wallet,contractId}) => {
                 </div>
 
                 <div className='w3-padding'>
-                    <button className='w3-green w3-text-white'> Buy </button>
+                    <button className='w3-green w3-text-white' onClick={handleInputBuyModal}> Buy </button>
                 </div>
             </div>
         </div>
