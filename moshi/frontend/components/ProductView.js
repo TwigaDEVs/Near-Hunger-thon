@@ -1,15 +1,17 @@
 import React from 'react';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
+import Footer from './Footer'
+import ProductBuy from './ProductBuy';
 
 const ProductView = ({contractId,wallet}) => {
-    let [HireOpen, setHireOpen] = useState(false);
-    const handleHireModal = () => {
-        setHireOpen(true);
+    let [produceOpen, setProduceOpen] = useState(false);
+    const handleProductBuyModal = () => {
+        setProduceOpen(true);
     }
 
     const closeModal = () => {
-        setHireOpen(false);
+        setProduceOpen(false);
     }
 
     const params = useParams();
@@ -36,7 +38,11 @@ const ProductView = ({contractId,wallet}) => {
     }
   return (
     <div>
+        <div>
+            {produceOpen && <ProductBuy onhandleProduceBuyModal={closeModal} produce={produce} wallet={wallet}/>}
+        </div>
         <div class="w3-card ros">
+
             <img src={produce.produce_image} alt="Alps" />
             <div class="w3-container w3-center">
                 <h4 className='w3-text-green'> {produce.produce_name} </h4>
@@ -51,11 +57,12 @@ const ProductView = ({contractId,wallet}) => {
                 </div>
 
                 <div className='w3-padding'>
-                    <button className='w3-green w3-text-white'> Buy </button>
+                    <button className='w3-green w3-text-white' onClick={handleProductBuyModal}> Buy </button>
                 </div>
                 <p className='w3-padding'>{produce.produce_seller}</p>
             </div>
         </div>
+        <Footer />
     </div>
   )
 }
