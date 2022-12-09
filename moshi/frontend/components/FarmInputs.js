@@ -46,7 +46,7 @@ function FarmInputs({wallet, contractId}) {
 
 
                 const inputTo = {
-                    pathname:"/input-view/"+input.id,
+                    pathname:"/farm-input/"+input.id,
                 }
 
                     return (

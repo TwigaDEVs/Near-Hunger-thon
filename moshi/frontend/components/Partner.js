@@ -19,7 +19,7 @@ function Partner({wallet,contractId,lands}) {
 
 
                       const newTo = {
-                        pathname:"/hire-land-view/"+land.id,
+                        pathname:"/partner-land-view/"+land.id,
                     }
 
                     return (

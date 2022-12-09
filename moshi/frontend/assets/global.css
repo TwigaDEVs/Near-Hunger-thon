@@ -296,6 +296,11 @@ li {
   overflow: hidden;
 }
 
+.ros{
+  display: flex;
+  margin: 20px;
+}
+
 .product-price-btn {
   height: 103px;
   width: 327px;
@@ -333,6 +338,7 @@ li {
   padding-bottom: 10px;
 
 }
+  
 
 .product-price-btn button {
   float: right;
@@ -356,6 +362,10 @@ li {
 
 .product-price-btn button:hover {
   background-color: #79b0a1;
+}
+
+.rosim{
+  max-width: 500px;
 }
 
 @media (prefers-color-scheme: dark) {
