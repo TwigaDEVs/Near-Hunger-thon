@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown";
 import DropdownF from "./DropdownF";
 import ProfileDropdown from "./ProfileDropdown";
 import MarketplaceDropdown from "./MarketplaceDropdown";
+import hambre from '../assets/hambre.png'
 
 function Navbar({ isSignedIn, wallet }) {
   const [dropdown, setDropdown] = useState(false);
@@ -48,11 +49,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseLeave = () => {
-    if (window.innerWidth < 900) {
-      setDropdown(false);
-    } else {
-      setDropdown(false);
-    }
+    // if (window.innerWidth < 900) {
+    //   setDropdown(false);
+    // } else {
+    //   setDropdown(false);
+    // }
   };
 
   const handleDropdown = () => {
@@ -68,11 +69,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseLeave1 = () => {
-    if (window.innerWidth < 900) {
-      setDropdownF(false);
-    } else {
-      setDropdownF(false);
-    }
+    // if (window.innerWidth < 900) {
+    //   setDropdownF(false);
+    // } else {
+    //   setDropdownF(false);
+    // }
   };
 
   const handleDropdown1 = () => {
@@ -88,11 +89,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseLeave2 = () => {
-    if (window.innerWidth < 900) {
-      setDropdownP(false);
-    } else {
-      setDropdownP(false);
-    }
+    // if (window.innerWidth < 900) {
+    //   setDropdownP(false);
+    // } else {
+    //   setDropdownP(false);
+    // }
   };
 
   const handleDropdown2 = () => {
@@ -100,11 +101,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseEnter3 = () => {
-    if (window.innerWidth < 900) {
-      setDropdownM(true);
-    } else {
-      setDropdownM(true);
-    }
+    // if (window.innerWidth < 900) {
+    //   setDropdownM(true);
+    // } else {
+    //   setDropdownM(true);
+    // }
   };
 
   const onMouseLeave3 = () => {
@@ -122,9 +123,12 @@ function Navbar({ isSignedIn, wallet }) {
   return (
     <>
     <header>
+      <div>
+      
+      </div>
       <Link to="/" className="site-title">
         {" "}
-        Hambre{" "}
+        <i className="ser"><img src={hambre} className="logo"/></i> Hambre{" "}
       </Link>
       <nav className="w3-padding">
         <ul ref={navRef}>

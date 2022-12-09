@@ -18,10 +18,9 @@ function HireLand({ wallet, contractId, lands }) {
           five centuries,
         </p>
       </div>
-
-      <div className="w3-row-padding w3-stretch">
-        <div className="card">
-          {Object.values(lands).map((land, index) => {
+      <div className="ccn">
+      <div className="containerhire">
+      {Object.values(lands).map((land, index) => {
             if (land.contract_type == "lease") {
 
 
@@ -30,33 +29,45 @@ function HireLand({ wallet, contractId, lands }) {
                     }
 
                     return (
-                        <div key={index} className="card-body">
-                            <div>
-                                <div>
-                                <img src={land.land_image} alt="lands to lease"/>
+                              <div className="card">
+                                <div className="card-header">
+                                  <img src={land.land_image} alt="rover" />
                                 </div>
-                                <h5> {land.land_owner} </h5>
-                                <div className="des">
-                                    {land.land_description}
+                                <div className="card-body">
+                                  <span className="tag tag-teal">{land.land_location}</span>
+                                  <h4>
+                                  {land.land_owner}
+                                  </h4>
+                                  <div className="des">
+                                    <p>
+                                      {land.land_description}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <p>{land.land_price}</p>
+                                  </div>
+                                  <div className="user">
+                                    <div className="user-info">
+                                      <h5>
+                                        <button className="hire-btn">
+                                            <Link className="btn-h" to={newTo} > Hire</Link>
+                                        </button>
+                                      </h5>
+                                      <small>{land.land_lister}</small>
+                                    </div>
+                                  </div>
                                 </div>
-                                <p>{land.land_price}</p>
-
-                            </div>
-
-                             <button className="hire-btn">
-                             <Link className="btn-h" to={newTo} > Hire</Link>
-                             </button>
-    
-                            <hr />
-                        </div>
+                              </div>
                         );
 
-                 }
-
-                })}
-
-            </div>
+                      }
+     
+                     })}
       </div>
+      </div>
+
+      
+
       <Footer />
     </div>
   );
