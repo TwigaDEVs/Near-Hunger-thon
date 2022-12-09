@@ -85,9 +85,6 @@ function HireLandView({wallet,contractId}) {
 
         </div>
         </div>
-
-
-        
     </div>
     <Footer />
     </>

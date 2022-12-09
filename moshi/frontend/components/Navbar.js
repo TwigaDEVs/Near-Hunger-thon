@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown";
 import DropdownF from "./DropdownF";
 import ProfileDropdown from "./ProfileDropdown";
 import MarketplaceDropdown from "./MarketplaceDropdown";
+import hambre from '../assets/hambre.png'
 
 function Navbar({ isSignedIn, wallet }) {
   const [dropdown, setDropdown] = useState(false);
@@ -122,9 +123,12 @@ function Navbar({ isSignedIn, wallet }) {
   return (
     <>
     <header>
+      <div>
+      
+      </div>
       <Link to="/" className="site-title">
         {" "}
-        Hambre{" "}
+        <i className="ser"><img src={hambre} className="logo"/></i> Hambre{" "}
       </Link>
       <nav className="w3-padding">
         <ul ref={navRef}>

@@ -3,6 +3,7 @@ import "./FarmerFarm.css";
 import Footer from "./Footer";
 import PostFarm from "./PostFarm";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function FarmerFarm({ wallet, contractId, lands }) {
   const [openModal, setOpenModal] = useState(false);
@@ -22,27 +23,50 @@ function FarmerFarm({ wallet, contractId, lands }) {
         contractId={contractId}
       />
 
-      <div className="farms">
-        <div className="card">
-          {Object.values(lands).map((land, index) => {
+      <div className="containerhire">
+      {Object.values(lands).map((land, index) => {
             if (land.land_lister == wallet.accountId) {
-              return (
-                <div key={index} className="card-body">
-                  <div>
-                    <div>
-                      <img src={land.land_image} alt="BigCo Inc. logo" />
-                    </div>
-                    <h5> {land.land_owner} </h5>
-                    <div className="des">{land.land_description}</div>
-                    <p>{land.land_price}</p>
-                  </div>
 
-                  <hr />
-                </div>
-              );
-            }
-          })}
-        </div>
+
+                      const newTo = {
+                        pathname:"/hire-land-view/"+land.id,
+                    }
+
+                    return (
+                              <div className="card">
+                                <div className="card-header">
+                                  <img src={land.land_image} alt="rover" />
+                                </div>
+                                <div className="card-body">
+                                  <span className="tag tag-teal">{land.land_location}</span>
+                                  <h4>
+                                  {land.land_owner}
+                                  </h4>
+                                  <div className="des">
+                                    <p>
+                                      {land.land_description}
+                                    </p>
+                                  </div>
+                                  <div>
+                                    <p>{land.land_price}</p>
+                                  </div>
+                                  <div className="user">
+                                    <div className="user-info">
+                                      <h5>
+                                        <button className="hire-btn">
+                                            <Link className="btn-h" to={newTo} > Hire</Link>
+                                        </button>
+                                      </h5>
+                                      <small>{land.land_lister}</small>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        );
+
+                      }
+     
+                     })}
       </div>
       <Footer />
     </div>
