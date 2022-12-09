@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import UpdateProfileModal from './UpdateProfileModal';
 import Footer from './Footer';
 
 function Profile({lands,wallet,contractId}) {
     const [profileModalOpen, setProfileModalOpen] = useState(false);
+    const [userProfile, setUserProfile] = useState({});
+    const user = useRef();
     const handleProfileModalOpen = () => {
         setProfileModalOpen(true);
     }
     const handleCloseProfileModal = () => {
         setProfileModalOpen(false);
     }
+
+    const viewProfile = () => {
+        const profile = window.nearwallet.viewMethod({ method: "get_users", contractId }).then((result) => result[window.nearwallet.accountId]).then(data => data);
+        return profile;
+    }
+
+    useEffect(() => {
+        viewProfile().then((data) => (setUserProfile(data)));
+        console.log(userProfile.first_name);
+    }, [])
   return (
     <div>
         <h2>
@@ -29,9 +41,9 @@ function Profile({lands,wallet,contractId}) {
                 </div>
                 
                 <div className='names'>
-                    <p>Name: </p>
-                    <p>Phone Number: </p>
-                    <p>Email: </p>
+                    <p>Name: {userProfile.first_name + " " + userProfile.last_name}</p>
+                    <p>Phone Number: {userProfile.phone_number}</p>
+                    <p>Email: {userProfile.email }</p>
                 </div>
 
                 <div className='w'>

@@ -21,11 +21,16 @@ const itemsListed = new ItemsListed({
   walletToUse: wallet,
 });
 
+window.nearwallet = wallet;
+window.contractId = process.env.CONTRACT_NAME;
+
 // Setup on page load
 window.onload = async () => {
   const isSignedIn = await wallet.startUp();
   const container = document.getElementById("root");
   const root = createRoot(container); // createRoot(container!) if you use TypeScript
+  window.isSignedIn = isSignedIn
+
   root.render(
     <BrowserRouter>
       <App
