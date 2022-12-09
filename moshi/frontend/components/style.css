@@ -12,6 +12,12 @@ body{
     font-size: 2rem;
     font-family:sans-serif;
     color: green;
+    text-decoration: none;
+    
+}
+
+.site-title:hover{
+    text-decoration: none;
 }
 header{
     background-color: rgb(255, 255, 255);
@@ -49,6 +55,7 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
+    z-index: 2;
 
 
 

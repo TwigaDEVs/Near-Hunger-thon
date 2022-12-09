@@ -117,9 +117,9 @@ function PostFarm({ open, onclose, wallet, contractId }) {
                   <option value="partner">partner</option>
                 </select>
           <label>Price</label>
-					<input className="w3-input w3-border w3-round" name="contractbid" required type="number"/>
+					<input className="w3-input w3-border w3-round" name="contractbid" required type="number" id = "landPrice"/>
 					<label>Input image</label>
-					<input className="w3-input w3-border w3-round" type="file" id="landImage" onChange={OnChangeFile}/>
+					<input className="w3-input w3-border w3-round" type={"file"} id="landImage" onChange={OnChangeFile}/>
 					<button className="w3-button w3-green w3-block" type="submit" >Save</button>
 					<br />
 					<br />
