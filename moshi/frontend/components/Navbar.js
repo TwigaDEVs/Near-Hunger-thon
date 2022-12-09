@@ -164,6 +164,8 @@ function Navbar({ isSignedIn, wallet }) {
             {dropdownF && <DropdownF />}
           </li>
 
+          {isSignedIn ? (
+
           <li
             onClick={handleDropdown2}
             onMouseEnter={onMouseEnter2}
@@ -174,6 +176,11 @@ function Navbar({ isSignedIn, wallet }) {
             </Link>
             {dropdownP && <ProfileDropdown />}
           </li>
+          ) : ( 
+            <Link >
+              
+            </Link>
+            )}
 
           <button onClick={showNavbar} className="close">
             <FaTimes />
