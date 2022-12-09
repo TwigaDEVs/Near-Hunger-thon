@@ -16,7 +16,7 @@ function Profile({lands,wallet,contractId}) {
             {wallet.accountId}
         </h2>
 
-        {profileModalOpen && <UpdateProfileModal onHandleCloseModal={handleCloseProfileModal}/>}
+        {profileModalOpen && <UpdateProfileModal onHandleCloseModal={handleCloseProfileModal} />}
 
         <div className='details'>
                 <div className='det'>

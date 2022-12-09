@@ -28,43 +28,33 @@ function PartnerLandDetails({wallet,contractId}) {
     }
   return (
     <div>
-                <h2> Land Details </h2>
-
-        <div className='container'>
-        <div className='w3-display-container'>
-
-            <div className='w3-center w3-margin '>
-            <div className='w3-card w3-round-xlarge'>
-                <div className="w3-row">
-                    <div class="w3-col m4 l5">
-                    
-                        <img src={land.land_image}  alt="lands to lease" />
-                    </div>
-                    <div className="w3-col m8 l5">
-                        
-                        <p> {land.land_owner}</p>
-                        <div>
-                            {land.land_description}
-                        </div>
-                        <p> Hire Price: Ksh {land.land_price}</p>
-
-                        <p> {land.land_size}</p>
-
-                        <div>
-                            {land.land_lister}
-                        </div>
-
-                        <div>
-                            <button className='w3-green w3-text-white'> Hire land </button>
-                        </div>
-                    </div>
+        <h2> Land Details </h2>
+        <div class="w3-card ros">
+            <div className='rosim'>
+                <img src={land.land_image} alt="Alps" className='w3-image'/>
+            </div>
+            
+            <div class="w3-container w3-center">
+                <h4 className='w3-text-green'> {land.land_owner} </h4>
+                <p> {land.land_description}</p>
+                <div>
+                {land.land_size}
                 </div>
-            </div>
+                <div className='w3-padding'>
+                    <p className='w3-text-orange'>
+                     <small className='w3-text-green w3-text-bold'>ksh: </small>{land.land_price}
+                    </p>
+                </div>
 
-            </div>
+                <div className='w3-padding'>
+                    <button className='w3-green w3-text-white'> Accept Partnership </button>
+                </div>
 
+                <p className='w3-padding'>{land.land_lister}</p>
+            </div>
         </div>
-        </div>
+
+
     <Footer />
     </div>
   )
