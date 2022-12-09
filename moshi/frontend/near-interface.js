@@ -1,11 +1,12 @@
 /* Talking with a contract often involves transforming data, we recommend you to encapsulate that logic into a class */
 
 import { utils } from 'near-api-js';
+import wallet from './near-wallet';
 
 export class ItemsListed {
 
   constructor({ contractId, walletToUse }) {
-    this.contractId = contractId;
+    this.contractId = '';
     this.wallet = walletToUse
   }
 
@@ -27,5 +28,7 @@ export class ItemsListed {
     return await this.wallet.callMethod({ contractId: this.contractId, method: "add_items", args: { item_name: itemName ,item_quantity: itemQuantity, item_price: itemPrice} });
   }
 
-
+  async updateProfile(firstName, lastName, phoneNumber, email) {
+    return await this.wallet.callMethod({contractId: this.contractId, method: "update_user", args: {first_name: firstName, last_name: lastName, phone_number: phoneNumber}});
+  }
 }
