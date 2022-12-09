@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
+import Footer from './Footer'
 
 const ProductView = ({contractId,wallet}) => {
     let [HireOpen, setHireOpen] = useState(false);
@@ -56,6 +57,7 @@ const ProductView = ({contractId,wallet}) => {
                 <p className='w3-padding'>{produce.produce_seller}</p>
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

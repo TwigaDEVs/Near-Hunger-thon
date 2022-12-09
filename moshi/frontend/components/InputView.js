@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
+import Footer from './Footer';
 
 const InputView = ({wallet,contractId}) => {
 
@@ -57,6 +58,7 @@ const InputView = ({wallet,contractId}) => {
                 </div>
             </div>
         </div>
+       <Footer />
     </div>
   )
 }

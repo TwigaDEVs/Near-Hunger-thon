@@ -168,6 +168,7 @@ impl Hambre {
 
     }
 
+    #[payable]
     pub fn hire_land(&mut self,id:String){
 
       let id_copy = id.clone();
@@ -195,6 +196,7 @@ impl Hambre {
 
     }
 
+    #[payable]
     pub fn partner_land(&mut self,id:String){
 
       let id_copy = id.clone();
@@ -246,6 +248,7 @@ impl Hambre {
   
       pub fn total_inputs(&self) -> usize {self.inputs.len()}
   
+      #[payable]
       pub fn buy_input(&mut self,id:String){
   
         let key_copy = id.clone();
@@ -289,7 +292,7 @@ impl Hambre {
     &self.produces[&id]
 }
 
-
+    #[payable]
     pub fn buy_produce(&mut self,id:String){
       
       let key_copy = id.clone();
