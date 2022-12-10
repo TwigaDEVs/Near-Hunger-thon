@@ -2,8 +2,18 @@ import React from 'react';
 import Footer from './Footer';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
+import PartnerLand from './PartnerLand';
 
 function PartnerLandDetails({wallet,contractId}) {
+    let [partnerOpen, setPartnerOpen] = useState(false);
+    const handlePartnerModal = () => {
+        setPartnerOpen(true);
+    }
+
+    const closeModal = () => {
+        setPartnerOpen(false);
+    }
+
     const params = useParams();
     console.log(params);
 
@@ -29,6 +39,9 @@ function PartnerLandDetails({wallet,contractId}) {
   return (
     <div>
         <h2> Land Details </h2>
+        <div>
+            {partnerOpen && <PartnerLand onhandlePartnerModal={closeModal} />}
+        </div>
         <div class="w3-card ros">
             <div className='rosim'>
                 <img src={land.land_image} alt="Alps" className='w3-image'/>
@@ -47,7 +60,7 @@ function PartnerLandDetails({wallet,contractId}) {
                 </div>
 
                 <div className='w3-padding'>
-                    <button className='w3-green w3-text-white'> Accept Partnership </button>
+                    <button className='w3-green w3-text-white' onClick={handlePartnerModal}> Accept Partnership </button>
                 </div>
 
                 <p className='w3-padding'>{land.land_lister}</p>

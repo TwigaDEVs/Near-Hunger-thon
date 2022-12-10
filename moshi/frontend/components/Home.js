@@ -28,13 +28,13 @@ function Home() {
         <div className="w3-display-middle w3-large">
         </div>
       </div>
-      <div className="w3-row ro">
-            <div className="w3-col s4  w3-center">
+      <div className="w3-stretch w3-row-padding">
+            <div className="w3-col l4  w3-center ">
               <p className='w3-green'>1</p>
               <h6 className='w3-serif w3-xxlarge'> Farm Hire</h6>
               <p w3-cursive> Find a list of available farms for hire and invest in agricultural production</p>
             </div>
-            <div className="w3-col s4  w3-center">
+            <div className="w3-col l4  w3-center">
               <p className='w3-dark-grey'>2</p>
               <h6 className='w3-serif w3-xxlarge'>
                 Partner With Farmer
@@ -42,7 +42,7 @@ function Home() {
               <p className='w3-cursive'> Get yourself a partner in the farming industry</p>
               <p className='w3-cursive'> Patner can be either by funding the farmer or providing required resources</p>
             </div>
-            <div className="w3-col s4  w3-center">
+            <div className="w3-col l4  w3-center">
               <p className='w3-green'>3</p>
               <h6 className='w3-serif w3-xxlarge'>
                 Sell and Buy Farm Inputs/Produce
@@ -55,11 +55,11 @@ function Home() {
               </p>
             </div>
       </div>
-      <p className='w3-large w3-cursive'> Helping farmers improve productivity, increase income </p>
-      <div className="w3-row ro">
-        <div className="w3-col s4"><img src={maize} className='w3-image'/></div>
-        <div className="w3-col s4"><img src={musa} className='w3-image'/></div>
-        <div className="w3-col s4  w3-center">
+      <p className='w3-large w3-cursive w3-padding'> Helping farmers improve productivity, increase income </p>
+      <div className=" w3-stretch w3-row-padding">
+        <div className="w3-col l4"><img src={maize} className='w3-image'/></div>
+        <div className="w3-col l4"><img src={musa} className='w3-image'/></div>
+        <div className="w3-col l4  w3-center">
               <h6 className='w3-serif w3-xxlarge'>
                 Discover the topics
               </h6>
@@ -106,7 +106,7 @@ function Home() {
 
       </div>
 
-      <div className='explan'>
+      <div className='explan w3-row-padding'>
           <p>
             we offer
           </p>

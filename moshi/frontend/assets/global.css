@@ -368,6 +368,10 @@ li {
   max-width: 500px;
 }
 
+.container{
+  z-index: -1;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     --bg: #1e1e1e;
