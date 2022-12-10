@@ -37,7 +37,7 @@ function FarmProduce({wallet,contractId}) {
         <h2> Products Available</h2>
         <br />
         <div className="">
-              <div className="containerhire">
+              <div className="w3-row-padding">
               {Object.values(produces).map((produce, index) => {
                         if (produce.produce_sold == false) {
 
@@ -47,7 +47,7 @@ function FarmProduce({wallet,contractId}) {
                                 }
 
                                 return (
-                                          <div className="card">
+                                          <div className="w3-col l4 w3-card w3-margin-bottom">
                                             <div className="card-header">
                                               <img src={produce.produce_image} alt="rover" />
                                             </div>
@@ -67,7 +67,7 @@ function FarmProduce({wallet,contractId}) {
                                               <div className="user">
                                                 <div className="user-info">
                                                   <h5>
-                                                  <button className="hire-btn">
+                                                  <button className="w3-button w3-green">
                                                   <Link className="btn-h" to={produceTo} > view </Link>
                                                   </button>
                                                   </h5>

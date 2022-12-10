@@ -162,3 +162,14 @@ nav a:hover{
 
 
 }
+
+.w3-bar-item{
+    font-weight: 600;
+}
+
+.w3-dropdown-content{
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: none !important
+    
+}
