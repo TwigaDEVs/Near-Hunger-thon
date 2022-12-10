@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, AccountId, Balance,log, near_bindgen};
+use near_sdk::{env, AccountId, Balance,Promise,log, near_bindgen};
 use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
 
@@ -84,6 +84,17 @@ pub struct Land {
 }
 
 
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct Agreement {
+    party_one: String,
+    party_two: AccountId,
+    object_id: String,
+    amount:u64,
+    contra_type:String,
+}
+
+
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
@@ -93,12 +104,13 @@ pub struct Hambre{
     resources: HashMap<String,ResourceList>,
     produces: HashMap<String,FarmProduceList>,
     inputs: HashMap<String,FarmInputList>,
+    agreements: HashMap<String,Agreement>,
 }
 
 
 impl Default for Hambre{
     fn default() -> Self {
-      Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new()}
+      Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new(),agreements:HashMap::new()}
     }
   }
 
@@ -172,6 +184,7 @@ impl Hambre {
     pub fn hire_land(&mut self,id:String){
 
       let id_copy = id.clone();
+      let id_copy1 = id.clone();
 
       let hired_land = &self.lands[&id];
 
@@ -187,12 +200,31 @@ impl Hambre {
       let land_location = &hired_land.land_location;
       let land_price = &hired_land.land_price;
       let contract_type = &hired_land.contract_type;
+      let a_near: u128 = 1_000_000_000_000_000_000_000_000;
+
+      let party_one = &hired_land.land_lister;
+      let party_two = env::predecessor_account_id();
+      let object_id = id.clone();
+      let amount = &hired_land.land_price;
+      let contra_type = &hired_land.contract_type;
+      let acc = (party_one: party_one.to_string()).clone();
+      let amount_transfer = (amount: *amount).clone();
 
       let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
                             land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
                           land_location: land_location.to_string(),land_price: *land_price,contract_type: contract_type.to_string(),availability,land_lister};
 
+      let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *amount, contra_type: contra_type.to_string()};
+
+      let account_id: AccountId = acc.parse().unwrap();
+
+
+      Promise::new(account_id).transfer(amount_transfer);
+
+      self.agreements.insert(id_copy1,agree);
+
       self.lands.insert(id_copy,land_hired);
+
 
     }
 
@@ -200,6 +232,7 @@ impl Hambre {
     pub fn partner_land(&mut self,id:String){
 
       let id_copy = id.clone();
+      let id_copy1 = id.clone();
 
       let hired_land = &self.lands[&id];
 
@@ -216,14 +249,27 @@ impl Hambre {
       let land_price = &hired_land.land_price;
       let contract_type = &hired_land.contract_type;
 
+      let party_one = &hired_land.land_lister;
+      let party_two = env::predecessor_account_id();
+      let object_id = id.clone();
+      let amount = &hired_land.land_price;
+      let contra_type = &hired_land.contract_type;
+
       let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
                             land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
                           land_location: land_location.to_string(),land_price: *land_price,contract_type: contract_type.to_string(),availability,land_lister};
 
+      
+      let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *amount, contra_type: contra_type.to_string()};
+
+      self.agreements.insert(id_copy1,agree);
+
+      
       self.lands.insert(id_copy,land_hired);
 
     }
 
+    
     pub fn total_lands(&self) -> usize {self.lands.len()}
 
         // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
@@ -252,6 +298,7 @@ impl Hambre {
       pub fn buy_input(&mut self,id:String){
   
         let key_copy = id.clone();
+        let key_copy1 = id.clone();
   
         let  input_buy = &self.inputs[&id];
   
@@ -265,11 +312,22 @@ impl Hambre {
         let input_quantity = &input_buy.input_quantity;
         let input_image =&input_buy.input_image;
         let input_price = &input_buy.input_price;
+
+        let party_one = &input_buy.input_owner;
+        let party_two = env::predecessor_account_id();
+        let object_id = id.clone();
+        let amount = &input_buy.input_price;
+        let contra_type = "Bought Farm Input".to_string();
   
         let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
                                         input_quantity: input_quantity.to_string(),input_image: input_image.to_string(),input_price: *input_price
                                        ,input_sold,input_owner};
-          self.inputs.insert(key_copy,input_bought);
+
+        let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *amount, contra_type};
+
+        self.agreements.insert(key_copy1,agree);
+          
+        self.inputs.insert(key_copy,input_bought);
       } 
 
           // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
@@ -296,6 +354,8 @@ impl Hambre {
     pub fn buy_produce(&mut self,id:String){
       
       let key_copy = id.clone();
+      let key_copy1 = id.clone();
+
 
       let  produce_buy = &self.produces[&id];
 
@@ -310,10 +370,21 @@ impl Hambre {
       let produce_image =&produce_buy.produce_image;
       let produce_price = &produce_buy.produce_price;
 
+      let party_one = &produce_buy.produce_owner;
+      let party_two = env::predecessor_account_id();
+      let object_id = id.clone();
+      let amount = &produce_buy.produce_price;
+      let contra_type = "Bought Farm produce".to_string();
+
       let produce_bought = FarmProduceList{id: id.to_string(),produce_name: produce_name.to_string(),produce_description: produce_description.to_string(),
                                       produce_quantity: produce_quantity.to_string(),produce_image: produce_image.to_string(),produce_price: *produce_price
                                     ,produce_sold,produce_owner};
-        self.produces.insert(key_copy,produce_bought);
+
+      let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *amount, contra_type};
+
+      self.agreements.insert(key_copy1,agree);
+      
+      self.produces.insert(key_copy,produce_bought);
     }
 
   pub fn total_produces(&self) -> usize {self.produces.len()}
@@ -343,13 +414,21 @@ impl Hambre {
 
   pub fn total_resources(&self) -> usize {self.resources.len()}
 
+  pub fn get_agreement(&self,id:String) -> &Agreement{
+    &self.agreements[&id]
 }
 
+  pub fn total_agreements(&self) -> usize {self.agreements.len()}
+
+
+
+}
 
 /*
  * The rest of this file holds the inline tests for the code above
  * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
  */
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -613,6 +692,7 @@ mod tests {
       let u:String = id2.clone();
       let lu:String = id2.clone();
       let lh:String =  id2.clone();
+      let la:String =  id2.clone();
       let h:String =  id2.clone();
       let pl:String =  id2.clone();
       let p:String =  id2.clone();
@@ -658,7 +738,17 @@ mod tests {
       let parter = &contract_update.get_land(p);
 
       assert_eq!(parter.unwrap().availability,false);
-      
+
+
+      let ag = &contract_update.total_agreements();
+
+      assert!(*ag == 1);
+
+      let ad_id = &contract_update.get_agreement(la);
+
+      let p_2 = env::predecessor_account_id();
+
+      assert_eq!(ad_id.party_two,p_2);
 
 
 
