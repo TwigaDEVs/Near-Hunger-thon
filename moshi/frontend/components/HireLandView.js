@@ -74,7 +74,7 @@ function HireLandView({wallet,contractId}) {
                 <div className="w3-row">
                     <div class="w3-col m4 l5">
                     
-                        <img src={land.land_image}  alt="lands to lease" />
+                        <img src={land.land_image}  alt="lands to lease" className="w3-image" style={{width: "100%"}}/>
                     </div>
                     <div className="w3-col m8 l5">
                         

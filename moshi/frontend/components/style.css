@@ -28,13 +28,16 @@ nav ul {
     justify-content: space-between;
     align-items: flex-end;
     gap: 2rem;
-    padding: 0 20px;
+/*    padding: 0 20px;*/
     margin: 0;
     padding-top: 15px;
     list-style: none;
 }
 
-
+nav ul > li{
+    padding: 0px;
+    font-weight: 300;
+}
 
 nav{
     list-style: none;

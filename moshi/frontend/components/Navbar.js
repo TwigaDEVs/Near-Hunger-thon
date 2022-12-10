@@ -123,59 +123,73 @@ function Navbar({ isSignedIn, wallet }) {
   return (
     <>
     <header>
-      <div>
-      
-      </div>
-      <Link to="/" className="site-title">
+      <Link to="/" className="site-title w3-bar">
         {" "}
         <i className="ser"><img src={hambre} className="logo"/></i> Hambre{" "}
       </Link>
-      <nav className="w3-padding">
-        <ul ref={navRef}>
-          <li>
+      <nav className="">
+        <ul>
+          <li className="w3-bar-item">
             <CustomLink to="/"> Home</CustomLink>
           </li>
-
-          <li
-            onClick={handleDropdown}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
+          <li className="w3-dropdown-hover"
           >
-            <Link> Invest</Link>
-            {dropdown && <Dropdown />}
+            {/*<Link> Farmers </Link>*/}
+            {/*{dropdownF && <DropdownF />}*/}
+  
+              <button className="w3-button">Invest</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/hire-land" className="w3-bar-item w3-button">Hire Farm</Link>
+                <Link to="/partner" className="w3-bar-item w3-button">Be a Partner</Link>
+                <Link to="/resources" className="w3-bar-item w3-button">Provide Resource</Link>
+              </div>
           </li>
-          <li>
+          <li className="w3-bar-item">
             <CustomLink to="/my-investments"> My Investments</CustomLink>
           </li>
-          <li
-            onClick={handleDropdown1}
-            onMouseEnter={onMouseEnter1}
-            onMouseLeave={onMouseLeave1}
+          <li className="w3-bar-item w3-dropdown-hover"
           >
-            <Link> Farmers </Link>
-            {dropdownF && <DropdownF />}
+            {/*<Link> Farmers </Link>*/}
+            {/*{dropdownF && <DropdownF />}*/}
+  
+              <button className="w3-button">Farmers</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm</Link>
+                <Link to="/farm-resource" className="w3-bar-item w3-button">Post Farm Resource</Link>
+                <Link to="/my-investors" className="w3-bar-item w3-button">My Investors</Link>
+              </div>
           </li>
-          <li
+          {/*<li
             onClick={handleDropdown3}
             onMouseEnter={onMouseEnter3}
             onMouseLeave={onMouseLeave3}
           >
             <Link> Marketplace</Link>
             {dropdownM && <MarketplaceDropdown />}
+          </li>*/}
+          <li className="w3-dropdown-hover w3-bar-item"
+          >
+            {/*<Link> Farmers </Link>*/}
+            {/*{dropdownF && <DropdownF />}*/}
+  
+              <button className="w3-button">Marketplace</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/farm-produce" className="w3-bar-item w3-button">Farm Products</Link>
+                <Link to="/farm-inputs" className="w3-bar-item w3-button">Farm Inputs</Link>
+              </div>
           </li>
 
           {isSignedIn ? (
-
-          <li
-            onClick={handleDropdown2}
-            onMouseEnter={onMouseEnter2}
-            onMouseLeave={onMouseLeave2}
+            <li className="w3-dropdown-hover w3-bar-item"
           >
-            <Link className="profile">
-              <i className="fa fa-user" aria-hidden="true"></i> profile{" "}
-            </Link>
-            {dropdownP && <ProfileDropdown />}
+  
+              <button className="w3-button">Profile</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/account" className="w3-bar-item w3-button">Account</Link>
+              </div>
           </li>
+
+
           ) : ( 
             <Link >
               

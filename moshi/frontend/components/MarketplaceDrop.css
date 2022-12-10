@@ -5,7 +5,7 @@
     text-align: start;
     display: block;
     justify-content: end;
-    left: 30%;
+/*    left: 30vh;*/
     transform: translateX(-50%);
     margin-top: 0;
     z-index: 2;
