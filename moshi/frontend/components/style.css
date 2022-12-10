@@ -55,7 +55,7 @@ header{
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
-    z-index: 2;
+    z-index: 7;
 
 
 
@@ -135,7 +135,8 @@ nav a:hover{
         gap: 1.5rem;
         transition: 1s;
         transform: translateX(100vh);
-        background-color: white;
+        background-color: rgb(255, 255, 255);
+        z-index: 3;
         
        
     }  

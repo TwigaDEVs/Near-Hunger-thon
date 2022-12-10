@@ -49,11 +49,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseLeave = () => {
-    // if (window.innerWidth < 900) {
-    //   setDropdown(false);
-    // } else {
-    //   setDropdown(false);
-    // }
+    if (window.innerWidth < 900) {
+      setDropdown(false);
+    } else {
+      setDropdown(false);
+    }
   };
 
   const handleDropdown = () => {
@@ -69,11 +69,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseLeave1 = () => {
-    // if (window.innerWidth < 900) {
-    //   setDropdownF(false);
-    // } else {
-    //   setDropdownF(false);
-    // }
+    if (window.innerWidth < 900) {
+      setDropdownF(false);
+    } else {
+      setDropdownF(false);
+    }
   };
 
   const handleDropdown1 = () => {
@@ -89,11 +89,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseLeave2 = () => {
-    // if (window.innerWidth < 900) {
-    //   setDropdownP(false);
-    // } else {
-    //   setDropdownP(false);
-    // }
+    if (window.innerWidth < 900) {
+      setDropdownP(false);
+    } else {
+      setDropdownP(false);
+    }
   };
 
   const handleDropdown2 = () => {
@@ -101,11 +101,11 @@ function Navbar({ isSignedIn, wallet }) {
   };
 
   const onMouseEnter3 = () => {
-    // if (window.innerWidth < 900) {
-    //   setDropdownM(true);
-    // } else {
-    //   setDropdownM(true);
-    // }
+    if (window.innerWidth < 900) {
+      setDropdownM(true);
+    } else {
+      setDropdownM(true);
+    }
   };
 
   const onMouseLeave3 = () => {
@@ -144,14 +144,6 @@ function Navbar({ isSignedIn, wallet }) {
             <Link> Invest</Link>
             {dropdown && <Dropdown />}
           </li>
-          <li
-            onClick={handleDropdown3}
-            onMouseEnter={onMouseEnter3}
-            onMouseLeave={onMouseLeave3}
-          >
-            <Link> Marketplace</Link>
-            {dropdownM && <MarketplaceDropdown />}
-          </li>
           <li>
             <CustomLink to="/my-investments"> My Investments</CustomLink>
           </li>
@@ -162,6 +154,14 @@ function Navbar({ isSignedIn, wallet }) {
           >
             <Link> Farmers </Link>
             {dropdownF && <DropdownF />}
+          </li>
+          <li
+            onClick={handleDropdown3}
+            onMouseEnter={onMouseEnter3}
+            onMouseLeave={onMouseLeave3}
+          >
+            <Link> Marketplace</Link>
+            {dropdownM && <MarketplaceDropdown />}
           </li>
 
           {isSignedIn ? (
@@ -185,17 +185,21 @@ function Navbar({ isSignedIn, wallet }) {
           <button onClick={showNavbar} className="close">
             <FaTimes />
           </button>
+
+          {isSignedIn ? (
+          <button onClick={signOut} className="log">
+            Log out
+          </button>
+        ) : (
+          <button onClick={signIn} className="log">
+            Log in
+          </button>
+        )}
+        
         </ul>
+
       </nav>
-      {isSignedIn ? (
-        <button onClick={signOut} className="log">
-          Log out
-        </button>
-      ) : (
-        <button onClick={signIn} className="log">
-          Log in
-        </button>
-      )}
+
 
       <button onClick={showNavbar} className="bars">
         <FaBars />
