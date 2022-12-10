@@ -9,7 +9,7 @@ function HireLand({ wallet, contractId, lands }) {
     <div className="invest" style={{ fontWeight: 200 }}>
       <h2> Farm Available for Hire</h2>
 
-      <div className="expla">
+      <div className="expla w3-auto">
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -18,8 +18,8 @@ function HireLand({ wallet, contractId, lands }) {
           five centuries,
         </p>
       </div>
-      <div className="ccn">
-      <div className="containerhire">
+      <div className="">
+      <div className="w3-row-padding">
       {Object.values(lands).map((land, index) => {
             if (land.contract_type == "lease") {
 
@@ -29,7 +29,7 @@ function HireLand({ wallet, contractId, lands }) {
                     }
 
                     return (
-                              <div className="card">
+                              <div className="w3-card w3-col l4">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>

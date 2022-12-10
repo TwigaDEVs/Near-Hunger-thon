@@ -13,7 +13,7 @@ function Partner({wallet,contractId,lands}) {
         </p>
       </div>
 
-      <div className="containerhire">
+      <div className="w3-row-padding">
       {Object.values(lands).map((land, index) => {
             if (land.contract_type == "partner") {
 
@@ -23,7 +23,7 @@ function Partner({wallet,contractId,lands}) {
                     }
 
                     return (
-                              <div className="card">
+                              <div className="w3-card w3-col l4">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>

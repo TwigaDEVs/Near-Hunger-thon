@@ -1,0 +1,11 @@
+.w3-modal-content{
+	color: white;
+}
+
+.w3-modal-content .w3-bar-item{
+	display: block;
+}
+
+.mobilenav a{
+	padding: 10px;
+}
