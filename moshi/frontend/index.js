@@ -29,7 +29,7 @@ window.onload = async () => {
   const isSignedIn = await wallet.startUp();
   const container = document.getElementById("root");
   const root = createRoot(container); // createRoot(container!) if you use TypeScript
-  window.isSignedIn = isSignedIn
+  window.walletisSignedIn = isSignedIn
 
   root.render(
     <BrowserRouter>

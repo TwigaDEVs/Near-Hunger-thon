@@ -37,7 +37,7 @@ function Footer() {
 
             <div>
                 <i className="fa fa-phone"></i>
-                <p>+1.555.555.5555</p>
+                <p>+254 111 942081</p>
             </div>
 
             <div>
