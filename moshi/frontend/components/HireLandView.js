@@ -3,9 +3,12 @@ import Footer from './Footer';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
 import Hire from './Hire';
+import axios, * as others from 'axios';
+
 
 
 function HireLandView({wallet,contractId}) {
+
 
     let [HireOpen, setHireOpen] = useState(false);
     const handleHireModal = () => {
@@ -29,6 +32,7 @@ function HireLandView({wallet,contractId}) {
   
     }
     , []);
+
   
       
    console.log(land)
@@ -38,6 +42,22 @@ function HireLandView({wallet,contractId}) {
       return wallet.viewMethod({ method: "get_land", args: {id: params.id}, contractId });
   
     }
+
+    const options = {
+        method: 'GET',
+        url: 'https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency',
+        params: {have: 'KES', want: 'USD', amount: '5000'},
+        headers: {
+          'X-RapidAPI-Key': '54eea67071msh5d04b63a80c9ed6p19c3fbjsnf2d88b51728a',
+          'X-RapidAPI-Host': 'currency-converter-by-api-ninjas.p.rapidapi.com'
+        }
+      };
+      
+      axios.request(options).then(function (response) {
+          console.log(response.data);
+      }).catch(function (error) {
+          console.error(error);
+      });
  
 
   return (

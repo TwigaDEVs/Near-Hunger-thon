@@ -4,7 +4,7 @@ import Footer from './Footer';
 
 function Profile({lands,wallet,contractId}) {
     const [profileModalOpen, setProfileModalOpen] = useState(false);
-    const [userProfile, setUserProfile] = useState({});
+    const [userProfile, setUserProfile] = useState([]);
     const user = useRef();
     const handleProfileModalOpen = () => {
         setProfileModalOpen(true);
@@ -20,7 +20,7 @@ function Profile({lands,wallet,contractId}) {
 
     useEffect(() => {
         viewProfile().then((data) => (setUserProfile(data)));
-        console.log(userProfile.first_name);
+        console.log(userProfile);
     }, [])
   return (
     <div>
@@ -40,17 +40,23 @@ function Profile({lands,wallet,contractId}) {
                 </button>
                 </div>
                 
-                <div className='names'>
-                    <p>Name: {userProfile.first_name + " " + userProfile.last_name}</p>
+                { userProfile ?
+                <div className='names '>
+                    <p>Name: { userProfile.first_name  + " " + userProfile.last_name}</p>
                     <p>Phone Number: {userProfile.phone_number}</p>
                     <p>Email: {userProfile.email }</p>
                 </div>
-
+                :
+                <div className='w3-center'>
+                    <p className='w3-text green'> Please Update your profile</p>
+                </div>
+                 
+                    }
                 <div className='w'>
                     <p> <a href='' className='twitter'><i className="fa fa-twitter" aria-hidden="true"></i></a>  </p>
                     <p> <a href='' className='facebook'><i className="fa fa-facebook" aria-hidden="true"></i></a></p>
                     <p> <a href='' className='insta'><i className="fa fa-instagram" aria-hidden="true"></i></a></p>
-                    <p> <a href='' className='you'><i class="fa fa-youtube-play" aria-hidden="true"></i></a> </p>
+                    <p> <a href='' className='you'><i className="fa fa-youtube-play" aria-hidden="true"></i></a> </p>
                 </div>
         </div>
         <Footer />
