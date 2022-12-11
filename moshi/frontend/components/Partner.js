@@ -1,5 +1,6 @@
 import React from 'react'
 import Footer from './Footer'
+import { Link } from "react-router-dom";
 
 function Partner({wallet,contractId,lands}) {
   return (
@@ -12,36 +13,48 @@ function Partner({wallet,contractId,lands}) {
         </p>
       </div>
 
-      <div className='hirecard'>
-            <div className='card'>
+      <div className="w3-row-padding">
+      {Object.values(lands).map((land, index) => {
+            if (land.contract_type == "partner") {
 
-            {Object.values(lands).map((land, index) => {
-                 
-                 if (land.contract_type == "partner"){
+
+                      const newTo = {
+                        pathname:"/partner-land-view/"+land.id,
+                    }
 
                     return (
-                        <div key={index} className="card-body">
-                            <div>
-                                <div>
-                                <img src={land.land_image} alt="lands for partanering"/>
+                              <div className="w3-card w3-col l4">
+                                <div className="card-header">
+                                  <img src={land.land_image} alt="rover" />
                                 </div>
-                                <h5> {land.land_owner} </h5>
-                                <div>
+                                <div className="card-body">
+                                  <span className="tag tag-teal">{land.land_location}</span>
+                                  <h4>
+                                  {land.land_owner}
+                                  </h4>
+                                  <p>
                                     {land.land_description}
+                                  </p>
+                                  <div>
+                                    <p>{land.land_price}</p>
+                                  </div>
+                                  <div className="user">
+                                    <div className="user-info">
+                                      <h5>
+                                        <button className="hire-btn">
+                                            <Link className="btn-h" to={newTo} > Hire</Link>
+                                        </button>
+                                      </h5>
+                                      <small>{land.land_lister}</small>
+                                    </div>
+                                  </div>
                                 </div>
-                                <p>{land.land_price}</p>
-                            </div>
-                
-    
-                            <hr />
-                        </div>
+                              </div>
                         );
 
-                 }
-
-                })}
-
-            </div>
+                      }
+     
+                     })}
       </div>
       <Footer />
     </div>

@@ -88,68 +88,24 @@ function PostFarm({ open, onclose, wallet, contractId }) {
   }
 
   return (
-    <div className="overlay">
-      <div className="modalContainer">
-        <div className="w3-text-green w3-padding-xlarge">
-          <h3 className="w3-padding">Post Farm</h3>
-          <button onClick={onclose} className="icon w3-right">
-            <i className="fa fa-times" aria-hidden="true"></i>
-          </button>
-          <hr style={{ border: "1px solid #ccc" }} />
-        </div>
-        <div>
-          <form onSubmit={addLand} className="postform">
-            <fieldset id="fieldset">
-              {/* <p>Sign the guest book, { currentAccountId }!</p> */}
-
-              <label>
-                <p>Name</p>
-                <input
-                  autoComplete="off"
-                  autoFocus
-                  id="landOwner"
-                  required
-                  name="name"
-                  className="w3-input w3-border w3-round"
-                />
-              </label>
-              <label>
-                <p>Farm Size</p>
-                <input
-                  autoComplete="off"
-                  autoFocus
-                  id="landSize"
-                  required
-                  name="land_size"
-                  className="w3-input w3-border w3-round"
-                />
-              </label>
-              <label>
-                <p> Short Description</p>
-                <textarea
-                  autoComplete="off"
-                  autoFocus
-                  id="landDescription"
-                  required
-                  name="description"
-                  className="w3-input w3-border w3-round"
-                />
-              </label>
-              <label>
-                <p>Land Location</p>
-                <input
-                  autoComplete="off"
-                  autoFocus
-                  id="landLocation"
-                  required
-                  name="location"
-                  className="w3-input w3-border w3-round"
-                />
-              </label>
-
-              <label htmlFor="contract">
-                <p>Contract Type</p>
-                <select
+    <div className="">
+      <div className="w3-modal">
+			<div className="w3-modal-content w3-white">
+				<div className="w3-container">
+					<span className="form-header">Post Farm</span>
+					<button className="w3-button w3-right w3-xlarge" onClick={onclose}>&times;</button>
+				</div>
+				<form id="farmInputs" className="w3-container" onSubmit={addLand}>
+					<label>Farm Owner</label>
+					<input className="w3-input w3-border w3-round" id="landOwner" required name="name"/>
+					<label>Farm Size</label>
+					<input className="w3-input w3-border w3-round" id="landSize" required/>
+					<label>Short Description</label>
+					<textarea className="w3-input w3-border w3-round" id="landDescription" required></textarea>
+					<label>Farm Location</label>
+					<input className="w3-input w3-border w3-round" id="landLocation" required/>
+          <label>Contract Type</label>
+          <select
                   autoComplete="off"
                   autoFocus
                   id="contractType"
@@ -160,42 +116,19 @@ function PostFarm({ open, onclose, wallet, contractId }) {
                   <option value="lease">Lease</option>
                   <option value="partner">partner</option>
                 </select>
-              </label>
-              <label>
-                <p>Contract Bid</p>
-                <input
-                  autoComplete="off"
-                  autoFocus
-                  id="landPrice"
-                  type="number"
-                  required
-                  name="contractbid"
-                  className="w3-input w3-border w3-round"
-                />
-              </label>
-              <label>
-                <p>Land Image</p>
-                <div className="image">
-                  <input
-                    autoComplete="off"
-                    autoFocus
-                    id="landImage"
-                    name="location"
-                    type={"file"}
-                    onChange={OnChangeFile}
-                    required
-                    className="w3-input w3-border-none w3-round"
-                  />
-                </div>
-              </label>
-
-              <div className="text">
-                <button type="submit">submit</button>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+          <label>Price</label>
+					<input className="w3-input w3-border w3-round" name="contractbid" required type="number" id = "landPrice"/>
+					<label>Input image</label>
+					<input className="w3-input w3-border w3-round" type={"file"} id="landImage" onChange={OnChangeFile}/>
+					<button className="w3-button w3-green w3-block" type="submit" >Save</button>
+					<br />
+					<br />
+					<div className="w3-right">
+						<button className="w3-button w3-red w3-round" onClick={onclose}>Close</button>
+					</div>
+				</form>
+			</div>
+		</div>  
     </div>
   );
 }

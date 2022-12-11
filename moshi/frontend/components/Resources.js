@@ -45,45 +45,46 @@ function Resources({wallet,contractId,lands}) {
         />
         <br />
       </div>
-      <div className="reso">
-
-          <div className='card'>
-
-                    {Object.values(resources).map((resource, index) => {
+          <div className="containerhire">
+          {Object.values(resources).map((resource, index) => {
                         
                         if (resource.request_farmer == wallet.accountId){
 
                             return (
-                                <div key={index} className="card-body">
-                                    <div>
-                                        <div>
-                                        <img src={resource.image_proof} alt="lands to lease"/>
-                                        </div>
-                                        <h5 className="r-header"> {resource.resource_name} </h5>
-                                        <div>
-                                            {resource.resource_description}
-                                        </div>
-                                        <p>{resource.contract_type}</p>
-                                    </div>
-
-                                    <div className="resource-btn">
+                              <div className="card">
+                                <div className="card-header">
+                                  <img src={resource.image_proof} alt="rover" />
+                                </div>
+                                <div className="card-body">
+                                  <h4>
+                                  {resource.resource_name}
+                                  </h4>
+                                  <p>
+                                  {resource.resource_description}
+                                  </p>
+                                  <div>
+                                    <p>{resource.contract_type}</p>
+                                  </div>
+                                  <div className="user">
+                                    <div className="user-info">
+                                      <h5>
+                                      <div className="resource-btn">
                                       <button>
                                         Provide Resource
                                       </button>
                                     </div>
-
-                                    <hr />
+                                      </h5>
+                                      <small>{resource.request_farmer}</small>
+                                    </div>
+                                  </div>
                                 </div>
-                                );
+                              </div>
+                        );
 
-                        }
-
-                        })}
-
-                    </div>
-
-      
-          </div>
+                      }
+     
+                     })}
+      </div>
       <Footer />
     </div>
   );

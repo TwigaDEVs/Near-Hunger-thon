@@ -7,12 +7,15 @@ import Dropdown from "./Dropdown";
 import DropdownF from "./DropdownF";
 import ProfileDropdown from "./ProfileDropdown";
 import MarketplaceDropdown from "./MarketplaceDropdown";
+import hambre from '../assets/hambre.png'
+import MobileNav from "./MobileNav";
 
 function Navbar({ isSignedIn, wallet }) {
   const [dropdown, setDropdown] = useState(false);
   const [dropdownF, setDropdownF] = useState(false);
   const [dropdownP, setDropdownP] = useState(false);
   const [dropdownM, setDropdownM] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const navRef = useRef();
 
@@ -87,6 +90,10 @@ function Navbar({ isSignedIn, wallet }) {
     }
   };
 
+  const handleCloseMobileNav = () => {
+    setMobileNavOpen(false);
+  }
+
   const onMouseLeave2 = () => {
     if (window.innerWidth < 900) {
       setDropdownP(false);
@@ -119,76 +126,182 @@ function Navbar({ isSignedIn, wallet }) {
     setDropdownM(!dropdownF);
   };
 
+  const handleOpenMobileBar = () => {
+    setMobileNavOpen(true);
+}
+
   return (
-    <header>
-      <Link to="/" className="site-title">
+    <>
+{/*    <header>
+      <Link to="/" className="site-title w3-bar">
         {" "}
-        Hambre{" "}
+        <i className="ser"><img src={hambre} className="logo"/></i> Hambre{" "}
       </Link>
-      <nav className="w3-padding">
-        <ul ref={navRef}>
-          <li>
+      <nav className="">
+        <ul>
+          <li className="w3-bar-item">
             <CustomLink to="/"> Home</CustomLink>
           </li>
-
-          <li
-            onClick={handleDropdown}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
+          <li className="w3-dropdown-hover"
           >
-            <Link> Invest</Link>
-            {dropdown && <Dropdown />}
+  
+  
+              <button className="w3-button">Invest</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/hire-land" className="w3-bar-item w3-button">Hire Farm</Link>
+                <Link to="/partner" className="w3-bar-item w3-button">Be a Partner</Link>
+                <Link to="/resources" className="w3-bar-item w3-button">Provide Resource</Link>
+              </div>
           </li>
-          <li
-            onClick={handleDropdown3}
-            onMouseEnter={onMouseEnter3}
-            onMouseLeave={onMouseLeave3}
-          >
-            <Link> Marketplace</Link>
-            {dropdownM && <MarketplaceDropdown />}
-          </li>
-          <li>
+          <li className="w3-bar-item">
             <CustomLink to="/my-investments"> My Investments</CustomLink>
           </li>
-          <li
-            onClick={handleDropdown1}
-            onMouseEnter={onMouseEnter1}
-            onMouseLeave={onMouseLeave1}
+          <li className="w3-bar-item w3-dropdown-hover"
           >
-            <Link> Farmers </Link>
-            {dropdownF && <DropdownF />}
+  
+  
+              <button className="w3-button">Farmers</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm</Link>
+                <Link to="/farm-resource" className="w3-bar-item w3-button">Post Farm Resource</Link>
+                <Link to="/my-investors" className="w3-bar-item w3-button">My Investors</Link>
+              </div>
           </li>
 
-          <li
-            onClick={handleDropdown2}
-            onMouseEnter={onMouseEnter2}
-            onMouseLeave={onMouseLeave2}
+          <li className="w3-dropdown-hover w3-bar-item"
           >
-            <Link className="profile">
-              <i className="fa fa-user" aria-hidden="true"></i> profile{" "}
-            </Link>
-            {dropdownP && <ProfileDropdown />}
+ 
+  
+              <button className="w3-button">Marketplace</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/farm-produce" className="w3-bar-item w3-button">Farm Products</Link>
+                <Link to="/farm-inputs" className="w3-bar-item w3-button">Farm Inputs</Link>
+              </div>
           </li>
+
+          {isSignedIn ? (
+            <li className="w3-dropdown-hover w3-bar-item"
+          >
+  
+              <button className="w3-button">Profile</button>
+              <div className="w3-dropdown-content w3-bar-block w3-border">
+                <Link to="/account" className="w3-bar-item w3-button">Account</Link>
+              </div>
+          </li>
+
+
+          ) : ( 
+            <Link >
+              
+            </Link>
+            )}
 
           <button onClick={showNavbar} className="close">
             <FaTimes />
           </button>
+
+          {isSignedIn ? (
+          <button onClick={signOut} className="log">
+            Log out
+          </button>
+        ) : (
+          <button onClick={signIn} className="log">
+            Log in
+          </button>
+        )}
+        
         </ul>
+
       </nav>
-      {isSignedIn ? (
-        <button onClick={signOut} className="log">
-          Log out
-        </button>
-      ) : (
-        <button onClick={signIn} className="log">
-          Log in
-        </button>
-      )}
+
 
       <button onClick={showNavbar} className="bars">
         <FaBars />
       </button>
+
     </header>
+*/}
+    <div className="w3-bar w3-card w3-text-green" style={{padding: "0px", margin: "0px"}}>
+      <Link to="/" className="w3-text-green" style={{fontWeight: 300, fontSize: "22px"}}>
+        <i className="ser" style={{padding: "0px", margin: "0px", fontStyle: "bold"}}><img src={hambre} className="logo"/></i> Hambre
+      </Link>
+      <div className="w3-right" style={{marginTop: "8px"}}>
+        <a className="w3-bar-item w3-hide-small">
+          <CustomLink className="w3-text-green" to="/"> Home</CustomLink>
+        </a>
+         <a className="w3-dropdown-hover w3-hide-small w3-bar-item w3-text-green"
+          >
+  
+              Invest
+              <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
+                <Link to="/hire-land" className="w3-bar-item w3-button">Hire Farm</Link>
+                <Link to="/partner" className="w3-bar-item w3-button">Be a Partner</Link>
+                <Link to="/resources" className="w3-bar-item w3-button">Provide Resource</Link>
+              </div>
+          </a>
+          <a className="w3-bar-item w3-hide-small"><CustomLink to="/my-investments" className="w3-text-green"> My Investments</CustomLink></a>
+          <a className="w3-text-green w3-bar-item w3-hide-small w3-dropdown-hover"
+          >
+  
+  
+              Farmers
+              <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
+                <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm</Link>
+                <Link to="/farm-resource" className="w3-bar-item w3-button">Post Farm Resource</Link>
+                <Link to="/my-investors" className="w3-bar-item w3-button">My Investors</Link>
+              </div>
+          </a>
+          <a className="w3-text-green w3-hide-small w3-dropdown-hover w3-bar-item"
+          >
+ 
+  
+              Marketplace
+              <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
+                <Link to="/farm-produce" className="w3-bar-item w3-button">Farm Products</Link>
+                <Link to="/farm-inputs" className="w3-bar-item w3-button">Farm Inputs</Link>
+              </div>
+          </a>
+                    {isSignedIn ? (
+            <a className="w3-dropdown-hover w3-hide-small w3-text-green w3-bar-item"
+          >
+  
+              Profile
+              <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
+                <Link to="/account" className="w3-bar-item w3-button">Account</Link>
+              </div>
+          </a>
+
+
+          ) : ( 
+            <Link >
+              
+            </Link>
+            )}
+
+         {/* <button onClick={showNavbar} className="close">
+            <FaTimes />
+          </button>*/}
+
+          {isSignedIn ? (
+          <button onClick={signOut} className="w3-bar-item w3-hide-small w3-green" style={{padding: "9px", margin: "0px"}}>
+            Log out
+          </button>
+        ) : (
+          <button onClick={signIn} className="log">
+            Log in
+          </button>
+        )}
+
+        <a className="w3-hide-large w3-hide-medium w3-bar-item"  onClick={handleOpenMobileBar}><FaBars /></a>
+        {mobileNavOpen && (<MobileNav handleCloseMobileNav={handleCloseMobileNav} signOut={signOut} CustomLink={CustomLink} signIn={signIn} />)}
+
+      </div>
+      
+
+    </div>
+
+
+      </>
   );
 }
 

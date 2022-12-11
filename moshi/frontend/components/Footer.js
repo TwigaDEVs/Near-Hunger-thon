@@ -1,5 +1,6 @@
 import React from 'react'
 import './footer.css'
+import hambre from '../assets/hambre.png'
 
 function Footer() {
   return (
@@ -8,7 +9,7 @@ function Footer() {
 
         <div className="footer-left">
 
-            <h3>Company<span>logo</span></h3>
+            <h3>Hambre<span><img src={hambre} className="logo"/></span></h3>
 
             <p className="footer-links">
                 <a href="#" className="link-1">Home</a>
@@ -24,19 +25,19 @@ function Footer() {
                 <a href="#">Contact</a>
             </p>
 
-            <p className="footer-company-name">Company Name © 2015</p>
+            <p className="footer-company-name">Hambre © 2022</p>
         </div>
 
         <div className="footer-center">
 
             <div>
                 <i className="fa fa-map-marker"></i>
-                <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+                <p><span>444 S. Lorem ipsum</span> Nairobi, Kenya</p>
             </div>
 
             <div>
                 <i className="fa fa-phone"></i>
-                <p>+1.555.555.5555</p>
+                <p>+254 111 942081</p>
             </div>
 
             <div>

@@ -18,6 +18,10 @@ import Resources from './components/Resources';
 import FarmResource from './components/FarmResource'
 import FarmInputs from './components/FarmInputs';
 import FarmProduce from './components/FarmProduce';
+import HireLandView from './components/HireLandView';
+import PartnerLandDetails from './components/PartnerLandDetails';
+import ProductView from './components/ProductView';
+import InputView from './components/InputView';
 
 
 export default function App({ isSignedIn, contractId, wallet }) {
@@ -90,7 +94,10 @@ export default function App({ isSignedIn, contractId, wallet }) {
           <Route path="/farm-resource" element = {<FarmResource wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/farm-inputs" element = {<FarmInputs wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/farm-produce" element = {<FarmProduce wallet={wallet} contractId={contractId} lands={lands} />} />
-
+          <Route path="/hire-land-view/:id" element = {<HireLandView wallet={wallet} contractId={contractId} lands={lands} />} />
+          <Route path="/partner-land-view/:id" element = {<PartnerLandDetails wallet={wallet} contractId={contractId} lands={lands} />} />
+          <Route path="/produce-view/:id" element = {<ProductView wallet={wallet} contractId={contractId} lands={lands} />} />
+          <Route path="/farm-input/:id" element = {<InputView wallet={wallet} contractId={contractId} lands={lands} />} />
         </Routes>
 
       </div>
