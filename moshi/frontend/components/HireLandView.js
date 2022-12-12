@@ -24,6 +24,7 @@ function HireLandView({wallet,contractId}) {
 
 
     const [land, setLand] = useState([]);
+    
 
   
     useEffect(() => {
@@ -43,22 +44,8 @@ function HireLandView({wallet,contractId}) {
   
     }
 
-    const options = {
-        method: 'GET',
-        url: 'https://currency-converter-by-api-ninjas.p.rapidapi.com/v1/convertcurrency',
-        params: {have: 'KES', want: 'USD', amount: '5000'},
-        headers: {
-          'X-RapidAPI-Key': '54eea67071msh5d04b63a80c9ed6p19c3fbjsnf2d88b51728a',
-          'X-RapidAPI-Host': 'currency-converter-by-api-ninjas.p.rapidapi.com'
-        }
-      };
-      
-      axios.request(options).then(function (response) {
-          console.log(response.data);
-      }).catch(function (error) {
-          console.error(error);
-      });
- 
+
+    const near = "1000000000000000000000000";
 
   return (
     <>
@@ -98,7 +85,7 @@ function HireLandView({wallet,contractId}) {
             </div>
 
             <div>
-                {HireOpen && <Hire onHandleHireModal={closeModal} />}
+                {HireOpen && <Hire onHandleHireModal={closeModal} land={land} wallet={wallet} contractId={contractId}/>}
             </div>
 
             </div>
