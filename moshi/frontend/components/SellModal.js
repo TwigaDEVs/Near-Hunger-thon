@@ -47,7 +47,7 @@ const SellModal = (props) => {
 	//   produce_description: String,
 	//   produce_quantity: String,
 	//   produce_image: String,
-	//   produce_price:u64,
+	//   produce_price:u128,
 	//   produce_sold:bool,
 	//   produce_owner:AccountId,
   

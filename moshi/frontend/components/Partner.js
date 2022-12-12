@@ -7,13 +7,13 @@ function Partner({wallet,contractId,lands}) {
     <div className='invest'>
       <h2> Farm Available for Patnering</h2>
 
-      <div className='expla'>
+      <div className='expla' style={{marginLeft: "10%", marginRight: "10%"}}>
         <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
         </p>
       </div>
 
-      <div className="w3-row-padding">
+      <div className="w3-row-padding w3-stretch" style={{marginLeft: "10%", marginRight: "10%"}}>
       {Object.values(lands).map((land, index) => {
             if (land.contract_type == "partner") {
 
@@ -23,7 +23,8 @@ function Partner({wallet,contractId,lands}) {
                     }
 
                     return (
-                              <div className="w3-card w3-col l4">
+                            <div className="w3-col l4">
+                              <div className="w3-card">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>
@@ -49,6 +50,7 @@ function Partner({wallet,contractId,lands}) {
                                     </div>
                                   </div>
                                 </div>
+                              </div>
                               </div>
                         );
 

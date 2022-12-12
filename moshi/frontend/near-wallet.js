@@ -3,6 +3,7 @@
 // near api js
 import { providers } from 'near-api-js';
 
+
 // wallet selector UI
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';

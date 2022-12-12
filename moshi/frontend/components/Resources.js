@@ -28,7 +28,7 @@ function Resources({wallet,contractId,lands}) {
   return (
     <div>
       <h2>Farmers who need Resources</h2>
-      <div className="expla">
+      <div className="expla" style={{marginLeft: "10%", marginRight: "10%"}}>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
