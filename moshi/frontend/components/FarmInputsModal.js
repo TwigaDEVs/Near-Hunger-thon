@@ -49,7 +49,7 @@ const FarmInputsModal = (props) => {
 	//   input_description: String,
 	//   input_quantity: String,
 	//   input_image: String,
-	//   input_price:u64,
+	//   input_price:u128,
 	//   input_sold:bool,
 	//   input_owner:AccountId,
 	  wallet

@@ -43,9 +43,9 @@ const InputView = ({wallet,contractId}) => {
         <div>
             {inputBuyOpen && <InputBuy onhandleInputBuyModal={closeModal} input={input} wallet={wallet}/>}
         </div>
-        <div class="w3-card ros">
+        <div className="w3-card ros">
             <img src={input.input_image} alt="Alps" />
-            <div class="w3-container w3-center">
+            <div className="w3-container w3-center">
                 <h4 className='w3-text-green'> {input.input_name} </h4>
                 <p>{input.input_description}</p>
                 <div>

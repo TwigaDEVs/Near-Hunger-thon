@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, AccountId, Balance,log, near_bindgen};
+use near_sdk::{env, AccountId, Balance,Promise,log, near_bindgen};
 use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
 
@@ -28,7 +28,7 @@ pub struct FarmInputList {
     input_description: String,
     input_quantity: String,
     input_image: String,
-    input_price:u64,
+    input_price:u128,
     input_sold:bool,
     input_owner:AccountId,
 
@@ -43,7 +43,7 @@ pub struct FarmProduceList {
     produce_description: String,
     produce_quantity: String,
     produce_image: String,
-    produce_price:u64,
+    produce_price:u128,
     produce_sold:bool,
     produce_owner:AccountId,
 
@@ -77,10 +77,21 @@ pub struct Land {
     land_image: String,
     land_description:String,
     land_location:String,
-    land_price:u64,
+    land_price:u128,
     contract_type:String,
     availability:bool,
     land_lister: AccountId,
+}
+
+
+#[derive(BorshDeserialize, BorshSerialize, Serialize)]
+#[serde(crate = "near_sdk::serde")]
+pub struct Agreement {
+    party_one: String,
+    party_two: AccountId,
+    object_id: String,
+    amount:u128,
+    contra_type:String,
 }
 
 
@@ -93,12 +104,13 @@ pub struct Hambre{
     resources: HashMap<String,ResourceList>,
     produces: HashMap<String,FarmProduceList>,
     inputs: HashMap<String,FarmInputList>,
+    agreements: HashMap<String,Agreement>,
 }
 
 
 impl Default for Hambre{
     fn default() -> Self {
-      Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new()}
+      Self{lands: HashMap::new(),users:HashMap::new(),resources:HashMap::new(),produces:HashMap::new(),inputs:HashMap::new(),agreements:HashMap::new()}
     }
   }
 
@@ -139,7 +151,7 @@ impl Hambre {
     // Public method - accepts a land listing
     pub fn add_lands(&mut self,id:String, land_owner: String,
         land_size: String,land_image: String,land_description:String,
-        land_location:String,land_price:u64,contract_type:String,
+        land_location:String,land_price:u128,contract_type:String,
     ) {
         log!("Adding land {}", land_owner);
 
@@ -154,7 +166,7 @@ impl Hambre {
 
     pub fn update_land(&mut self,id:String, land_owner: String,
         land_size: String,land_image: String,land_description:String,
-        land_location:String,land_price:u64,contract_type:String,){
+        land_location:String,land_price:u128,contract_type:String,){
         
             let land_lister = env::predecessor_account_id();
 
@@ -169,9 +181,10 @@ impl Hambre {
     }
 
     #[payable]
-    pub fn hire_land(&mut self,id:String){
+    pub fn hire_land(&mut self,id:String,price:f64){
 
       let id_copy = id.clone();
+      let id_copy1 = id.clone();
 
       let hired_land = &self.lands[&id];
 
@@ -187,43 +200,98 @@ impl Hambre {
       let land_location = &hired_land.land_location;
       let land_price = &hired_land.land_price;
       let contract_type = &hired_land.contract_type;
+      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+
+      let party_one = &hired_land.land_lister;
+      let party_two = env::predecessor_account_id();
+      let object_id = id.clone();
+      let amount = price.clone();
+      let contra_type = &hired_land.contract_type;
+      let acc = party_one.clone();
+      let amount_transfer = amount.clone();
+
+      let price_hired = land_price.clone();
+    
 
       let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
                             land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
                           land_location: land_location.to_string(),land_price: *land_price,contract_type: contract_type.to_string(),availability,land_lister};
 
+      let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: price_hired, contra_type: contra_type.to_string()};
+
+      let account_id: AccountId = (acc.to_string()).parse().unwrap();
+
+
+
+      let new_to = (amount_transfer)*a_near;
+      let new_to = new_to as u128;
+
+
+      Promise::new(account_id).transfer(new_to);
+
+      self.agreements.insert(id_copy1,agree);
+
       self.lands.insert(id_copy,land_hired);
+
 
     }
 
     #[payable]
-    pub fn partner_land(&mut self,id:String){
+    pub fn partner_land(&mut self,id:String,price:f64){
 
       let id_copy = id.clone();
+      let id_copy1 = id.clone();
 
-      let hired_land = &self.lands[&id];
+      let part_land = &self.lands[&id];
 
       let land_lister = env::predecessor_account_id();
 
       let availability = false;
 
-      let id = &hired_land.id;
-      let land_owner = &hired_land.land_owner;
-      let land_size =  &hired_land.land_size;
-      let land_image = &hired_land.land_image;
-      let land_description= &hired_land.land_description;
-      let land_location = &hired_land.land_location;
-      let land_price = &hired_land.land_price;
-      let contract_type = &hired_land.contract_type;
+      let id = &part_land.id;
+      let land_owner = &part_land.land_owner;
+      let land_size =  &part_land.land_size;
+      let land_image = &part_land.land_image;
+      let land_description= &part_land.land_description;
+      let land_location = &part_land.land_location;
+      let land_price = &part_land.land_price;
+      let contract_type = &part_land.contract_type;
+      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+
+      let party_one = &part_land.land_lister;
+      let party_two = env::predecessor_account_id();
+      let object_id = id.clone();
+      let amount = price.clone();
+      let contra_type = &part_land.contract_type;
+      let price_partner = &part_land.land_price;
+
+      let acc = party_one.clone();
+      let amount_transfer = amount.clone();
 
       let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
                             land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
                           land_location: land_location.to_string(),land_price: *land_price,contract_type: contract_type.to_string(),availability,land_lister};
 
+      
+      let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *price_partner, contra_type: contra_type.to_string()};
+
+
+      let account_id: AccountId = (acc.to_string()).parse().unwrap();
+
+      let new_to = (amount_transfer)*a_near;
+      let new_to = new_to as u128;
+
+
+      Promise::new(account_id).transfer(new_to);
+
+      self.agreements.insert(id_copy1,agree);
+
+      
       self.lands.insert(id_copy,land_hired);
 
     }
 
+    
     pub fn total_lands(&self) -> usize {self.lands.len()}
 
         // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
@@ -232,7 +300,7 @@ impl Hambre {
       }
   
       // Public method - accepts a greeting, such as "howdy", and records it
-      pub fn add_inputs(&mut self,id:String, input_name: String, input_description: String,input_quantity: String,input_image: String,input_price: u64) {
+      pub fn add_inputs(&mut self,id:String, input_name: String, input_description: String,input_quantity: String,input_image: String,input_price: u128) {
           log!("Adding product {}", input_name);
   
           let m_i:String = id.clone();
@@ -249,9 +317,10 @@ impl Hambre {
       pub fn total_inputs(&self) -> usize {self.inputs.len()}
   
       #[payable]
-      pub fn buy_input(&mut self,id:String){
+      pub fn buy_input(&mut self,id:String,price:f64){
   
         let key_copy = id.clone();
+        let key_copy1 = id.clone();
   
         let  input_buy = &self.inputs[&id];
   
@@ -265,11 +334,36 @@ impl Hambre {
         let input_quantity = &input_buy.input_quantity;
         let input_image =&input_buy.input_image;
         let input_price = &input_buy.input_price;
+        let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+
+        let party_one = &input_buy.input_owner;
+        let party_two = env::predecessor_account_id();
+        let object_id = id.clone();
+        let amount = price.clone();
+        let contra_type = "Bought Farm Input".to_string();
+        let price_pay = &input_buy.input_price;
+
+        let acc = party_one.clone();
+        let amount_transfer = amount.clone();
+  
   
         let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
                                         input_quantity: input_quantity.to_string(),input_image: input_image.to_string(),input_price: *input_price
                                        ,input_sold,input_owner};
-          self.inputs.insert(key_copy,input_bought);
+
+        let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *price_pay, contra_type};
+
+        let account_id: AccountId = (acc.to_string()).parse().unwrap();
+
+        let new_to = (amount_transfer)*a_near;
+        let new_to = new_to as u128;
+  
+  
+        Promise::new(account_id).transfer(new_to);
+
+        self.agreements.insert(key_copy1,agree);
+          
+        self.inputs.insert(key_copy,input_bought);
       } 
 
           // Public method - returns the greeting saved, defaulting to DEFAULT_MESSAGE
@@ -278,7 +372,7 @@ impl Hambre {
   }
 
   // Public method - accepts a greeting, such as "howdy", and records it
-  pub fn add_produces(&mut self,id:String, produce_name: String, produce_description: String,produce_quantity: String,produce_image: String,produce_price: u64) {
+  pub fn add_produces(&mut self,id:String, produce_name: String, produce_description: String,produce_quantity: String,produce_image: String,produce_price: u128) {
       log!("Adding product {}", produce_name);
 
       let m_p:String = id.clone();
@@ -293,9 +387,11 @@ impl Hambre {
 }
 
     #[payable]
-    pub fn buy_produce(&mut self,id:String){
+    pub fn buy_produce(&mut self,id:String, price:f64){
       
       let key_copy = id.clone();
+      let key_copy1 = id.clone();
+
 
       let  produce_buy = &self.produces[&id];
 
@@ -309,11 +405,36 @@ impl Hambre {
       let produce_quantity = &produce_buy.produce_quantity;
       let produce_image =&produce_buy.produce_image;
       let produce_price = &produce_buy.produce_price;
+      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+
+
+      let party_one = &produce_buy.produce_owner;
+      let party_two = env::predecessor_account_id();
+      let object_id = id.clone();
+      let amount = price.clone();
+      let contra_type = "Bought Farm produce".to_string();
+
+      let acc = party_one.clone();
+      let amount_transfer = amount.clone();
+      let price_pay = &produce_buy.produce_price;
 
       let produce_bought = FarmProduceList{id: id.to_string(),produce_name: produce_name.to_string(),produce_description: produce_description.to_string(),
                                       produce_quantity: produce_quantity.to_string(),produce_image: produce_image.to_string(),produce_price: *produce_price
                                     ,produce_sold,produce_owner};
-        self.produces.insert(key_copy,produce_bought);
+
+      let agree = Agreement{party_one: party_one.to_string(),party_two,object_id,amount: *price_pay, contra_type};
+
+      let account_id: AccountId = (acc.to_string()).parse().unwrap();
+
+      let new_to = (amount_transfer)*a_near;
+      let new_to = new_to as u128;
+
+
+      Promise::new(account_id).transfer(new_to);
+
+      self.agreements.insert(key_copy1,agree);
+      
+      self.produces.insert(key_copy,produce_bought);
     }
 
   pub fn total_produces(&self) -> usize {self.produces.len()}
@@ -343,13 +464,25 @@ impl Hambre {
 
   pub fn total_resources(&self) -> usize {self.resources.len()}
 
+  pub fn get_agreements(&self) -> &HashMap<String,Agreement> {
+    &self.agreements
 }
 
+  pub fn get_agreement(&self,id:String) -> &Agreement{
+    &self.agreements[&id]
+}
+
+  pub fn total_agreements(&self) -> usize {self.agreements.len()}
+
+
+
+}
 
 /*
  * The rest of this file holds the inline tests for the code above
  * Learn more about Rust tests: https://doc.rust-lang.org/book/ch11-01-writing-tests.html
  */
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -358,7 +491,7 @@ mod tests {
     #[test]
     fn add_input() {
       let mut contract = Hambre::default();
-      let p:u64 = 12000;
+      let p:u128 = 10;
       let id:String = "1".to_string();
       let y:String = id.clone();
       let z:String = id.clone();
@@ -378,15 +511,16 @@ mod tests {
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
       
-      let p1:u64 = 1000;
-      let p2:u64 = 2000;
-      let p3:u64 = 1000;
+      let p1:u128 = 10;
+      let p2:u128 = 20;
+      let p3:u128 = 10;
 
       let x:String = id3.clone();
       let s:String = id3.clone();
       let g:String = id3.clone();
       let z:String = id3.clone();
       let b:String = id3.clone();
+      let ps3:f64 = 10.0;
 
       contract.add_inputs(id1,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p1);
       contract.add_inputs(id2,"Banana".to_string(),"input des 1".to_string(),"Quantity 1".to_string(),"image urls 2".to_string(), p2);
@@ -405,7 +539,7 @@ mod tests {
       assert_eq!(get_input_i.input_sold,false);
 
 
-      contract.buy_input(s);
+      contract.buy_input(s,ps3);
 
       let get_input_bought = &contract.get_input(b);
 
@@ -416,7 +550,7 @@ mod tests {
     #[test]
     fn add_produce() {
       let mut contract = Hambre::default();
-      let p:u64 = 12000;
+      let p:u128 = 10;
       let id:String = "1".to_string();
       let y:String = id.clone();
       let z:String = id.clone();
@@ -436,14 +570,15 @@ mod tests {
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
       
-      let p1:u64 = 1000;
-      let p2:u64 = 2000;
-      let p3:u64 = 1000;
+      let p1:u128 = 10;
+      let p2:u128 = 20;
+      let p3:u128 = 10;
       let x:String = id3.clone();
       let g:String = id3.clone();
       let z:String = id3.clone();
       let s:String = id3.clone();
       let b:String = id3.clone();
+      let bs:f64 = 10.0;
 
       contract.add_produces(id1,"Tomato".to_string(),"input des".to_string(),"Quantity".to_string(),"image urls".to_string(), p1);
       contract.add_produces(id2,"Banana".to_string(),"input des 1".to_string(),"Quantity 1".to_string(),"image urls 2".to_string(), p2);
@@ -461,7 +596,7 @@ mod tests {
 
       assert_eq!(get_produce_p.produce_sold,false);
 
-      contract.buy_produce(s);
+      contract.buy_produce(s,bs);
 
       let get_produce_bought = &contract.get_produce(b);
 
@@ -574,7 +709,7 @@ mod tests {
     #[test]
     fn add_land() {
       let mut contract = Hambre::default();
-      let p:u64 = 12000;
+      let p:u128 = 10;
       let id:String = "1".to_string();
       let y:String = id.clone();
       let z:String = id.clone();
@@ -583,7 +718,7 @@ mod tests {
     //   pub land_image: String,
     //   pub land_description:String,
     //   pub land_location:String,
-    //   pub land_price:u64,
+    //   pub land_price:u128,
     //   pub contract_type:String,
       contract.add_lands(
         id,"Kagwe".to_string(),"!/4 Acre".to_string(),
@@ -604,18 +739,22 @@ mod tests {
       let id2:String = "2".to_string();
       let id3:String = "3".to_string();
       
-      let p1:u64 = 1000;
-      let p2:u64 = 2000;
-      let p3:u64 = 1000;
+      let p1:u128 = 10;
+      let p2:u128 = 20;
+
+      let p3:u128 = 10;
       let x:String = id3.clone();
       let g:String = id3.clone();
       let l:String = id2.clone();
       let u:String = id2.clone();
       let lu:String = id2.clone();
       let lh:String =  id2.clone();
+      let la:String =  id2.clone();
       let h:String =  id2.clone();
       let pl:String =  id2.clone();
       let p:String =  id2.clone();
+      let px:f64 = 20.0;
+      let pxx2:f64 = 20.0;
 
 
       contract.add_lands(id1,"Felix".to_string(),"1 acre".to_string(),"Land Url".to_string(),"land desc 1".to_string(),"Maseno".to_string(),p1,"Partner".to_string());
@@ -640,29 +779,40 @@ mod tests {
 
       
       let land_updated = &contract_update.get_land(lu);
+
+  
       
       assert_eq!(land_updated.unwrap().land_owner,"Onchezz".to_string());
 
       let total_with_update = &contract_update.total_lands();
       assert!(*total == 3);
 
-      contract_update.hire_land(lh);
+      contract_update.hire_land(lh,pxx2);
 
       let hired = &contract_update.get_land(h);
 
 
       assert_eq!(hired.unwrap().availability,false);
 
-      contract_update.hire_land(pl);
+      contract_update.hire_land(pl,pxx2);
 
       let parter = &contract_update.get_land(p);
 
       assert_eq!(parter.unwrap().availability,false);
-      
 
 
+      let ag = &contract_update.total_agreements();
 
+      assert!(*ag == 1);
 
+      let ad_id = &contract_update.get_agreement(la);
+
+      let p_2 = env::predecessor_account_id();
+      let p_1 = p_2.clone();
+
+      assert_eq!(ad_id.party_two,p_2);
+
+ 
 
     }
 

@@ -55,7 +55,7 @@ function PostFarm({ open, onclose, wallet, contractId }) {
     // pub land_image: String,
     // pub land_description:String,
     // pub land_location:String,
-    // pub land_price:u64,
+    // pub land_price:u128,
     // pub contract_type:String,
     // pub availability:bool,
     // pub land_lister: AccountId,
