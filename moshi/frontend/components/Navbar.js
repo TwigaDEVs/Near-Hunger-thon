@@ -132,96 +132,8 @@ function Navbar({ isSignedIn, wallet }) {
 
   return (
     <>
-{/*    <header>
-      <Link to="/" className="site-title w3-bar">
-        {" "}
-        <i className="ser"><img src={hambre} className="logo"/></i> Hambre{" "}
-      </Link>
-      <nav className="">
-        <ul>
-          <li className="w3-bar-item">
-            <CustomLink to="/"> Home</CustomLink>
-          </li>
-          <li className="w3-dropdown-hover"
-          >
-  
-  
-              <button className="w3-button">Invest</button>
-              <div className="w3-dropdown-content w3-bar-block w3-border">
-                <Link to="/hire-land" className="w3-bar-item w3-button">Hire Farm</Link>
-                <Link to="/partner" className="w3-bar-item w3-button">Be a Partner</Link>
-                <Link to="/resources" className="w3-bar-item w3-button">Provide Resource</Link>
-              </div>
-          </li>
-          <li className="w3-bar-item">
-            <CustomLink to="/my-investments"> My Investments</CustomLink>
-          </li>
-          <li className="w3-bar-item w3-dropdown-hover"
-          >
-  
-  
-              <button className="w3-button">Farmers</button>
-              <div className="w3-dropdown-content w3-bar-block w3-border">
-                <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm</Link>
-                <Link to="/farm-resource" className="w3-bar-item w3-button">Post Farm Resource</Link>
-                <Link to="/my-investors" className="w3-bar-item w3-button">My Investors</Link>
-              </div>
-          </li>
-
-          <li className="w3-dropdown-hover w3-bar-item"
-          >
- 
-  
-              <button className="w3-button">Marketplace</button>
-              <div className="w3-dropdown-content w3-bar-block w3-border">
-                <Link to="/farm-produce" className="w3-bar-item w3-button">Farm Products</Link>
-                <Link to="/farm-inputs" className="w3-bar-item w3-button">Farm Inputs</Link>
-              </div>
-          </li>
-
-          {isSignedIn ? (
-            <li className="w3-dropdown-hover w3-bar-item"
-          >
-  
-              <button className="w3-button">Profile</button>
-              <div className="w3-dropdown-content w3-bar-block w3-border">
-                <Link to="/account" className="w3-bar-item w3-button">Account</Link>
-              </div>
-          </li>
-
-
-          ) : ( 
-            <Link >
-              
-            </Link>
-            )}
-
-          <button onClick={showNavbar} className="close">
-            <FaTimes />
-          </button>
-
-          {isSignedIn ? (
-          <button onClick={signOut} className="log">
-            Log out
-          </button>
-        ) : (
-          <button onClick={signIn} className="log">
-            Log in
-          </button>
-        )}
-        
-        </ul>
-
-      </nav>
-
-
-      <button onClick={showNavbar} className="bars">
-        <FaBars />
-      </button>
-
-    </header>
-*/}
     <div className="w3-bar w3-card w3-text-green" style={{padding: "0px", margin: "0px"}}>
+      <div className="w3-auto" style={{marginLeft: "10%", marginRight: "10%"}}>
       <Link to="/" className="w3-text-green" style={{fontWeight: 300, fontSize: "22px"}}>
         <i className="ser" style={{padding: "0px", margin: "0px", fontStyle: "bold"}}><img src={hambre} className="logo"/></i> Hambre
       </Link>
@@ -300,7 +212,7 @@ function Navbar({ isSignedIn, wallet }) {
 
     </div>
 
-
+      </div>
       </>
   );
 }
