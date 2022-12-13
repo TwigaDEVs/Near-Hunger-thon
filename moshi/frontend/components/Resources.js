@@ -30,11 +30,7 @@ function Resources({wallet,contractId,lands}) {
       <h2>Farmers who need Resources</h2>
       <div className="expla" style={{marginLeft: "10%", marginRight: "10%"}}>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries,
+            The following farmers are looking for potential investors who will provide the listed resource.
         </p>
       </div>
       <div className="right">
@@ -51,7 +47,7 @@ function Resources({wallet,contractId,lands}) {
                         if (resource.request_farmer == wallet.accountId){
 
                             return (
-                              <div className="card">
+                              <div key={index} className="card sol">
                                 <div className="card-header">
                                   <img src={resource.image_proof} alt="rover" />
                                 </div>

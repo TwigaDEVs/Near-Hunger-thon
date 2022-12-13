@@ -25,7 +25,7 @@ function HireLand({ wallet, contractId, lands }) {
 
               return (
                 <div key={index} className="w3-col l4 m6">
-                  <div className="w3-card">
+                  <div className="w3-card sol">
                     <div className="card-header">
                       <img src={land.land_image} alt="rover" />
                     </div>

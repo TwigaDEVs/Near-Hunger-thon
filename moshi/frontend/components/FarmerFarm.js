@@ -23,7 +23,7 @@ function FarmerFarm({ wallet, contractId, lands }) {
         contractId={contractId}
       />
 
-      <div className="containerhire">
+      <div className="w3-row-padding w3-stretch">
       {Object.values(lands).map((land, index) => {
             if (land.land_lister == wallet.accountId) {
 
@@ -33,7 +33,8 @@ function FarmerFarm({ wallet, contractId, lands }) {
                     }
 
                     return (
-                              <div key={index} className="card">
+                              <div key={index} className="w3-col sol l4 m6">
+                                <div className="">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>
@@ -61,6 +62,8 @@ function FarmerFarm({ wallet, contractId, lands }) {
                                     </div>
                                   </div>
                                 </div>
+                                </div>
+
                               </div>
                         );
 

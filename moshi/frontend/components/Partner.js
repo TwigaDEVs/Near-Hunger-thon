@@ -9,7 +9,7 @@ function Partner({wallet,contractId,lands}) {
 
       <div className='expla' style={{marginLeft: "10%", marginRight: "10%"}}>
         <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+        The following farms are looking for potential investors. Choose a farm to invest and become a partner with a farmer.
         </p>
       </div>
 
@@ -24,7 +24,7 @@ function Partner({wallet,contractId,lands}) {
 
                     return (
                             <div key={index} className="w3-col l4">
-                              <div  className="w3-card">
+                              <div  className="w3-card sol">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>
