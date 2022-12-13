@@ -7,6 +7,8 @@ import {nearConnectB} from './NearAccount';
 function Profile({lands,wallet,contractId}) {
 
     const [profileModalOpen, setProfileModalOpen] = useState(false);
+    
+    const [sacts, setCompletedTransactions] = useState([]); 
     const [userProfile, setUserProfile] = useState([]);
     const [conn,setConnect] = useState("");
     const [bal,setBalance] = useState("");
@@ -34,6 +36,7 @@ function Profile({lands,wallet,contractId}) {
         viewProfile().then((data) => (setUserProfile(data)));
         console.log(userProfile);
         newConnectBalance.nearConnect().then(setBalance1);
+        getAgreements().then(setCompletedTransactions);
        
        
 
@@ -46,6 +49,11 @@ function Profile({lands,wallet,contractId}) {
 console.log("bal 1", bal1)
 
 const near = "1000000000000000000000000";
+
+function getAgreements() {
+    return wallet.viewMethod({ method: "get_agreements", contractId });
+
+  }
 
 
     
@@ -113,7 +121,51 @@ const near = "1000000000000000000000000";
                 </div>
         </div>
 
+        <div className='w3-center w3-padding'>
+
+            <h5 className='w3-green w3-padding'> Recent Activity </h5>
+
+            {Object.values(sacts).map((sact, index) => {
+            if (sact.party_one == wallet.accountId || sact.party_two == wallet.accountId) {
+//               const newTo = {
+//                 pathname: "/hire-land-view/" + land.id,
+//               };
+// // 
+                        return (
+                    <div key={index} className="w3-card-4 w3-margin">
+
+                            <header className="w3-container w3-light-grey">
+                            <h3>Transaction : {sact.object_id}</h3>
+                            </header>
+
+                            <div className="w3-container w3-center">
+                            <p>From: {sact.party_one}</p>
+                            <hr/>
+                            <p>To: {sact.party_two}</p>
+                            </div>
+
+                            <div className="w3-container w3-center">
+                                <p className='prn'> Amount: ksh {sact.amount}</p>
+                            </div>
+
+                            <button className="w3-button w3-block w3-light-gray"  >+ View Details</button>
+                            
+                            <div>
+                            {/* {viewOpen && <ViewInvestorDetails onHandleViewModal={closeModal}  wallet={wallet} contractId={contractId} landid={agree.object_id}/>} */}
+                        </div>
+
+
+                    </div>
+
+                        );
+                        }
+                        })}
+
         </div>
+
+        </div>
+
+
  
         <Footer />
     </div>
