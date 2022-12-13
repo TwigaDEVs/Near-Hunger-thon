@@ -23,8 +23,8 @@ function Partner({wallet,contractId,lands}) {
                     }
 
                     return (
-                            <div className="w3-col l4">
-                              <div className="w3-card">
+                            <div key={index} className="w3-col l4">
+                              <div  className="w3-card">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>

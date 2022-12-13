@@ -364,6 +364,10 @@ li {
   background-color: #79b0a1;
 }
 
+.image-input{
+  max-width: 500px;
+}
+
 .rosim{
   max-width: 500px;
 }

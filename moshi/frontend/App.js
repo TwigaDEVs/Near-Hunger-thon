@@ -48,30 +48,6 @@ export default function App({ isSignedIn, contractId, wallet }) {
 
   console.log(lands)
 
-  function getAllItems(){
-    return wallet.viewMethod({ method: 'total_items', contractId })
-  }
-
-  function getItems(){
-    return wallet.viewMethod({ method: 'get_items', contractId })
-  }
-
-
-  // function addItem (e) {
-  //   e.preventDefault();
-  //   setUiPleaseWait(true);
-
-  //   const { id, itemName, itemQuantity, itemPrice } = e.target.elements;
-  //   let p = parseInt(itemPrice.value);
-
-  //   // use the wallet to send the greeting to the contract
-  //   wallet.callMethod({ method: 'add_items', args: { id: id.value ,item_name: itemName.value ,item_quantity: itemQuantity.value, item_price: p }, contractId })
-  //     .then(async () => {return getItems();})
-  //     .then(setItems)
-  //     .finally(() => {
-  //       setUiPleaseWait(false);
-  //     });
-  // };
 
   return (
     <>
@@ -88,7 +64,7 @@ export default function App({ isSignedIn, contractId, wallet }) {
           <Route path="/hire-land" element = {<HireLand  wallet={wallet} contractId={contractId} lands={lands}/>} />
           <Route path="/partner" element = {<Partner  wallet={wallet} contractId={contractId} lands={lands}/>} />
           <Route path="/post-farm" element = {<FarmerFarm wallet={wallet} contractId={contractId} lands={lands}/>} />
-          <Route path="/my-investors" element = {<FarmerInvestors lands={lands} />} />
+          <Route path="/my-investors" element = {<FarmerInvestors wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/resources" element = {<Resources wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/account" element = {<Profile wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/farm-resource" element = {<FarmResource wallet={wallet} contractId={contractId} lands={lands} />} />
