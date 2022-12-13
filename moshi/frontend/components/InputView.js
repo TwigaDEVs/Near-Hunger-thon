@@ -46,7 +46,7 @@ const InputView = ({wallet,contractId}) => {
         <div className="w3-card-4 ">
             
             <div className="w3-container w3-center w3-padding">
-                <div className='w3-row-padding'>
+                <div className='w3-row-padding w3-stretch'>
                 <div className='w3-col l4'>
                     <img src={input.input_image} alt="Alps" className='image-input'/>
                 </div>

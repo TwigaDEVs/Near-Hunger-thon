@@ -41,10 +41,12 @@ const ProductView = ({contractId,wallet}) => {
         <div>
             {produceOpen && <ProductBuy onhandleProduceBuyModal={closeModal} produce={produce} wallet={wallet}/>}
         </div>
-        <div className="w3-card ros">
+        <div className="w3-card w3-row-padding w3-stretch w3-padding">
 
-            <img src={produce.produce_image} alt="Alps" />
-            <div className="w3-container w3-center">
+            <div className='w3-col l4'>
+                <img src={produce.produce_image} alt="Alps" />
+            </div>
+            <div className=" w3-col l4 w3-container w3-center">
                 <h4 className='w3-text-green'> {produce.produce_name} </h4>
                 <p>{produce.produce_description}</p>
                 <div>
