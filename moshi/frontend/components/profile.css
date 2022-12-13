@@ -66,4 +66,8 @@
         visibility: visible;
         left: 0;        
     }
+
+    .ros{
+        display: block;
+    }
 }

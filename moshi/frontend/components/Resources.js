@@ -30,7 +30,7 @@ function Resources({wallet,contractId,lands}) {
       <h2>Farmers who need Resources</h2>
       <div className="expla" style={{marginLeft: "10%", marginRight: "10%"}}>
         <p>
-            The following farmers are looking for potential investors who will provide the listed resource.
+            The following farmers are looking for potential investors who will provide the listed resource. 
         </p>
       </div>
       <div className="right">
