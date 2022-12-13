@@ -53,25 +53,33 @@ const near = "1000000000000000000000000";
 
   return (
     <div>
+
+        <div className='w3-card'>
         <h2>
             {wallet.accountId}
         </h2>
 
-        <div className='w3-row w3-center w3-rounded w3-light-gray w3-margin '>
-            <div className='w3-col l4'>
-            <p className='w3-cursive prn'> Available Balance: {(bal1.available/near).toFixed(5)}  NEAR</p>
+        <div className='w3-container w3-padding '>
+            <div className='car'>
+            <div className='w3-row-padding w3-center w3-light-grey w3-rounded'>
+                <div className='w3-col l4'>
+                <p className='w3-cursive prn'> Available Balance: {(bal1.available/near).toFixed(5)}  NEAR</p>
+                </div>
+                <div className='w3-col l4'>
+                <p className='prn'> Total Balance: {(bal1.total/near).toFixed(5)}  NEAR</p>
+                </div>
+                <div className='w3-col l4'>
+                <p className='prn'> Total stateStaked: {(bal1.stateStaked/near).toFixed(5)}  NEAR</p>
+                </div>
+                <div className='w3-col l4'>
+                <p className='prn'> Staked: {(bal1.staked/near).toFixed(5)}  NEAR</p>
+                </div>
+
             </div>
-            <div className='w3-col l4'>
-            <p className='prn'> Total Balance: {(bal1.total/near).toFixed(5)}  NEAR</p>
-            </div>
-            <div className='w3-col l4'>
-            <p className='prn'> Total stateStaked: {(bal1.stateStaked/near).toFixed(5)}  NEAR</p>
-            </div>
-            <div className='w3-col l4'>
-            <p className='prn'> Staked: {(bal1.staked/near).toFixed(5)}  NEAR</p>
             </div>
 
         </div>
+
        
         {profileModalOpen && <UpdateProfileModal onHandleCloseModal={handleCloseProfileModal} />}
 
@@ -104,6 +112,9 @@ const near = "1000000000000000000000000";
                     <p> <a href='' className='you'><i className="fa fa-youtube-play" aria-hidden="true"></i></a> </p>
                 </div>
         </div>
+
+        </div>
+ 
         <Footer />
     </div>
   )
