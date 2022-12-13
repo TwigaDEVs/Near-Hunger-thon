@@ -79,7 +79,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
   min-height: 250px;
 }
 
@@ -105,8 +104,17 @@ body {
 
 .card-body p {
   font-size: 13px;
-  margin: 0 0 40px;
-  padding: 10px;
+  padding-top: 10px;
+}
+
+.prn{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  color: #0f43ee;
+
+}
+
+.pri{
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 .user {
   display: flex;
@@ -121,7 +129,14 @@ body {
 }
 .user-info h5 {
   margin: 0;
+
+
+}
+
+.user-info button{
+  background-color: green;
+  color: white;
 }
 .user-info small {
-  color: #545d7a;
+  color: #0f43ee;
 }

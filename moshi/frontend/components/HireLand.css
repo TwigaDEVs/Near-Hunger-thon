@@ -1,14 +1,7 @@
 /*
 
 
-.expla{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    
-}
+
 
 .h-header{
     color: green;
@@ -56,3 +49,25 @@
 
 
 }*/
+
+.expla{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+
+    
+}
+
+.expla p{
+    font-family: cursive;
+    color: green;
+}
+
+.cont{
+    color: brown;
+}

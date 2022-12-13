@@ -33,7 +33,7 @@ function FarmerFarm({ wallet, contractId, lands }) {
                     }
 
                     return (
-                              <div className="card">
+                              <div key={index} className="card">
                                 <div className="card-header">
                                   <img src={land.land_image} alt="rover" />
                                 </div>
