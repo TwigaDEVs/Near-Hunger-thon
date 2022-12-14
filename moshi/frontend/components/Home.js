@@ -7,6 +7,7 @@ import mai from '../assets/mai.jpg'
 import maize from './maize1.jpg'
 import musa from './musa.jpg'
 import musa1 from './musa1.jpg'
+import { Link } from 'react-router-dom'
 
 
 
@@ -84,7 +85,7 @@ function Home() {
         <div className='w3-col'>
 
           <div className='w3-card dol1'>
-          <button className='bg-c'> Hire land</button>
+          <button className='bg-c'> <Link to="/hire-land" className="w3-bar-item w3-button">Hire Farm</Link></button>
           </div>
 
         </div>
@@ -92,14 +93,14 @@ function Home() {
         <div className='w3-col'>
 
         <div className='w3-card dol1'>
-              <button className='bg-c'> partner with farmer</button>
+              <button className='bg-c'><Link to="/partner" className="w3-bar-item w3-button"> partner with farmer </Link></button>
         </div>
 
         </div>
         <div className='w3-col'>
 
           <div className='w3-card dol1'>
-                <button className='bg-c'> Provide Resource</button>
+                <button className='bg-c'> <Link to="/resources" className="w3-bar-item w3-button">Provide Farm Resource</Link></button>
           </div>
 
         </div>

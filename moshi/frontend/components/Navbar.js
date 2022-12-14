@@ -158,8 +158,8 @@ function Navbar({ isSignedIn, wallet }) {
   
               Farmers
               <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
-                <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm</Link>
-                <Link to="/farm-resource" className="w3-bar-item w3-button">Post Farm Resource</Link>
+                <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm For Hire/Partnership</Link>
+                <Link to="/farm-resource" className="w3-bar-item w3-button">Request Farm Resource</Link>
                 <Link to="/my-investors" className="w3-bar-item w3-button">My Investors</Link>
               </div>
           </a>
@@ -171,6 +171,7 @@ function Navbar({ isSignedIn, wallet }) {
               <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
                 <Link to="/farm-produce" className="w3-bar-item w3-button">Farm Products</Link>
                 <Link to="/farm-inputs" className="w3-bar-item w3-button">Farm Inputs</Link>
+                <Link to="/sales" className="w3-bar-item w3-button">Completed Sales</Link>
               </div>
           </a>
                     {isSignedIn ? (

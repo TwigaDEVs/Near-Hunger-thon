@@ -17,7 +17,7 @@ function MyINvestments({ lands, wallet }) {
             };
 
             return (
-              <div className="w3-card w3-col l4">
+              <div key={index} className="w3-card w3-col l4">
                 <div className="card-header">
                   <img src={land.land_image} alt="rover" />
                 </div>

@@ -47,7 +47,7 @@ function FarmProduce({wallet,contractId}) {
                                 }
 
                                 return (
-                                          <div className="w3-col l4 w3-card w3-margin-bottom">
+                                          <div key={index} className="w3-col l4 w3-card w3-margin-bottom">
                                             <div className="card-header">
                                               <img src={produce.produce_image} alt="rover" />
                                             </div>

@@ -2,13 +2,17 @@ import React, {useState, useRef, useEffect} from 'react';
 import UpdateProfileModal from './UpdateProfileModal';
 import Footer from './Footer';
 import * as nearAPI from "near-api-js";
+import {nearConnectB} from './NearAccount';
 
 function Profile({lands,wallet,contractId}) {
 
     const [profileModalOpen, setProfileModalOpen] = useState(false);
+    
+    const [sacts, setCompletedTransactions] = useState([]); 
     const [userProfile, setUserProfile] = useState([]);
     const [conn,setConnect] = useState("");
     const [bal,setBalance] = useState("");
+    const [bal1,setBalance1] = useState("");
     const user = useRef();
     const { keyStores, connect } = nearAPI;
     const myKeyStore = new keyStores.BrowserLocalStorageKeyStore();
@@ -26,32 +30,30 @@ function Profile({lands,wallet,contractId}) {
 
     console.log(wallet.walletSelector)
 
+    const newConnectBalance = new nearConnectB();
+
     useEffect(() => {
         viewProfile().then((data) => (setUserProfile(data)));
         console.log(userProfile);
-        nearConnect();
+        newConnectBalance.nearConnect().then(setBalance1);
+        getAgreements().then(setCompletedTransactions);
+       
+       
+
     }, [])
 
- async function nearConnect() {
-    const connectionConfig = {
-        networkId: "testnet",
-        keyStore: myKeyStore, // first create a key store 
-        nodeUrl: "https://rpc.testnet.near.org",
-        walletUrl: "https://wallet.testnet.near.org",
-        helperUrl: "https://helper.testnet.near.org",
-        explorerUrl: "https://explorer.testnet.near.org",
-      };
-    const nearConnection = await connect(connectionConfig);
-    setConnect(nearConnection)
-    const account = await nearConnection.account(wallet.accountId);
-    const s_b = await account.getAccountBalance();
-    setBalance(s_b)
-    console.log(s_b)
    
-}
+   
 
+
+console.log("bal 1", bal1)
 
 const near = "1000000000000000000000000";
+
+function getAgreements() {
+    return wallet.viewMethod({ method: "get_agreements", contractId });
+
+  }
 
 
     
@@ -59,25 +61,33 @@ const near = "1000000000000000000000000";
 
   return (
     <div>
+
+        <div className='w3-card'>
         <h2>
             {wallet.accountId}
         </h2>
 
-        <div className='w3-row w3-center w3-rounded w3-light-gray w3-margin '>
-            <div className='w3-col l4'>
-            <p className='w3-cursive'> Available Balance: {bal.total/near}  NEAR</p>
+        <div className='w3-container w3-padding '>
+            <div className='car'>
+            <div className='w3-row-padding w3-center w3-light-grey w3-rounded'>
+                <div className='w3-col l4'>
+                <p className='w3-cursive prn'> Available Balance: {(bal1.available/near).toFixed(5)}  NEAR</p>
+                </div>
+                <div className='w3-col l4'>
+                <p className='prn'> Total Balance: {(bal1.total/near).toFixed(5)}  NEAR</p>
+                </div>
+                <div className='w3-col l4'>
+                <p className='prn'> Total stateStaked: {(bal1.stateStaked/near).toFixed(5)}  NEAR</p>
+                </div>
+                <div className='w3-col l4'>
+                <p className='prn'> Staked: {(bal1.staked/near).toFixed(5)}  NEAR</p>
+                </div>
+
             </div>
-            <div className='w3-col l4'>
-            <p> Total Balance: {bal.total/near}  NEAR</p>
-            </div>
-            <div className='w3-col l4'>
-            <p> Total stateStaked: {bal.stateStaked/near}  NEAR</p>
-            </div>
-            <div className='w3-col l4'>
-            <p> Staked: {bal.staked/near}  NEAR</p>
             </div>
 
         </div>
+
        
         {profileModalOpen && <UpdateProfileModal onHandleCloseModal={handleCloseProfileModal} />}
 
@@ -110,6 +120,53 @@ const near = "1000000000000000000000000";
                     <p> <a href='' className='you'><i className="fa fa-youtube-play" aria-hidden="true"></i></a> </p>
                 </div>
         </div>
+
+        <div className='w3-center w3-padding'>
+
+            <h5 className='w3-green w3-padding'> Recent Activity </h5>
+
+            {Object.values(sacts).map((sact, index) => {
+            if (sact.party_one == wallet.accountId || sact.party_two == wallet.accountId) {
+//               const newTo = {
+//                 pathname: "/hire-land-view/" + land.id,
+//               };
+// // 
+                        return (
+                    <div key={index} className="w3-card-4 w3-margin">
+
+                            <header className="w3-container w3-light-grey">
+                            <h3>Transaction : {sact.object_id}</h3>
+                            </header>
+
+                            <div className="w3-container w3-center">
+                            <p>From: {sact.party_one}</p>
+                            <hr/>
+                            <p>To: {sact.party_two}</p>
+                            </div>
+
+                            <div className="w3-container w3-center">
+                                <p className='prn'> Amount: ksh {sact.amount}</p>
+                            </div>
+
+                            <button className="w3-button w3-block w3-light-gray"  >+ View Details</button>
+                            
+                            <div>
+                            {/* {viewOpen && <ViewInvestorDetails onHandleViewModal={closeModal}  wallet={wallet} contractId={contractId} landid={agree.object_id}/>} */}
+                        </div>
+
+
+                    </div>
+
+                        );
+                        }
+                        })}
+
+        </div>
+
+        </div>
+
+
+ 
         <Footer />
     </div>
   )

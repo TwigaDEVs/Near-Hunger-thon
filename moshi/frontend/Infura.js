@@ -1,7 +1,7 @@
 import { create } from "ipfs-http-client"
 
-const projectId = process.env.HAMBRE_PUBLIC_IPFS_PROJECT_ID;
-const projectSecret = process.env.HAMBRE_PUBLIC_API_KEY_SECRET;
+const projectId = "2IHRvFT45OgwWLAxh9VskodxGOh";
+const projectSecret = "8b6ad7e4fb03a670df238c036b0c5035";
 const auth = `Basic ${Buffer.from(`${projectId}:${projectSecret}`).toString('base64')}`;
 
 const client = create({

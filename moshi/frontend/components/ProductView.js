@@ -41,10 +41,12 @@ const ProductView = ({contractId,wallet}) => {
         <div>
             {produceOpen && <ProductBuy onhandleProduceBuyModal={closeModal} produce={produce} wallet={wallet}/>}
         </div>
-        <div class="w3-card ros">
+        <div className="w3-card w3-row-padding w3-stretch w3-padding">
 
-            <img src={produce.produce_image} alt="Alps" />
-            <div class="w3-container w3-center">
+            <div className='w3-col l4'>
+                <img src={produce.produce_image} alt="Alps" />
+            </div>
+            <div className=" w3-col l4 w3-container w3-center">
                 <h4 className='w3-text-green'> {produce.produce_name} </h4>
                 <p>{produce.produce_description}</p>
                 <div>
@@ -55,6 +57,8 @@ const ProductView = ({contractId,wallet}) => {
                      <small className='w3-text-green w3-text-bold'>ksh: </small>{produce.produce_price}
                     </p>
                 </div>
+
+                <p> {produce.produce_owner}</p>
 
                 <div className='w3-padding'>
                     <button className='w3-green w3-text-white' onClick={handleProductBuyModal}> Buy </button>

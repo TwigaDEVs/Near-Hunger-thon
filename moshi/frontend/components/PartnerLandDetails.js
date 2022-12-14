@@ -38,16 +38,16 @@ function PartnerLandDetails({wallet,contractId}) {
     }
   return (
     <div>
-        <h2> Land Details </h2>
+        <h2> Land Partnership Details </h2>
         <div>
-            {partnerOpen && <PartnerLand onhandlePartnerModal={closeModal} />}
+            {partnerOpen && <PartnerLand onhandlePartnerModal={closeModal} land={land} wallet={wallet} contractId={contractId}/>}
         </div>
-        <div class="w3-card ros">
+        <div className="w3-card ros">
             <div className='rosim'>
                 <img src={land.land_image} alt="Alps" className='w3-image'/>
             </div>
             
-            <div class="w3-container w3-center">
+            <div className="w3-container w3-center">
                 <h4 className='w3-text-green'> {land.land_owner} </h4>
                 <p> {land.land_description}</p>
                 <div>
