@@ -148,7 +148,7 @@ function Navbar({ isSignedIn, wallet }) {
               <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
                 <Link to="/hire-land" className="w3-bar-item w3-button">Hire Farm</Link>
                 <Link to="/partner" className="w3-bar-item w3-button">Be a Partner</Link>
-                <Link to="/resources" className="w3-bar-item w3-button">Provide Resource</Link>
+                <Link to="/resources" className="w3-bar-item w3-button">Provide Farm  Tools and Equipment</Link>
               </div>
           </a>
           <a className="w3-bar-item w3-hide-small"><CustomLink to="/my-investments" className="w3-text-green"> My Investments</CustomLink></a>

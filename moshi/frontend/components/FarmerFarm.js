@@ -7,14 +7,37 @@ import { Link } from "react-router-dom";
 
 function FarmerFarm({ wallet, contractId, lands }) {
   const [openModal, setOpenModal] = useState(false);
+  const [userProfile, setUserProfile] = useState([]);
+
+  const viewProfile = () => {
+    const profile = window.nearwallet.viewMethod({ method: "get_users", contractId }).then((result) => result[window.nearwallet.accountId]).then(data => data);
+    return profile;
+}
+
+
+useEffect(() => {
+  viewProfile().then((data) => (setUserProfile(data)));
+
+ 
+ 
+
+}, [])
+
 
   return (
     <div>
       <h2 className="farm"> My Farms</h2>
       <div className="farmInvite">
+        { userProfile ?
         <button className="postFarm" onClick={() => setOpenModal(true)}>
           Post Farm to Invite Investors
+        </button> :
+
+        <button className="postFarm">
+        <Link to="/account" className="w3-bar-item w3-button"> Please Update Profile before Posting Farm</Link>
         </button>
+
+        }
       </div>
       <PostFarm
         open={openModal}
@@ -55,7 +78,7 @@ function FarmerFarm({ wallet, contractId, lands }) {
                                     <div className="user-info">
                                       <h5>
                                         <button className="hire-btn">
-                                            <Link className="btn-h" to={newTo} > Hire</Link>
+                                            <Link className="btn-h" to={newTo} > View </Link>
                                         </button>
                                       </h5>
                                       <small>{land.land_lister}</small>
