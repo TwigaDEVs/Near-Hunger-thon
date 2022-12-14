@@ -109,6 +109,8 @@ const Hire = (props) => {
 					<p> Contract: {land.contract_type}</p>
 					
 					<p className="w3-orange"> Price: Ksh {land.land_price}</p>
+
+					<p className="prn"> Price in Near: {priceNear} NEAR</p>
 					
 				</div>
 				<form id="farmInputs" className="w3-container" >

@@ -42,99 +42,65 @@ function PostResourceForm({open,onclose, wallet,contractId}) {
   // pub image_proof:String,
 
 
-    wallet.callMethod({ method: 'add_resources', 
+    const d = wallet.callMethod({ method: 'add_resources', 
       args: { id:id_gen ,resource_name: resourceName.value,resource_type:resourceType.value,resource_description:resourceDescription.value,
         contract_type:contractType.value,image_proof:fileResourceURL
     },
-       contractId })};
+       contractId })
+      
+       console.log("this is d",d)
+      
+      };
 
 
   return (
-    <div className='overlay'>
-    <div className='modalContainer'>
-        <div className='he'>
-        <p>  </p>
-    <button onClick={onclose} className="icon"><i className="fa fa-times" aria-hidden="true"></i></button>
-        </div>
-    <div>
-    <form onSubmit={addResource} className='postform'>
-    
-      <fieldset id="fieldset">
-        {/* <p>Sign the guest book, { currentAccountId }!</p> */}
-        <p className='modelhead'>Post Resource</p>
-        <label>
-            <p>Name</p>
-            <input 
-            autoComplete="off"
-            autoFocus
-            id="resourceName"
-            required
-            name="name" />
-        </label>
-        <label>
-            <p>Resource Type</p>
-            <input 
-            autoComplete="off"
-            autoFocus
-            id="resourceType"
-            required
-            name="type" />
-        </label>
-        <label>
-        <p> Short Description</p>
-        <textarea 
-         autoComplete="off"
-         autoFocus
-         id='resourceDescription'
-         required
-         name='description'
-        />
-        </label>
-        <label htmlFor="contract">
-          <p>Contract Type</p>
-          <select className='sel'
-              autoComplete="off"
-              autoFocus
-              id="contractType"
-              required
-             name="contract" 
-            
-            >
-              <option value="lease">Lease</option>
-              <option value="partner">partner</option>
-           </select>
-        </label>
-        <label>
-            <p>Proof Image</p>
-            <div className='image'>
-                <input
-                  
+   
+    <div className="w3-modal">
+			<div className="w3-modal-content w3-white">
+				<div className="w3-container">
+					<span className="form-header">Request Farm  Tools and Equipment</span>
+					<button className="w3-button w3-right w3-xlarge" onClick={onclose}>&times;</button>
+				</div>
+				<form id="farmInputs" className="w3-container" onSubmit={addResource}>
+					<label>Name Of Farm Eqipment/Tool</label>
+					<input className="w3-input w3-border w3-round"  id="resourceName" required name="name"/>
+					<label>Type</label>
+          <select
                   autoComplete="off"
                   autoFocus
-                  id="proofImage"
-                  name="location" 
-                  type={"file"}
-                  onChange={OnChangeFile}
+                  id="resourceType"
                   required
-
-                />
-            </div>
-
-             
-        </label>
-
-        <div className='text'>
-          <button type="submit">
-            submit
-          </button>
-        </div>
-
-      </fieldset>
-    </form>
-    </div>
-    </div>
-    
-</div>
+                  name="type"
+                  className="w3-input w3-border w3-round"
+                >
+                  <option value="Garden tools and equipment">Garden tools and equipment</option>
+                  <option value="Livestock production tools and equipment">Livestock production tools and equipment</option>
+                </select>
+					<label>Request Description</label>
+					<textarea className="w3-input w3-border w3-round" id="resourceDescription" required></textarea>
+          <label>Contract Type</label>
+          <select
+                  autoComplete="off"
+                  autoFocus
+                  id="contractType"
+                  required
+                  name="contract"
+                  className="w3-input w3-border w3-round"
+                >
+                  <option value="lease">Lease</option>
+                  <option value="partner">partner</option>
+                </select>
+					<label>Image of Equipment/Tool</label>
+					<input className="w3-input w3-border w3-round" type={"file"} id="proofImage" onChange={OnChangeFile}/>
+					<button className="w3-button w3-green w3-block" type="submit" >Save</button>
+					<br />
+					<br />
+					<div className="w3-right">
+						<button className="w3-button w3-red w3-round" onClick={onclose}>Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
   )
 }
 

@@ -18,7 +18,7 @@ function HireLand({ wallet, contractId, lands }) {
       <div className="w3-auto" style={{marginLeft: "10%", marginRight: "10%"}}>
         <div className="w3-row-padding w3-stretch">
           {Object.values(lands).map((land, index) => {
-            if (land.contract_type == "lease") {
+            if (land.contract_type == "lease" && land.availability == true) {
               const newTo = {
                 pathname: "/hire-land-view/" + land.id,
               };
@@ -43,12 +43,24 @@ function HireLand({ wallet, contractId, lands }) {
                       <div className="user">
                         <div className="user-info">
                           <h5>
-                            <button className="hire-btn">
+                            { wallet.accountId == land.land_lister ? 
+                              <button className="hire-btn">
+                              <Link className="btn-h" to={newTo}>
+                                {" "}
+                                View
+                              </Link>
+                              </button>
+                              :
+
+                              <button className="hire-btn">
                               <Link className="btn-h" to={newTo}>
                                 {" "}
                                 Hire
                               </Link>
-                            </button>
+                              </button>
+
+                            
+                            }
                           </h5>
                           <small>{land.land_lister}</small>
                         </div>

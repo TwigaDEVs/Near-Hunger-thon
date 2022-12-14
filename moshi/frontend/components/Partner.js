@@ -15,7 +15,7 @@ function Partner({wallet,contractId,lands}) {
 
       <div className="w3-row-padding w3-stretch" style={{marginLeft: "10%", marginRight: "10%"}}>
       {Object.values(lands).map((land, index) => {
-            if (land.contract_type == "partner") {
+            if (land.contract_type == "partner" && land.availability == true ) {
 
 
                       const newTo = {
@@ -42,9 +42,16 @@ function Partner({wallet,contractId,lands}) {
                                   <div className="user">
                                     <div className="user-info">
                                       <h5>
+                                        { wallet.accountId == land.land_lister ?
                                         <button className="hire-btn">
-                                            <Link className="btn-h" to={newTo} > Hire</Link>
+                                            <Link className="btn-h" to={newTo} > Accept Partnership</Link>
                                         </button>
+                                        :
+                                        <button className="hire-btn">
+                                        <Link className="btn-h" to={newTo} > View</Link>
+                                        </button>
+                                        
+                                          }
                                       </h5>
                                       <small>{land.land_lister}</small>
                                     </div>

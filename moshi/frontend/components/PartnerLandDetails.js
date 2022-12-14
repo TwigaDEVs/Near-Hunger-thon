@@ -59,9 +59,15 @@ function PartnerLandDetails({wallet,contractId}) {
                     </p>
                 </div>
 
+                { wallet.accountId == land.land_lister ?
+
                 <div className='w3-padding'>
                     <button className='w3-green w3-text-white' onClick={handlePartnerModal}> Accept Partnership </button>
                 </div>
+                :
+                <p className='prn'> You are the Owner</p>
+
+                }
 
                 <p className='w3-padding'>{land.land_lister}</p>
             </div>

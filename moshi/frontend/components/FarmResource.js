@@ -35,43 +35,50 @@ function FarmResource({wallet,contractId,lands}) {
 
   return (
     <div>
-      <h2>Your Listed Resources</h2>
+      <h2>Your Listed Requests</h2>
       <div className='resource-button'>
           <button onClick={() => setOpenModalResource(true)}>
-            Post Farm resource You Require
+          Request Farm  Tools and Equipment
           </button>
           
           <PostResourceForm open = {openModalResource} onclose={() => setOpenModalResource(false)} wallet={wallet} contractId={contractId}/>
       </div>
       <div className='resource-farm'>
-            <div className='card'>
+        <div className="w3-row-padding w3-stretch">
+          {Object.values(resources).map((resource, index) => {
+            if (resource.request_farmer == wallet.accountId) {
+              return (
+                <div key={index} className="w3-col l4 m6">
+                  <div className="w3-card sol">
+                    <div className="card-header">
+                      <img src={resource.image_proof} alt="rover" />
+                    </div>
+                    <div className="card-body">
+                      <p> {resource.resource_type}</p>
+                      <h4>{resource.resource_name}</h4>
+                      <div className="des">
+                        <p>{resource.resource_description}</p>
+                      </div>
+                      <div>
+                        <p className="w3-text-orange w3-large pri">{resource.contract_type}</p>
+                        
+                      </div>
+                      
+                      <div className="user">
+                        <div className="user-info">
+                          <h5>
 
-                {Object.values(resources).map((resource, index) => {
-                    
-                    if (resource.request_farmer == wallet.accountId){
-
-                        return (
-                            <div key={index} className="card-body">
-                                <div>
-                                    <div>
-                                    <img src={resource.image_proof} alt="lands to lease"/>
-                                    </div>
-                                    <h5> {resource.resource_name} </h5>
-                                    <div>
-                                        {resource.resource_description}
-                                    </div>
-                                    <p>{resource.contract_type}</p>
-                                </div>
-
-                                <hr />
-                            </div>
-                            );
-
-                    }
-
-                    })}
-
-            </div>
+                          </h5>
+                          <small>{resource.request_farmer}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
       <Footer />
     </div>

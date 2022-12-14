@@ -27,27 +27,29 @@ function Resources({wallet,contractId,lands}) {
 
   return (
     <div>
-      <h2>Farmers who need Resources</h2>
-      <div className="expla" style={{marginLeft: "10%", marginRight: "10%"}}>
-        <p>
-            The following farmers are looking for potential investors who will provide the listed resource. 
-        </p>
+      <div className="w3-container w3-center">
+
+        <div className="w3-row-margin">
+        <h2>Provide Farm  Tools and Equipment To Farmers</h2>
+        
+        </div>
+        
+        <div className="" >
+          <p>
+              The following farmers are looking for potential investors  who will provide the Farm  Tools and Equipment.
+          </p>
+     
+        </div>
+
       </div>
-      <div className="right">
-        <input
-          className="input"
-          style={{ backgroundColor: "inherit" }}
-          placeholder="search"
-        />
-        <br />
-      </div>
-          <div className="containerhire">
+      <div className="w3-auto" style={{marginLeft: "10%", marginRight: "10%"}}>
+          <div className="w3-row-padding w3-stretch w3-center">
           {Object.values(resources).map((resource, index) => {
                         
                         if (resource.request_farmer == wallet.accountId){
 
                             return (
-                              <div key={index} className="card sol">
+                              <div key={index} className="card w3-center sol">
                                 <div className="card-header">
                                   <img src={resource.image_proof} alt="rover" />
                                 </div>
@@ -55,9 +57,10 @@ function Resources({wallet,contractId,lands}) {
                                   <h4>
                                   {resource.resource_name}
                                   </h4>
-                                  <p>
+                                  <p className="w3-padding">
                                   {resource.resource_description}
                                   </p>
+                                  <p> {resource.resource_type}</p>
                                   <div>
                                     <p>{resource.contract_type}</p>
                                   </div>
@@ -66,7 +69,7 @@ function Resources({wallet,contractId,lands}) {
                                       <h5>
                                       <div className="resource-btn">
                                       <button>
-                                        Provide Resource
+                                        Provide
                                       </button>
                                     </div>
                                       </h5>
@@ -80,6 +83,7 @@ function Resources({wallet,contractId,lands}) {
                       }
      
                      })}
+      </div>
       </div>
       <Footer />
     </div>
