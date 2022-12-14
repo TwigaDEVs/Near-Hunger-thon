@@ -60,8 +60,10 @@ const ProductView = ({contractId,wallet}) => {
 
                 <p> {produce.produce_owner}</p>
 
+                
                 <div className='w3-padding'>
-                    <button className='w3-green w3-text-white' onClick={handleProductBuyModal}> Buy </button>
+                    { wallet.accountId == produce.produce_owner? <p className='prn'> Your listed Produce</p>:
+                    <button className='w3-green w3-text-white' onClick={handleProductBuyModal}> Buy </button>}
                 </div>
                 <p className='w3-padding'>{produce.produce_seller}</p>
             </div>

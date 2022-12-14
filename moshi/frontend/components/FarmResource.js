@@ -1,24 +1,34 @@
-import React from 'react'
-import './FarmResource.css'
-import Footer from './Footer'
-import PostResourceForm from './PostResourceForm'
-import {useState,useEffect} from 'react'
+import React from 'react';
+import './FarmResource.css';
+import Footer from './Footer';
+import PostResourceForm from './PostResourceForm';
+import {useState,useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
 
 function FarmResource({wallet,contractId,lands}) {
   const [openModalResource, setOpenModalResource] = useState(false);
   const [resources, setProfileResources] = useState([]);
 
-  
+  const [userProfile, setUserProfile] = useState([]);
+
+  const viewProfile = () => {
+    const profile = window.nearwallet.viewMethod({ method: "get_users", contractId }).then((result) => result[window.nearwallet.accountId]).then(data => data);
+    return profile;
+}
+
+
   useEffect(() => {
 
     getResources().then(setProfileResources);
+    viewProfile().then((data) => (setUserProfile(data)));
 
   }
   , []);
 
     
- console.log(resources)
+ console.log(resources);
+ console.log(userProfile);
 
   function getResources() {
     console.log(contractId)
@@ -37,9 +47,17 @@ function FarmResource({wallet,contractId,lands}) {
     <div>
       <h2>Your Listed Requests</h2>
       <div className='resource-button'>
+      { userProfile ?
+
           <button onClick={() => setOpenModalResource(true)}>
           Request Farm  Tools and Equipment
-          </button>
+          </button> :
+
+          <button>
+           <Link to="/account" className="w3-bar-item w3-button"> Please Update Profile before Posting Equipment Request</Link>
+          </button> 
+
+      }
           
           <PostResourceForm open = {openModalResource} onclose={() => setOpenModalResource(false)} wallet={wallet} contractId={contractId}/>
       </div>

@@ -63,7 +63,10 @@ const InputView = ({wallet,contractId}) => {
                     </div>
                     <p>{input.input_owner}</p>
                     <div className='w3-padding'>
+                    { wallet.accountId == input.input_owner ? <p className='prn'> Your listed Farm Input</p>:
                     <button className='w3-green w3-text-white' onClick={handleInputBuyModal}> Buy </button>
+                    
+                    }
                 </div>
                 </div>
                 </div>
