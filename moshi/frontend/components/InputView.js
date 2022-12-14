@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react';
 import Footer from './Footer';
 import InputBuy from './InputBuy';
 
-const InputView = ({wallet,contractId}) => {
+const InputView = ({wallet,contractId,isSignedIn}) => {
 
     let [inputBuyOpen, setInputBuyOpen] = useState(false);
     const handleInputBuyModal = () => {
@@ -38,6 +38,11 @@ const InputView = ({wallet,contractId}) => {
   
     }
 
+    const signIn = () => {
+        wallet.signIn();
+      };
+
+
   return (
     <div>
         <div>
@@ -63,10 +68,28 @@ const InputView = ({wallet,contractId}) => {
                     </div>
                     <p>{input.input_owner}</p>
                     <div className='w3-padding'>
-                    { wallet.accountId == input.input_owner ? <p className='prn'> Your listed Farm Input</p>:
-                    <button className='w3-green w3-text-white' onClick={handleInputBuyModal}> Buy </button>
-                    
-                    }
+                        {isSignedIn?
+                        
+                        <>
+                        
+                        { wallet.accountId == input.input_owner ? <p className='prn'> Your listed Farm Input</p>:
+                        <button className='w3-green w3-text-white' onClick={handleInputBuyModal}> Buy </button>
+                        
+                        }
+                        </>
+                        
+                        :
+
+                        <>
+                        
+                        { wallet.accountId == input.input_owner ? <p className='prn'> Your listed Farm Input</p>:
+                        <button className='w3-green w3-text-white' onClick={signIn}> Buy </button>
+                        
+                        }
+                        </>
+                        
+                        }
+
                 </div>
                 </div>
                 </div>

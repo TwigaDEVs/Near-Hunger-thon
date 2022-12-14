@@ -10,7 +10,7 @@ import axios, * as others from 'axios';
 import { async } from 'regenerator-runtime';
 
 
-function HireLandView({wallet,contractId}) {
+function HireLandView({wallet,contractId,isSignedIn}) {
 
 
     let [HireOpen, setHireOpen] = useState(false);
@@ -91,7 +91,9 @@ function HireLandView({wallet,contractId}) {
 //   .then( res => res.json() )
 //   .then( data => console.log(data) );
 
-
+const signIn = () => {
+    wallet.signIn();
+  };
 
   return (
     <>
@@ -122,6 +124,9 @@ function HireLandView({wallet,contractId}) {
                         <div>
                             {land.land_lister}
                         </div>
+                        {isSignedIn?
+                         <>
+
                         { wallet.accountId == land.land_lister?
                         <p className='prn'>  Posted For hiring</p>
                         :
@@ -129,6 +134,20 @@ function HireLandView({wallet,contractId}) {
                             <button className='w3-green w3-text-white' onClick={handleHireModal}> Hire land </button>
                         </div>
                         }
+                         
+                         </> 
+                         : 
+                         <>
+                         
+                         { wallet.accountId == land.land_lister?
+                        <p className='prn'>  Posted For hiring</p>
+                        :
+                        <div>
+                            <button className='w3-green w3-text-white' onClick={signIn}> Hire land </button>
+                        </div>
+                        }
+                         </>}
+
                     </div>
                 </div>
             </div>

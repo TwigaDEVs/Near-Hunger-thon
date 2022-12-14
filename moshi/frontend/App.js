@@ -65,17 +65,17 @@ export default function App({ isSignedIn, contractId, wallet }) {
           <Route path="/my-investments" element = {<MyINvestments  wallet={wallet} contractId={contractId} lands={lands}/>} />
           <Route path="/hire-land" element = {<HireLand  wallet={wallet} contractId={contractId} lands={lands}/>} />
           <Route path="/partner" element = {<Partner  wallet={wallet} contractId={contractId} lands={lands}/>} />
-          <Route path="/post-farm" element = {<FarmerFarm wallet={wallet} contractId={contractId} lands={lands}/>} />
+          <Route path="/post-farm" element = {<FarmerFarm wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
           <Route path="/my-investors" element = {<FarmerInvestors wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/resources" element = {<Resources wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/account" element = {<Profile wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/farm-resource" element = {<FarmResource wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/farm-inputs" element = {<FarmInputs wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/farm-produce" element = {<FarmProduce wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/hire-land-view/:id" element = {<HireLandView wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/partner-land-view/:id" element = {<PartnerLandDetails wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/produce-view/:id" element = {<ProductView wallet={wallet} contractId={contractId} lands={lands} />} />
-          <Route path="/farm-input/:id" element = {<InputView wallet={wallet} contractId={contractId} lands={lands} />} />
+          <Route path="/farm-resource" element = {<FarmResource wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
+          <Route path="/farm-inputs" element = {<FarmInputs wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
+          <Route path="/farm-produce" element = {<FarmProduce wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
+          <Route path="/hire-land-view/:id" element = {<HireLandView wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
+          <Route path="/partner-land-view/:id" element = {<PartnerLandDetails wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
+          <Route path="/produce-view/:id" element = {<ProductView wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
+          <Route path="/farm-input/:id" element = {<InputView wallet={wallet} contractId={contractId} lands={lands} isSignedIn={isSignedIn}/>} />
           <Route path="/sales" element = {<Sales wallet={wallet} contractId={contractId} lands={lands} />} />
           
           <Route path="/resource-view/:id" element = {<ResorceView wallet={wallet} contractId={contractId} lands={lands} />} />

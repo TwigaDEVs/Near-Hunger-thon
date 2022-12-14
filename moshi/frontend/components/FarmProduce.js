@@ -5,12 +5,19 @@ import SellModal from "./SellModal";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 
-function FarmProduce({wallet,contractId}) {
+function FarmProduce({wallet,contractId,isSignedIn}) {
 
   const[produces, setProduces] = useState([]);
+  const [userProfile, setUserProfile] = useState([]);
+
+  const viewProfile = () => {
+    const profile = window.nearwallet.viewMethod({ method: "get_users", contractId }).then((result) => result[window.nearwallet.accountId]).then(data => data);
+    return profile;
+}
 
     useEffect(() => {
     getProduces().then(setProduces);
+    viewProfile().then((data) => (setUserProfile(data)));
   }, []);
 
   const [sellModalOpen, setSellModalOpen] = useState(false);
@@ -24,7 +31,10 @@ function FarmProduce({wallet,contractId}) {
   function getProduces() {
 	  return wallet.viewMethod({ method: "get_produces", contractId });
 	}
-
+  
+  const signIn = () => {
+    wallet.signIn();
+  };
   return (
     <div>
       {sellModalOpen && <SellModal handleCloseModal={handleCloseModal} wallet ={wallet} contractId={contractId} />}
@@ -32,7 +42,19 @@ function FarmProduce({wallet,contractId}) {
       <br />
       <br />
         <div className="w3-center">
-          <button onClick={handleOpenModal} className="w3-button w3-green"> Sell </button>
+          {isSignedIn?
+           <>
+          {userProfile? <button onClick={handleOpenModal} className="w3-button w3-green"> Sell </button>:
+          
+          <button>
+          <Link to="/account" className="w3-button w3-green"> Please Update Profile To Start To Selling</Link>
+         </button> 
+          }
+          </> :                 
+          <button onClick={signIn} className="w3-button w3-green w3-round">
+                Please Login to Start Selling
+          </button> }
+
         </div>
         <h2> Products Available</h2>
         <br />

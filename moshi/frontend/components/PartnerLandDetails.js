@@ -4,7 +4,7 @@ import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
 import PartnerLand from './PartnerLand';
 
-function PartnerLandDetails({wallet,contractId}) {
+function PartnerLandDetails({wallet,contractId,isSignedIn}) {
     let [partnerOpen, setPartnerOpen] = useState(false);
     const handlePartnerModal = () => {
         setPartnerOpen(true);
@@ -36,6 +36,11 @@ function PartnerLandDetails({wallet,contractId}) {
       return wallet.viewMethod({ method: "get_land", args: {id: params.id}, contractId });
   
     }
+
+    const signIn = () => {
+        wallet.signIn();
+      };
+
   return (
     <div>
         <h2> Land Partnership Details </h2>
@@ -59,15 +64,35 @@ function PartnerLandDetails({wallet,contractId}) {
                     </p>
                 </div>
 
-                { wallet.accountId == land.land_lister ?
+                {isSignedIn?
+                 <>
+                 { wallet.accountId == land.land_lister ?
 
-                <div className='w3-padding'>
+                    <p className='prn'> You are the Owner</p>
+
+                    :
+                    <div className='w3-padding'>
                     <button className='w3-green w3-text-white' onClick={handlePartnerModal}> Accept Partnership </button>
-                </div>
-                :
-                <p className='prn'> You are the Owner</p>
+                    </div>
 
-                }
+                    }
+                 
+                 </>
+                 :
+                 <>
+                  { wallet.accountId == land.land_lister ?
+
+                    <p className='prn'> You are the Owner</p>
+
+                    :
+                    <div className='w3-padding'>
+                    <button className='w3-green w3-text-white' onClick={signIn}> Accept Partnership </button>
+                    </div>
+
+                    }
+                 </>}
+
+
 
                 <p className='w3-padding'>{land.land_lister}</p>
             </div>

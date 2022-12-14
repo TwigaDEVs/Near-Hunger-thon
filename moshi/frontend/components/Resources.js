@@ -54,6 +54,7 @@ function Resources({wallet,contractId,lands}) {
                             };
 
                             return (
+                              <div key={index} className="w3-col l4 m6">
                               <div key={index} className="card w3-center sol">
                                 <div className="card-header">
                                   <img src={resource.image_proof} alt="rover" />
@@ -62,9 +63,11 @@ function Resources({wallet,contractId,lands}) {
                                   <h4>
                                   {resource.resource_name}
                                   </h4>
-                                  <p className="w3-padding">
+                                  <div className="</div>">
+                                  <p className="w3-padding ">
                                   {resource.resource_description}
                                   </p>
+                                  </div>
                                   <p> {resource.resource_type}</p>
                                   <div>
                                     <p>{resource.contract_type}</p>
@@ -93,6 +96,7 @@ function Resources({wallet,contractId,lands}) {
                                     </div>
                                   </div>
                                 </div>
+                              </div>
                               </div>
                         );
 

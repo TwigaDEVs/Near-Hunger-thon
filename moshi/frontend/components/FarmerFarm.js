@@ -5,7 +5,7 @@ import PostFarm from "./PostFarm";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function FarmerFarm({ wallet, contractId, lands }) {
+function FarmerFarm({ wallet, contractId, lands,isSignedIn }) {
   const [openModal, setOpenModal] = useState(false);
   const [userProfile, setUserProfile] = useState([]);
 
@@ -22,11 +22,16 @@ useEffect(() => {
 
 console.log(userProfile);
 
+const signIn = () => {
+  wallet.signIn();
+};
+
 
   return (
     <div>
       <h2 className="farm"> My Farms</h2>
       <div className="farmInvite">
+        {isSignedIn? <>
         { userProfile ?
         <button className="postFarm" onClick={() => setOpenModal(true)}>
           Post Farm to Invite Investors
@@ -36,7 +41,14 @@ console.log(userProfile);
         <Link to="/account" className="w3-bar-item w3-button"> Please Update Profile before Posting Farm</Link>
         </button>
 
-        }
+        }</>
+        :
+        <button className="postFarm" onClick={signIn}>
+        Please Log In to Start
+        </button>
+
+
+      }
       </div>
       <PostFarm
         open={openModal}

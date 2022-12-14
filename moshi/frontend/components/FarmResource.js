@@ -6,7 +6,7 @@ import {useState,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
 
-function FarmResource({wallet,contractId,lands}) {
+function FarmResource({wallet,contractId,isSignedIn}) {
   const [openModalResource, setOpenModalResource] = useState(false);
   const [resources, setProfileResources] = useState([]);
 
@@ -36,6 +36,11 @@ function FarmResource({wallet,contractId,lands}) {
 
   }
 
+  const signIn = () => {
+    wallet.signIn();
+  };
+
+
    // pub id:String,
   // pub resource_name: String,
   // pub resource_type: String,
@@ -47,6 +52,7 @@ function FarmResource({wallet,contractId,lands}) {
     <div>
       <h2>Your Listed Requests</h2>
       <div className='resource-button'>
+      {isSignedIn ? <>
       { userProfile ?
 
           <button onClick={() => setOpenModalResource(true)}>
@@ -58,6 +64,14 @@ function FarmResource({wallet,contractId,lands}) {
           </button> 
 
       }
+      </>
+      
+      :
+      <button onClick={signIn}>
+      Please Login to Start
+     </button> 
+
+    }
           
           <PostResourceForm open = {openModalResource} onclose={() => setOpenModalResource(false)} wallet={wallet} contractId={contractId}/>
       </div>
