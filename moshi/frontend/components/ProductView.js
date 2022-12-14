@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react';
 import Footer from './Footer'
 import ProductBuy from './ProductBuy';
 
-const ProductView = ({contractId,wallet}) => {
+const ProductView = ({contractId,wallet,isSignedIn}) => {
     let [produceOpen, setProduceOpen] = useState(false);
     const handleProductBuyModal = () => {
         setProduceOpen(true);
@@ -36,6 +36,11 @@ const ProductView = ({contractId,wallet}) => {
       return wallet.viewMethod({ method: "get_produce", args: {id: params.id}, contractId });
   
     }
+
+    const signIn = () => {
+        wallet.signIn();
+      };
+
   return (
     <div>
         <div>
@@ -62,8 +67,21 @@ const ProductView = ({contractId,wallet}) => {
 
                 
                 <div className='w3-padding'>
-                    { wallet.accountId == produce.produce_owner? <p className='prn'> Your listed Produce</p>:
+                    {isSignedIn?
+                    <>
+                   { wallet.accountId == produce.produce_owner? <p className='prn'> Your listed Produce</p>:
                     <button className='w3-green w3-text-white' onClick={handleProductBuyModal}> Buy </button>}
+                    </>:
+
+                    <>
+
+                    { wallet.accountId == produce.produce_owner? <p className='prn'> Your listed Produce</p>:
+                    <button className='w3-green w3-text-white' onClick={signIn}> Buy </button>} 
+                    
+                    </>
+                    
+                    }
+
                 </div>
                 <p className='w3-padding'>{produce.produce_seller}</p>
             </div>

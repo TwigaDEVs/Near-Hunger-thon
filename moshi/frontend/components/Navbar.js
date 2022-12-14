@@ -3,10 +3,6 @@ import { useRef, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, useResolvedPath, useMatch } from "react-router-dom";
 import "./style.css";
-import Dropdown from "./Dropdown";
-import DropdownF from "./DropdownF";
-import ProfileDropdown from "./ProfileDropdown";
-import MarketplaceDropdown from "./MarketplaceDropdown";
 import hambre from '../assets/hambre.png'
 import MobileNav from "./MobileNav";
 
