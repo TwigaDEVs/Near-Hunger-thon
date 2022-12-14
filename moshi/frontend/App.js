@@ -23,6 +23,7 @@ import PartnerLandDetails from './components/PartnerLandDetails';
 import ProductView from './components/ProductView';
 import InputView from './components/InputView';
 import Sales from './components/Sales';
+import ResorceView from './components/ResorceView';
 
 
 export default function App({ isSignedIn, contractId, wallet }) {
@@ -76,6 +77,8 @@ export default function App({ isSignedIn, contractId, wallet }) {
           <Route path="/produce-view/:id" element = {<ProductView wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/farm-input/:id" element = {<InputView wallet={wallet} contractId={contractId} lands={lands} />} />
           <Route path="/sales" element = {<Sales wallet={wallet} contractId={contractId} lands={lands} />} />
+          
+          <Route path="/resource-view/:id" element = {<ResorceView wallet={wallet} contractId={contractId} lands={lands} />} />
         </Routes>
 
       </div>

@@ -3,6 +3,7 @@ import "./Resource.css";
 import testImage from "../assets/fam.png";
 import {useState,useEffect} from 'react'
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 
 function Resources({wallet,contractId,lands}) {
 
@@ -48,6 +49,10 @@ function Resources({wallet,contractId,lands}) {
                         
                         if (resource.request_farmer == wallet.accountId){
 
+                            const recTo = {
+                              pathname: "/resource-view/" + resource.id,
+                            };
+
                             return (
                               <div key={index} className="card w3-center sol">
                                 <div className="card-header">
@@ -68,9 +73,20 @@ function Resources({wallet,contractId,lands}) {
                                     <div className="user-info">
                                       <h5>
                                       <div className="resource-btn">
+                                      { wallet.accountId == resource.request_farmer ?    
+                                          <Link className="prn" to={recTo}>
+                                          {" "}
+                                          View more Info
+                                        </Link>
+                                              :                                       
+
                                       <button>
-                                        Provide
-                                      </button>
+                                            <Link className="btn-h" to={recTo}>
+                                              {" "}
+                                              Provide
+                                            </Link>
+                                      </button>}
+
                                     </div>
                                       </h5>
                                       <small>{resource.request_farmer}</small>

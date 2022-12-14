@@ -18,10 +18,9 @@ function FarmerFarm({ wallet, contractId, lands }) {
 useEffect(() => {
   viewProfile().then((data) => (setUserProfile(data)));
 
- 
- 
-
 }, [])
+
+console.log(userProfile);
 
 
   return (
