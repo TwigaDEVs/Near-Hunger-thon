@@ -17,6 +17,7 @@
     "near-cli": "^3.3.0"
   },
   "dependencies": {
+    "cashify": "^3.0.1",
     "react-icons": "^4.6.0",
     "uuid": "^9.0.0"
   }
