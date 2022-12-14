@@ -1,5 +1,6 @@
 import { useState } from "react";
 const UpdateProfileModal = (props) => {
+	var email_patt = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -9,7 +10,17 @@ const UpdateProfileModal = (props) => {
 	const handleUpdate = (e) => {
 		e.preventDefault();
 		console.log(firstName, lastName, phoneNumber, email);
-		console.log(window.nearwallet.callMethod({contractId: window.contractId, method: "update_user", args: {first_name: firstName, last_name: lastName, phone_number: Number(phoneNumber), email: email}}));
+		if(firstName == "" || lastName == "" || phoneNumber == "" || email == ""){
+			alert("please fill in all the forms");
+			return;
+		}
+
+		if(email_patt.test(email) !== true){
+			alert("please enter a valid email");
+			return;
+		}
+
+		window.nearwallet.callMethod({contractId: window.contractId, method: "update_user", args: {first_name: firstName, last_name: lastName, phone_number: Number(phoneNumber), email: email}}).then((data) => console.log(data));
 	};
 
 	return (
