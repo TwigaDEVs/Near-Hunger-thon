@@ -12,7 +12,7 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 				<br />
 				<br />
 				<br />
-				<a className="w3-block"><CustomLink style={{padding: "0px"}} className="w3-text-green" to="/">Home
+				<a className="w3-block"><CustomLink style={{padding: "0px"}} className="w3-text-green" to="/" onClick={handleCloseMobileNav}>Home
 					</CustomLink>
 				</a>
 				<a className="w3-dropdown-hover w3-bar-block w3-block w3-text-green">Invest
@@ -30,7 +30,7 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 					</div>
 				</a>
 				<a className="w3-block">
-					<CustomLink to="/my-investments" style={{padding: "10px 0px"}} className="w3-text-green">
+					<CustomLink to="/my-investments" style={{padding: "10px 0px"}} className="w3-text-green"> onClick={handleCloseMobileNav}
 						My Investments
 					</CustomLink>
 				</a>
@@ -48,7 +48,7 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 							className="w3-bar-item w3-button"
 							onClick={handleCloseMobileNav}
 						>
-							Request Farm Resource
+							Request Farm  Tools and Equipment
 						</Link>
 						<Link
 							to="/my-investors"

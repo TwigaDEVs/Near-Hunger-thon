@@ -155,7 +155,7 @@ function Navbar({ isSignedIn, wallet }) {
               Farmers
               <div className="w3-dropdown-content w3-bar-block w3-border" style={{zIndex: 4}}>
                 <Link to="/post-farm" className="w3-bar-item w3-button">Post Farm For Hire/Partnership</Link>
-                <Link to="/farm-resource" className="w3-bar-item w3-button">Request Farm Resource</Link>
+                <Link to="/farm-resource" className="w3-bar-item w3-button">Request Farm  Tools and Equipment</Link>
                 <Link to="/my-investors" className="w3-bar-item w3-button">My Investors</Link>
               </div>
           </a>
