@@ -47,7 +47,7 @@ function Resources({wallet,contractId,lands}) {
           <div className="w3-row-padding w3-stretch w3-center">
           {Object.values(resources).map((resource, index) => {
                         
-                        if (resource.request_farmer == wallet.accountId){
+                        if (resource.provided == false){
 
                             const recTo = {
                               pathname: "/resource-view/" + resource.id,

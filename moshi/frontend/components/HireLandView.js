@@ -14,6 +14,12 @@ function HireLandView({wallet,contractId,isSignedIn}) {
 
 
     let [HireOpen, setHireOpen] = useState(false);
+    const [userProfile, setUserProfile] = useState([]);
+
+    const viewProfile = () => {
+      const profile = wallet.viewMethod({ method: "get_users", contractId }).then((result) => result[wallet.accountId]).then(data => data);
+      return profile;
+  }
     const handleHireModal = () => {
         setHireOpen(true);
     }
@@ -41,6 +47,7 @@ function HireLandView({wallet,contractId,isSignedIn}) {
   
       getLand().then(setLand);
       newConnectBalance.nearConnect().then(setAccBalance);
+      viewProfile().then((data) => (setUserProfile(data)));
     //   ;
   
     }
@@ -118,9 +125,13 @@ const signIn = () => {
                             {land.land_description}
                         </div>
                         <p> Hire Price: Ksh {land.land_price}</p>
+                        
                                                 
                         <p> {land.land_size}</p>
-
+                        <p className='w3-green'>Lister Details</p>
+                        <p>{userProfile.first_name + " " +userProfile.last_name}</p>
+                        <p> <i className="fa fa-phone" aria-hidden="true"></i>: {userProfile.phone_number}</p>
+                        <p><i className="fa fa-envelope-o" aria-hidden="true"></i>: {userProfile.email}</p>
                         <div>
                             {land.land_lister}
                         </div>

@@ -6,6 +6,12 @@ import PartnerLand from './PartnerLand';
 
 function PartnerLandDetails({wallet,contractId,isSignedIn}) {
     let [partnerOpen, setPartnerOpen] = useState(false);
+    const [userProfile, setUserProfile] = useState([]);
+
+    const viewProfile = () => {
+      const profile = wallet.viewMethod({ method: "get_users", contractId }).then((result) => result[wallet.accountId]).then(data => data);
+      return profile;
+  }
     const handlePartnerModal = () => {
         setPartnerOpen(true);
     }
@@ -24,6 +30,7 @@ function PartnerLandDetails({wallet,contractId,isSignedIn}) {
     useEffect(() => {
   
       getLand().then(setLand);
+      viewProfile().then((data) => (setUserProfile(data)));
   
     }
     , []);
@@ -63,6 +70,10 @@ function PartnerLandDetails({wallet,contractId,isSignedIn}) {
                      <small className='w3-text-green w3-text-bold'>ksh: </small>{land.land_price}
                     </p>
                 </div>
+                <p className='w3-green'>Requester Details</p>
+                <p>{userProfile.first_name + " " +userProfile.last_name}</p>
+                <p> <i className="fa fa-phone" aria-hidden="true"></i>: {userProfile.phone_number}</p>
+                <p><i className="fa fa-envelope-o" aria-hidden="true"></i>: {userProfile.email}</p>
 
                 {isSignedIn?
                  <>
