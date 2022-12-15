@@ -22,7 +22,7 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 					>
 						<Link to="/hire-land" className="w3-button" onClick={handleCloseMobileNav}>Hire Farm
 						</Link>
-						<Link to="/partner" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>Be a Partner
+						<Link to="/partner" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>Partner with Farmer
 						</Link>
 						<Link to="/resources" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>
 						Provide Farm  Tools and Equipment
