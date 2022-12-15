@@ -1,14 +1,19 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
+import { useParams} from 'react-router-dom';
+import Footer from './Footer';
 
 
 const ViewInvestorDetails = (props) => {
 
     const wallet = props.wallet;
     const contractId = props.contractId;
-    const landid = props.landid;
+    
 
-    console.log(landid)
+    const params = useParams();
+    console.log(params);
+
+    
 
     const [land, setLand] = useState([]);
 
@@ -23,22 +28,21 @@ const ViewInvestorDetails = (props) => {
 
     function getLand() {
         console.log(contractId)
-        return wallet.viewMethod({ method: "get_land", args: {id: landid}, contractId });
+        return wallet.viewMethod({ method: "get_land", args: {id: params.id}, contractId });
     
       }
 
       
   return (
-    <div className="w3-modal">
-    <div className="w3-modal-content w3-white w3-center">
+    <div className="">
+    <div className=" w3-white w3-center">
         <div className="w3-container">
             <span className="form-header">View Investment</span>
-            <button className="w3-button w3-right w3-xlarge" onClick={props.onHandleViewModal}>&times;</button>
         </div>
         <div>
             <p> farm id: {land.id}</p>
-            <div class="w3-card-12 w3-padding">
-            <img src={land.land_image} className="w3-round w3-image" alt="Norway"></img>
+            <div className="w3-card-12 w3-padding soll">
+            <img src={land.land_image} className="w3-round w3-image " alt="Norway"></img>
             </div>
             <p> farm name: {land.land_owner}</p>
             <p> farm size: {land.land_size}</p>
@@ -53,10 +57,10 @@ const ViewInvestorDetails = (props) => {
             <br />
             <br />
             <div className="w3-right">
-                <button className="w3-button w3-red w3-round" onClick={props.onHandleViewModal}>close</button>
             </div>
         </form>
     </div>
+    <Footer />
     </div> 
   )
 }

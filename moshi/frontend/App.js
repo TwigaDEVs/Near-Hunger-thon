@@ -24,6 +24,7 @@ import ProductView from './components/ProductView';
 import InputView from './components/InputView';
 import Sales from './components/Sales';
 import ResorceView from './components/ResorceView';
+import ViewInvestorDetails from './components/ViewInvestorDetails';
 
 
 export default function App({ isSignedIn, contractId, wallet }) {
@@ -79,6 +80,7 @@ export default function App({ isSignedIn, contractId, wallet }) {
           <Route path="/sales" element = {<Sales wallet={wallet} contractId={contractId} lands={lands} />} />
           
           <Route path="/resource-view/:id" element = {<ResorceView wallet={wallet} contractId={contractId} lands={lands} />} />
+          <Route path="/transact-view/:id" element = {<ViewInvestorDetails wallet={wallet} contractId={contractId} lands={lands} />} />
         </Routes>
 
       </div>
