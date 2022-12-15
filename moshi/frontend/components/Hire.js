@@ -14,6 +14,7 @@ const Hire = (props) => {
 	const [uiPleaseWait, setUiPleaseWait] = useState(true);
 	const wallet = props.wallet;
 	const contractId = props.contractId;
+	const bal = props.bal;
 
 	const [ldata, setLData] = useState("Loading...");
 
@@ -93,6 +94,7 @@ const Hire = (props) => {
 	  }
 
 	  
+	  const near = "1000000000000000000000000";
 
 
     return (
@@ -110,12 +112,13 @@ const Hire = (props) => {
 					
 					<p className="w3-orange"> Price: Ksh {land.land_price}</p>
 
+					
 					<p className="prn"> Price in Near: {priceNear} NEAR</p>
 					
 				</div>
 				<form id="farmInputs" className="w3-container" >
 					<label>Contract Owner: {land.land_lister}</label>
-					<button className="w3-button w3-green w3-block" type="submit" onClick={addHire} >Hire</button>
+					{priceNear >= (bal/near) ? <p className="prn"> Insufficient balance in Your Near account</p> : <button className="w3-button w3-green w3-block" type="submit" onClick={addHire} >Hire</button>}
 					<br />
 					<br />
 					<div className="w3-right">

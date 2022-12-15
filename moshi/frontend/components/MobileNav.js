@@ -30,7 +30,7 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 					</div>
 				</a>
 				<a className="w3-block">
-					<CustomLink to="/my-investments" style={{padding: "10px 0px"}} className="w3-text-green"> onClick={handleCloseMobileNav}
+					<CustomLink to="/my-investments" style={{padding: "10px 0px"}} className="w3-text-green" onClick={handleCloseMobileNav}> 
 						My Investments
 					</CustomLink>
 				</a>

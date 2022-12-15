@@ -3,10 +3,12 @@ import Footer from './Footer';
 import { useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
 import PartnerLand from './PartnerLand';
+import { nearConnectB } from './NearAccount';
 
 function PartnerLandDetails({wallet,contractId,isSignedIn}) {
     let [partnerOpen, setPartnerOpen] = useState(false);
     const [userProfile, setUserProfile] = useState([]);
+    const[accountBalance, setAccBalance] = useState([]);
 
     const viewProfile = () => {
       const profile = wallet.viewMethod({ method: "get_users", contractId }).then((result) => result[wallet.accountId]).then(data => data);
@@ -25,12 +27,14 @@ function PartnerLandDetails({wallet,contractId,isSignedIn}) {
 
 
     const [land, setLand] = useState([]);
+    const newConnectBalance = new nearConnectB();
 
   
     useEffect(() => {
   
       getLand().then(setLand);
       viewProfile().then((data) => (setUserProfile(data)));
+      newConnectBalance.nearConnect().then(setAccBalance);
   
     }
     , []);
@@ -52,7 +56,7 @@ function PartnerLandDetails({wallet,contractId,isSignedIn}) {
     <div>
         <h2> Land Partnership Details </h2>
         <div>
-            {partnerOpen && <PartnerLand onhandlePartnerModal={closeModal} land={land} wallet={wallet} contractId={contractId}/>}
+            {partnerOpen && <PartnerLand onhandlePartnerModal={closeModal} land={land} wallet={wallet} contractId={contractId} nbal ={accountBalance.available}/>}
         </div>
         <div className="w3-card ros">
             <div className='rosim'>
@@ -71,9 +75,15 @@ function PartnerLandDetails({wallet,contractId,isSignedIn}) {
                     </p>
                 </div>
                 <p className='w3-green'>Requester Details</p>
-                <p>{userProfile.first_name + " " +userProfile.last_name}</p>
-                <p> <i className="fa fa-phone" aria-hidden="true"></i>: {userProfile.phone_number}</p>
-                <p><i className="fa fa-envelope-o" aria-hidden="true"></i>: {userProfile.email}</p>
+                {userProfile? 
+                        
+                        <>
+                        <p>{userProfile.first_name + " " +userProfile.last_name}</p>
+                        <p> <i className="fa fa-phone" aria-hidden="true"></i>: {userProfile.phone_number}</p>
+                        <p><i className="fa fa-envelope-o" aria-hidden="true"></i>: {userProfile.email}</p>
+                        </>
+                        : ""}
+
 
                 {isSignedIn?
                  <>

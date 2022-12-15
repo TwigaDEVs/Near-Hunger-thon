@@ -129,9 +129,15 @@ const signIn = () => {
                                                 
                         <p> {land.land_size}</p>
                         <p className='w3-green'>Lister Details</p>
+                        {userProfile? 
+                        
+                        <>
                         <p>{userProfile.first_name + " " +userProfile.last_name}</p>
                         <p> <i className="fa fa-phone" aria-hidden="true"></i>: {userProfile.phone_number}</p>
                         <p><i className="fa fa-envelope-o" aria-hidden="true"></i>: {userProfile.email}</p>
+                        </>
+                        : ""}
+
                         <div>
                             {land.land_lister}
                         </div>
@@ -164,7 +170,7 @@ const signIn = () => {
             </div>
 
             <div>
-                {HireOpen && <Hire onHandleHireModal={closeModal} land={land} wallet={wallet} contractId={contractId}/>}
+                {HireOpen && <Hire onHandleHireModal={closeModal} land={land} wallet={wallet} contractId={contractId} bal={accountBalance.available}/>}
             </div>
 
             </div>

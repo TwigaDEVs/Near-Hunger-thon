@@ -12,6 +12,7 @@ const PartnerLand = (props) => {
 	const [uiPleaseWait, setUiPleaseWait] = useState(true);
 	const wallet = props.wallet;
 	const contractId = props.contractId;
+  const nbal = props.nbal;
 
     const [padata, setPaData] = useState("Loading...");
 
@@ -91,7 +92,7 @@ const PartnerLand = (props) => {
 	
 	  }
 
-	  
+	  const near = "1000000000000000000000000";
   return (
     <div className="w3-modal">
     <div className="w3-modal-content w3-white w3-center">
@@ -113,7 +114,8 @@ const PartnerLand = (props) => {
         </div>
         <form id="farmInputs" className="w3-container" >
             <label>Contract Owner: {land.land_lister}</label>
-            <button className="w3-button w3-green w3-block" type="submit" onClick={addPartner} > Accept Partnership</button>
+            {priceNear >= (nbal/near)? <p className='prn'> Insufficient Balance in Your Near Account</p> :  <button className="w3-button w3-green w3-block" type="submit" onClick={addPartner} > Accept Partnership</button>}
+           
             <br />
             <br />
             <div className="w3-right">
