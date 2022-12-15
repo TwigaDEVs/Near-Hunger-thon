@@ -65,14 +65,14 @@ N/B; incase of any errors during run time;
 1. The smart-contract code lives in the `/contract` folder. See the README there for
    more info. In blockchain apps the smart contract is the "backend" of your app.
 
-      <video src="/home/ted/Desktop/rust-projects/hungerthon/Near-Hunger-thon/moshi/ui images/Screencast from 13-12-2022  2:22:30 WB.webm" autoplay loop control muted  width= "600" height= "350" >
+![My Remote Image](https://res.cloudinary.com/dra2940ap/image/upload/v1671100378/images%20and%20videos/ezgif.com-gif-maker_1_bcq9bt.webp)
    
 
 2. The frontend code lives in the `/frontend` folder. `/frontend/index.html` is a great
    place to start exploring. Note that it loads in `/frontend/index.js`,
    this is your entrypoint to learn how the frontend connects to the NEAR blockchain.
 
-      <video src="/home/ted/Desktop/rust-projects/hungerthon/Near-Hunger-thon/moshi/ui images/Screencast from 13-12-2022  5:05:18 WB.webm" autoplay loop control muted  width= "600" height= "350" >
+![My Remote Image](https://res.cloudinary.com/dra2940ap/image/upload/v1671104334/images%20and%20videos/ezgif.com-gif-maker_3_ha1w6q.webp)
 
 3. Test your contract: `npm test`, this will run the tests in `integration-tests` directory.
 
@@ -80,12 +80,12 @@ N/B; incase of any errors during run time;
 
 The server will startup on http://localhost:1234
 
-<img src="/home/ted/Desktop/rust-projects/hungerthon/Near-Hunger-thon/moshi/ui images/Screenshot from 2022-12-13 09-27-46.png"  width= "600" height= "350"/>
+![My Remote Image](https://res.cloudinary.com/dra2940ap/image/upload/v1671052276/images%20and%20videos/Screenshot_from_2022-12-13_09-27-46_ytl9yy.png)
 
-Login into the system by connecting to with the wallet,<img src="/home/ted/Desktop/rust-projects/hungerthon/Near-Hunger-thon/moshi/ui images/Screenshot from 2022-12-13 09-31-49.png"  width= "50"/>.
+Login into the system by connecting to with the wallet,![My Remote Image](https://res.cloudinary.com/dra2940ap/image/upload/v1671052276/images%20and%20videos/Screenshot_from_2022-12-13_09-31-49_dabxzd.png)
 
 Then the path to wallet is displayed, this will enable the user to either create a new 
 wallet or connect to the existing wallet;
 
-<img src="/home/ted/Desktop/rust-projects/hungerthon/Near-Hunger-thon/moshi/ui images/Screenshot from 2022-12-13 09-31-31.png" width= "600" height= "350"/>
+![My Remote Image](https://res.cloudinary.com/dra2940ap/image/upload/v1671052275/images%20and%20videos/Screenshot_from_2022-12-13_09-31-31_u0lssu.png)
 
