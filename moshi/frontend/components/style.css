@@ -122,6 +122,10 @@ nav a:hover{
         opacity: 1;
     }
 
+    
+.soll img{
+    max-width: 800px;
+}
 
     
     header nav ul {

@@ -51,8 +51,10 @@ body {
 }
 .hero-image {
     /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-    background-image: url("./cher.jpg");
+    background-image: url("./news.jpg");
     background-color: aqua;
+  
+    
   
     /* Set a specific height */
     height: 70vh;
@@ -69,6 +71,7 @@ body {
   .hero-text {
     text-align: center;
     position: absolute;
+    opacity: 1.0;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -80,7 +83,7 @@ body {
   }
   .hero-text h1{
     font-size: 2.0rem;
-    color: rgb(26, 59, 121);
+    color: rgb(9, 91, 245);
     font-weight: 700;
     font-family: cursive;
 

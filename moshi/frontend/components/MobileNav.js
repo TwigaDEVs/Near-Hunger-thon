@@ -20,12 +20,12 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 						className="w3-dropdown-content w3-bar-block w3-border"
 						style={{ zIndex: 4 }}
 					>
-						<Link to="/hire-land" className="w3-button">Hire Farm
+						<Link to="/hire-land" className="w3-button" onClick={handleCloseMobileNav}>Hire Farm
 						</Link>
-						<Link to="/partner" className="w3-bar-item w3-button">Be a Partner
+						<Link to="/partner" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>Be a Partner
 						</Link>
-						<Link to="/resources" className="w3-bar-item w3-button">
-							Provide Resource
+						<Link to="/resources" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>
+						Provide Farm  Tools and Equipment
 						</Link>
 					</div>
 				</a>
@@ -40,18 +40,20 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 						className="w3-dropdown-content w3-bar-block w3-border"
 						style={{ zIndex: 4 }}
 					>
-						<Link to="/post-farm" className="w3-bar-item w3-button">
-							Post Farm
+						<Link to="/post-farm" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>
+						Post Farm For Hire/Partnership
 						</Link>
 						<Link
 							to="/farm-resource"
 							className="w3-bar-item w3-button"
+							onClick={handleCloseMobileNav}
 						>
-							Post Farm Resource
+							Request Farm Resource
 						</Link>
 						<Link
 							to="/my-investors"
 							className="w3-bar-item w3-button"
+							onClick={handleCloseMobileNav}
 						>
 							My Investors
 						</Link>
@@ -66,15 +68,18 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 						<Link
 							to="/farm-produce"
 							className="w3-bar-item w3-button"
+							onClick={handleCloseMobileNav}
 						>
 							Farm Products
 						</Link>
 						<Link
 							to="/farm-inputs"
 							className="w3-bar-item w3-button"
+							onClick={handleCloseMobileNav}
 						>
 							Farm Inputs
 						</Link>
+						<Link to="/sales" className="w3-bar-item w3-button" onClick={handleCloseMobileNav}>Completed Sales</Link>
 					</div>
 				</a>
 				{window.walletisSignedIn ? (
@@ -87,6 +92,7 @@ const MobileNav = ({ CustomLink, signIn, signOut, handleCloseMobileNav }) => {
 							<Link
 								to="/account"
 								className="w3-bar-item w3-button"
+								onClick={handleCloseMobileNav}
 							>
 								Account
 							</Link>

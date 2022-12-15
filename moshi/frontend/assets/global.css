@@ -357,10 +357,18 @@ li {
 
 .rosim{
   max-width: 500px;
+
 }
 
 .container{
   z-index: -1;
+}
+
+.hom-test{
+  padding: 5px;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  color: rgb(7, 6, 87);
+  font-weight: bold;
 }
 
 @media (prefers-color-scheme: dark) {

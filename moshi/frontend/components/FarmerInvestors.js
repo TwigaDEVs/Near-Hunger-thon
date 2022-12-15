@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from './Footer';
 import { useState,useEffect } from 'react';
 import ViewInvestorDetails from './ViewInvestorDetails';
+import { Link } from 'react-router-dom';
 
 
 function FarmerInvestors({wallet,contractId}) {
@@ -28,6 +29,12 @@ function FarmerInvestors({wallet,contractId}) {
     return wallet.viewMethod({ method: 'get_agreements', contractId })
     }
 
+    function call(id){
+
+      viewOpen && <ViewInvestorDetails onHandleViewModal={closeModal}  wallet={wallet} contractId={contractId} landid={id}/>
+
+    }
+
   
 
 
@@ -46,10 +53,10 @@ function FarmerInvestors({wallet,contractId}) {
           <div className='farms'>
           {Object.values(agrees).map((agree, index) => {
             if ((agree.party_one == wallet.accountId) && (agree.contra_type == "lease" || agree.contra_type == "partner")) {
-//               const newTo = {
-//                 pathname: "/hire-land-view/" + land.id,
-//               };
-// // 
+              const nTo = {
+                pathname: "/transact-view/" + agree.object_id,
+              };
+// 
               return (
           <div key={index} className="w3-card-4">
 
@@ -60,17 +67,16 @@ function FarmerInvestors({wallet,contractId}) {
                 <div className="w3-container w3-center">
                   <p>Farm</p>
                   <hr/>
-                  <img src="img_avatar3.png" alt="Avatar" className="w3-left w3-circle"/>
-                  <p>President/CEO at Mighty Schools...</p>
                 </div>
 
-                <button className="w3-button w3-block w3-light-green" onClick={handleViewModal} >+ View Details</button>
                 
-                <div>
-                  {viewOpen && <ViewInvestorDetails onHandleViewModal={closeModal}  wallet={wallet} contractId={contractId} landid={agree.object_id}/>}
-               </div>
 
-
+                <button className="w3-button w3-block w3-light-green" >
+                <Link className="prn" to={nTo}>
+                                          {" "}
+                                          + View Details
+                                        </Link></button>
+                
           </div>
 
             );
