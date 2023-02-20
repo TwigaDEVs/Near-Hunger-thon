@@ -405,7 +405,7 @@ impl Hambre {
       let produce_quantity = &produce_buy.produce_quantity;
       let produce_image =&produce_buy.produce_image;
       let produce_price = &produce_buy.produce_price;
-      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+      let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
 
       let party_one = &produce_buy.produce_owner;
