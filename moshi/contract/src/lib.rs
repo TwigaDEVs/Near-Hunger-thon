@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, AccountId, Balance,Promise,log, near_bindgen};
+use near_sdk::{env, AccountId,Promise,log, near_bindgen};
 use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
 
