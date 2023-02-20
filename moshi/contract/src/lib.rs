@@ -134,7 +134,7 @@ impl Hambre {
 
     //getting a specific user
     pub fn get_user(&self , user:AccountId) -> Option<&User>{
-        return self.users.get(&user);
+        self.users.get(&user)
     }
 
     pub fn total_users(&self) -> usize {self.users.len()}
@@ -145,7 +145,7 @@ impl Hambre {
 
     //getting a specific land
     pub fn get_land(&self , id:String) -> Option<&Land>{
-        return self.lands.get(&id);
+        self.lands.get(&id)
     }
 
     // Public method - accepts a land listing
