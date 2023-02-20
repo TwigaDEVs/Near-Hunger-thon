@@ -334,7 +334,7 @@ impl Hambre {
         let input_quantity = &input_buy.input_quantity;
         let input_image =&input_buy.input_image;
         let input_price = &input_buy.input_price;
-        let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+        let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
         let party_one = &input_buy.input_owner;
         let party_two = env::predecessor_account_id();
