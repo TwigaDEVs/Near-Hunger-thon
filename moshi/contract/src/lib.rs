@@ -256,7 +256,7 @@ impl Hambre {
       let land_location = &part_land.land_location;
       let land_price = &part_land.land_price;
       let contract_type = &part_land.contract_type;
-      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+      let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
       let party_one = &part_land.land_lister;
       let party_two = env::predecessor_account_id();
