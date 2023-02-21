@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 // Find all our documentation at https://docs.near.org
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::{env, AccountId, Balance,Promise,log, near_bindgen};
+use near_sdk::{env, AccountId,Promise,log, near_bindgen};
 use near_sdk::serde::Serialize;
 use std::collections::HashMap; 
 
@@ -134,7 +134,7 @@ impl Hambre {
 
     //getting a specific user
     pub fn get_user(&self , user:AccountId) -> Option<&User>{
-        return self.users.get(&user);
+        self.users.get(&user)
     }
 
     pub fn total_users(&self) -> usize {self.users.len()}
@@ -145,7 +145,7 @@ impl Hambre {
 
     //getting a specific land
     pub fn get_land(&self , id:String) -> Option<&Land>{
-        return self.lands.get(&id);
+        self.lands.get(&id)
     }
 
     // Public method - accepts a land listing
@@ -200,17 +200,17 @@ impl Hambre {
       let land_location = &hired_land.land_location;
       let land_price = &hired_land.land_price;
       let contract_type = &hired_land.contract_type;
-      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+      let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
       let party_one = &hired_land.land_lister;
       let party_two = env::predecessor_account_id();
       let object_id = id.clone();
-      let amount = price.clone();
+      let amount = price;
       let contra_type = &hired_land.contract_type;
       let acc = party_one.clone();
-      let amount_transfer = amount.clone();
+      let amount_transfer = amount;
 
-      let price_hired = land_price.clone();
+      let price_hired = *land_price;
     
 
       let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
@@ -256,17 +256,17 @@ impl Hambre {
       let land_location = &part_land.land_location;
       let land_price = &part_land.land_price;
       let contract_type = &part_land.contract_type;
-      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+      let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
       let party_one = &part_land.land_lister;
       let party_two = env::predecessor_account_id();
       let object_id = id.clone();
-      let amount = price.clone();
+      let amount = price;
       let contra_type = &part_land.contract_type;
       let price_partner = &part_land.land_price;
 
       let acc = party_one.clone();
-      let amount_transfer = amount.clone();
+      let amount_transfer = amount;
 
       let land_hired = Land{id: id.to_string(),land_owner: land_owner.to_string(),
                             land_size :land_size.to_string(),land_image: land_image.to_string(),land_description: land_description.to_string(),
@@ -334,17 +334,17 @@ impl Hambre {
         let input_quantity = &input_buy.input_quantity;
         let input_image =&input_buy.input_image;
         let input_price = &input_buy.input_price;
-        let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+        let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
         let party_one = &input_buy.input_owner;
         let party_two = env::predecessor_account_id();
         let object_id = id.clone();
-        let amount = price.clone();
+        let amount = price;
         let contra_type = "Bought Farm Input".to_string();
         let price_pay = &input_buy.input_price;
 
         let acc = party_one.clone();
-        let amount_transfer = amount.clone();
+        let amount_transfer = amount;
   
   
         let input_bought = FarmInputList{id: id.to_string(),input_name: input_name.to_string(),input_description: input_description.to_string(),
@@ -405,17 +405,17 @@ impl Hambre {
       let produce_quantity = &produce_buy.produce_quantity;
       let produce_image =&produce_buy.produce_image;
       let produce_price = &produce_buy.produce_price;
-      let a_near: f64 = 1000_000_000_000_000_000_000_000.0;
+      let a_near: f64 = 1_000_000_000_000_000_000_000_000.0;
 
 
       let party_one = &produce_buy.produce_owner;
       let party_two = env::predecessor_account_id();
       let object_id = id.clone();
-      let amount = price.clone();
+      let amount = price;
       let contra_type = "Bought Farm produce".to_string();
 
       let acc = party_one.clone();
-      let amount_transfer = amount.clone();
+      let amount_transfer = amount;
       let price_pay = &produce_buy.produce_price;
 
       let produce_bought = FarmProduceList{id: id.to_string(),produce_name: produce_name.to_string(),produce_description: produce_description.to_string(),
