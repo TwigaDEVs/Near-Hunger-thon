@@ -8,6 +8,9 @@ The system will have 3 features which include:
       -It will aim to maximize the Productivity of arable lands.
       -Provide market places/oppotunities between the buyer(consumer) and seller(farmer).
       -Education to the farmers where they will provided with the best recommendations on the best way to achieve those requirements.
+
+This project aims to increase food production by implementing improved agricultural practices and by helping farmers source income and farm equipment. This will be achieved through the use of the Near Protocol and blockchain technology, which will improve supply chain transparency and efficiency. The project will also help individuals with idle arable farms rent out their land, providing a new source of income and allowing them to contribute to food production. Additionally, the project will offer opportunities for individuals without access to farming land to hire or partner with farmers, allowing them to participate in food production and contribute to the local economy.
+
 # Installations;
 
 rust language "https://doc.rust-lang.org/book/ch01-01-installation.html":
